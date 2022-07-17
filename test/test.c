@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.h                                            :+:      :+:    :+:   */
+/*   test.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 01:42:23 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/15 02:11:48 by jihoh            ###   ########.fr       */
+/*   Created: 2022/07/17 18:44:51 by jihoh             #+#    #+#             */
+/*   Updated: 2022/07/17 18:46:01 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef UTILS_H
-# define UTILS_H
+#include <stdio.h>
 
-/*
-** Returns a random real in [0,1).
-*/
-double	random_double(void)
+typedef struct s_vec3
 {
-	return (rand() / (RAND_MAX + 1.0));
+	double	e[3];
+}				t_vec3;
+
+typedef t_vec3	t_p3;
+
+t_vec3	get_vec3(double e0, double e1, double e2)
+{
+	t_vec3	ret;
+
+	ret.e[0] = e0;
+	ret.e[1] = e1;
+	ret.e[2] = e2;
+	return (ret);
 }
 
-/*
-** Returns a random real in [min,max).
-*/
-double	random_double(double min, double max)
+int	main(void)
 {
-	return (min + (max - min) * random_double());
-}
+	t_p3	p;
 
-double	clamp(double x, double min, double max)
-{
-	if (x < min)
-		return (min);
-	if (x > max)
-		return (max);
-	return (x);
+	p = get_vec3(1, 2, 3);
+	printf("%f %f %f\n", p.e[0], p.e[1], p.e[2]);
 }
-
-#endif

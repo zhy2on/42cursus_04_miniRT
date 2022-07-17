@@ -5,39 +5,44 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/15 00:21:57 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/15 02:24:28 by jihoh            ###   ########.fr       */
+/*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
+/*   Updated: 2022/07/17 18:50:55 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
 
-// # include <mlx.h>
-# include <fcntl.h>
-# include <stdlib.h>
-# include <math.h>
-# include <pthread.h>
 # include <stdio.h>
-# include "utils.h"
+# include <math.h>
+# include <stdlib.h>
+# include <mlx.h>
 # include "vec3.h"
-# include "color.h"
-# include "camera.h"
 
-enum e_window {
-	WIN_RATIO = 16 / 9,
-	WIN_W = 400,
-	WIN_H = WIN_W / WIN_RATIO,
-	SAMPLES_PER_PIXEL = 100
-};
+/*
+** vport_h : viewport_height
+** vport_w : viewport_width
+** focal_len: focal_length, distance from camera to the viewport
+** origin : camera position
+** l_l_c : lower_left_corner of viewport
+*/
+typedef struct s_cam
+{
+	double	aspect_ratio;
+	double	vport_h;
+	double	vport_w;
+	double	focal_len;
+	t_p3	origin;
+	t_vec3	l_l_c;
+	t_vec3	horizontal;
+	t_vec3	vertical;
+}				t_cam;
 
-typedef struct s_loop_var {
-	int		i;
-	int		j;
-	int		s;
-	double	u;
-	double	v;
-}				t_loop_var;
+typedef struct s_ray
+{
+	t_p3	orig;
+	t_vec3	dir;
+}			t_ray;
 
 typedef struct s_data {
 	void	*img;
@@ -47,10 +52,11 @@ typedef struct s_data {
 	int		endian;
 }				t_data;
 
-typedef struct s_mlx {
+typedef struct s_minirt {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_data		data;
-}				t_mlx;
+	t_cam		cam;
+}				t_minirt;
 
 #endif

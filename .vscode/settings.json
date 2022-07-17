@@ -3,6 +3,7 @@
 		"math.h": "c",
 		"numbers": "cpp",
 		"random": "cpp",
-		"queue": "cpp"
+		"queue": "cpp",
+		"stdio.h": "c"
 	}
 }
