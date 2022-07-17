@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/17 18:50:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/17 19:59:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include "vec3.h"
+
+enum e_key
+{
+	ON_KEYDOWN = 2,
+	DESTROYNOTIFY = 17,
+	KEY_ESC = 53
+} ;
 
 /*
 ** vport_h : viewport_height
@@ -55,6 +62,7 @@ typedef struct s_data {
 typedef struct s_minirt {
 	void		*mlx_ptr;
 	void		*win_ptr;
+	int			size[2];
 	t_data		data;
 	t_cam		cam;
 }				t_minirt;
