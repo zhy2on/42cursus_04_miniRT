@@ -106,3 +106,15 @@ double	length(t_vec3 v)
 {
 	return (sqrt(length_squared(v)));
 }
+
+t_vec3	normalize(t_vec3 v)
+{
+	t_vec3	nv;
+	double	mod;
+
+	mod = length(v);
+	nv.e[0] = v.e[0] / mod;
+	nv.e[1] = v.e[1] / mod;
+	nv.e[2] = v.e[2] / mod;
+	return (nv);
+}

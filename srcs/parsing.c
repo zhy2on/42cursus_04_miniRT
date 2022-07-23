@@ -32,18 +32,75 @@ char	*readfile(char *str, int fd)
 	return (str);
 }
 
-void	parse_camera(t_minirt *minirt, char **str)
+void next(char **str)
 {
-	t_cam *elem;
+	while (**str == 32 || **str == 9)
+		(*str)++;
 }
 
-void	parse_elems(t_minirt *minirt, char **str)
+void comma(char **str)
 {
+	if (**str != ',')
+		put_error("camera x,y,z arguments bad formatted\n");
+	(*str)++;
+}
+
+t_vec3 parse_vec3(char **str)
+{
+	t_vec3 vec;
+	
+	vec.e[0] = stof(str);
+	comma(str);
+	vec.e[1] = stof(str);
+	comma(str);
+	vec.e[2] = stof(str);
+	next(str);
+	return (vec);
+}
+
+void	parse_camera(t_minirt *minirt,t_data *data, char **str)
+{
+	t_cam 	*elem;
+	t_cam 	*begin;
+	int 	prev_idx;
+
+	prev_idx = 0;
+	begin = minirt->cam;
+	elem = ft_malloc(sizeof(t_cam));
+	elem->next = NULL;
+	if(minirt->cam)
+	{
+		while (minirt->cam->next)
+			minirt->cam = minirt->cam->next;
+		prev_idx = minirt->cam->idx;
+		minirt->cam->next = elem;
+	}
+	else
+		minirt->cam = elem;
+	while(**str == 32 || **str == 9)
+		(*str)++;
+	elem->idx = prev_idx + 1;
+	data->cam_num = elem->idx;
+	elem->o = parse_vec3(str);
+	elem->nv = normalize(parse_vec3(str));
+	elem->fov = stoi(str);
+	in_range(elem->fov, 0, 180, "camera");
+	if (minirt->cam == begin)
+		minirt->cam = begin;
+	else if (minirt->cam != begin)
+		minirt->cam = elem;
+}
+
+void	parse_elems(t_minirt *minirt, t_data *data, char **strptr)
+{
+	char *str;
+	str = *strptr;
+
 	if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
-		parse_camera(&str);
+		parse_camera(minirt, data, &str);
 }
 
-void	start_parse(t_minirt *minirt, char *str)
+void	start_parse(t_minirt *minirt, t_data *data, char *str)
 {
 	while (*str)
 	{
@@ -53,12 +110,12 @@ void	start_parse(t_minirt *minirt, char *str)
 				str++;
 		}
 		else
-			parse_elems(mlx, data, lst, &str);
+			parse_elems(minirt, data, &str);
 		str++;
 	}
 }
 
-void	parse_file(char **av)
+void	parse_file(t_minirt *minirt, t_data *data, char **av)
 {
 	int		fd;
 	char	*str;
@@ -67,5 +124,5 @@ void	parse_file(char **av)
 	if (fd == -1 || av[1])
 		exit(put_error("error: fail to open file\n"));
 	str = readfile(str, fd);
-	start_parse(str);
+	start_parse(minirt, data, str);
 }

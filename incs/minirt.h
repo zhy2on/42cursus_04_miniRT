@@ -37,17 +37,17 @@ enum e_key
 ** origin : camera position
 ** l_l_c : lower_left_corner of viewport
 *//*
-typedef struct s_cam
-{
-	double	aspect_ratio;
-	double	vport_h;
-	double	vport_w;
-	double	focal_len;
-	t_p3	origin;
-	t_vec3	l_l_c;
-	t_vec3	horizontal;
-	t_vec3	vertical;
-}				t_cam;*/
+// typedef struct s_cam
+// {
+// 	double	aspect_ratio;
+// 	double	vport_h;
+// 	double	vport_w;
+// 	double	focal_len;
+// 	t_p3	origin;
+// 	t_vec3	l_l_c;
+// 	t_vec3	horizontal;
+// 	t_vec3	vertical;
+// }				t_cam;*/
 
 typedef struct s_data {
 	void	*img;
@@ -55,6 +55,7 @@ typedef struct s_data {
 	int		bpp;
 	int		bpl;
 	int		endian;
+	int		cam_num;
 }				t_data;
 
 typedef struct s_cam

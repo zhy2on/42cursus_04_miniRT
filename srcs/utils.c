@@ -27,3 +27,4 @@ void	*ft_malloc(unsigned int size)
 		exit(put_error("error: malloc failed\n"));
 	return (ptr);
 }
+
