@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/17 20:00:40 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/23 15:00:29 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	exit_program(void *param)
 
 int	key_hook(int keycode, t_minirt *minirt)
 {
+	(void)minirt;
 	if (keycode == KEY_ESC)
 		exit(0);
 	return (1);

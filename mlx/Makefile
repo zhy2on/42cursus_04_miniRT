@@ -16,19 +16,32 @@ NAME=libmlx.dylib
 INC=-I.
 #OPTI=-Ounchecked
 
+# === Keywords === #
+CLEAN = "\033[2K \033[A"
+RED = \033[31m
+GREEN = \033[32m
+YELLOW = \033[33m
+RESET = \033[0m
+
 all: $(NAME)
 
 $(NAME): $(MODULE_OBJ) $(OBJ) $(C_OBJ)
-	swiftc $(OPTI) $(INC) -o $(NAME) -emit-library $(OBJ) $(C_OBJ) -lz
+	@echo $(CLEAN)
+	@swiftc -suppress-warnings $(OPTI) $(INC) -o $(NAME) -emit-library $(OBJ) $(C_OBJ) -lz -j 100
+	@echo "$(GREEN)[$(NAME)]: done$(RESET)"
 
 
 
 %.o: %.swift
-	swiftc $(OPTI) $(INC) -parse-as-library -c $< -o $@
+	@swiftc -suppress-warnings $(OPTI) $(INC) -parse-as-library -c $< -o $@ -j 100
+	@echo "\033[2K $(YELLOW)[$(NAME)]: Compiling $< $(RESET)\033[A"
 
 %.swiftmodule: %.swift
-	swiftc $(OPTI) $(INC) -parse-as-library -c $< -o $@ -emit-module -module-name $(patsubst %.swift,%,$<) -module-link-name $(patsubst %.swift,%,$<)
+	@swiftc -suppress-warnings $(OPTI) $(INC) -parse-as-library -c $< -o $@ -emit-module -module-name $(patsubst %.swift,%,$<) -module-link-name $(patsubst %.swift,%,$<) -j 100
+	@echo "\033[2K $(YELLOW)[$(NAME)]: Compiling $< $(RESET)\033[A"
 
 clean:
-	rm -f $(NAME) $(OBJ) $(MODULE_OBJ) $(C_OBJ) *.swiftdoc *~
+	rm -f $(OBJ) $(MODULE_OBJ) $(C_OBJ) *.swiftdoc *~
+	@echo "$(RED)[$(NAME)]: clean$(RESET)"
+
 

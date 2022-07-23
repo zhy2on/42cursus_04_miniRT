@@ -1,27 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3.h                                             :+:      :+:    :+:   */
+/*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/17 19:20:42 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/23 14:39:14 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VEC3_H
-# define VEC3_H
-
-# include <math.h>
-
-typedef struct s_vec3
-{
-	double	e[3];
-}				t_vec3;
-
-typedef t_vec3	t_p3;
-typedef t_vec3	t_clr;
+#include "vec3.h"
 
 t_vec3	get_vec3(double e0, double e1, double e2)
 {
@@ -117,5 +106,3 @@ double	length(t_vec3 v)
 {
 	return (sqrt(length_squared(v)));
 }
-
-#endif
