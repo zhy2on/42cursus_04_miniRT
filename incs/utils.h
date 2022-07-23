@@ -1,29 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 17:38:27 by jihoh            ###   ########.fr       */
+/*   Created: 2022/07/23 17:27:12 by jihoh             #+#    #+#             */
+/*   Updated: 2022/07/23 17:28:42 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-int	put_error(char *str)
-{
-	write(2, str, ft_strlen(str));
-	return (1);
-}
+/*
+** utils **
+*/
+int		put_error(char *str);
+void	*ft_malloc(unsigned int size);
 
-void	*ft_malloc(unsigned int size)
-{
-	void	*ptr;
+/*
+** parsing_utils **
+*/
+void	next(char **str);
+double	stof(char **str);
 
-	ptr = malloc(size);
-	if (ptr == NULL)
-		exit(put_error("error: malloc failed\n"));
-	return (ptr);
-}
+#endif
