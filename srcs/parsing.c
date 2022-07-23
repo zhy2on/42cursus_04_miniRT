@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 16:08:56 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/23 17:40:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ char	*readfile(char *str, int fd)
 
 void	parse_camera(t_minirt *minirt, char **str)
 {
-	t_cam *elem;
 }
 
 void	parse_elems(t_minirt *minirt, char **str)

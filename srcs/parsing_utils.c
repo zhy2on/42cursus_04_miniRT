@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 17:42:47 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/23 18:16:45 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,20 +63,17 @@ int	parse_color(char **str)
 	int	g;
 	int	b;
 
-	r = 0;
-	g = 0;
-	b = 0;
-	r |= stoi(str);
+	r = stoi(str);
 	if (r < 0 || r > 255)
 		exit(put_error("error: out of color range\n"));
 	r <<= 16;
 	comma(str);
-	g |= stoi(str);
+	g = stoi(str);
 	if (g < 0 || g > 255)
 		exit(put_error("error: out of color range\n"));
 	g <<= 8;
 	comma(str);
-	b |= stoi(str);
+	b = stoi(str);
 	if (b < 0 || b > 255)
 		exit(put_error("error: out of color range\n"));
 	return (r | g | b);
