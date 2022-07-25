@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 16:04:55 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:35:39 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,15 +67,15 @@ void	parse_camera(t_minirt *minirt,t_data *data, char **str)
 void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr)
 {
 	char *str;
-	str = *strptr;
 
+	str = *strptr;
 	if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
 		parse_camera(minirt, data, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
 		parse_sphere(lst, &str);
 	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
 		parse_plane(lst, &str);
-	
+	*strptr = str;
 }
 
 void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str)

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 17:38:27 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 16:22:04 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minirt.h"
 
 int	put_error(char *str)
 {

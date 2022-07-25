@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 16:04:26 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:21:40 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include "vec3.h"
-# include "utils.h"
 # include "libft.h"
 # include "figures.h"
 
@@ -103,7 +102,7 @@ typedef struct s_minirt {
 	t_cam		*cam;
 }				t_minirt;
 // figures
-typedef struct		s_figures
+typedef struct s_figures
 {
 	int				flag;
 	union u_figures	fig;
@@ -115,7 +114,7 @@ typedef struct		s_figures
 	t_p3			normal;
 	double			wavelength;
 	struct s_figures *next;
-}					t_figures;
+}				t_figures;
 
 /*
 ** parsing_C
@@ -132,4 +131,22 @@ void	in_range(double nb, double min, double max, char *function);
 */
 void		parse_sphere(t_figures **elem, char **str);
 void		parse_plane(t_figures **elem, char **str);
+
+/*
+** utils **
+*/
+int		put_error(char *str);
+void	*ft_malloc(unsigned int size);
+
+/*
+** parsing_utils **
+*/
+void	next(char **str);
+double	stof(char **str);
+void    comma(char **str);
+int	    stoi(char **str);
+int	    parse_color(char **str);
+t_vec3  parse_vec3(char **str);
+void	ft_addnewlst_back(t_figures **alst);
+
 #endif

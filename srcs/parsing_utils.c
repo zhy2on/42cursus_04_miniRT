@@ -6,11 +6,11 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 15:37:58 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:22:17 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minirt.h"
 
 void	next(char **str)
 {
@@ -97,26 +97,5 @@ int	parse_color(char **str)
 	if (b < 0 || b > 255)
 		exit(put_error("error: out of color range\n"));
 	return (r | g | b);
-}
-
-void		ft_addnewlst_back(t_figures **alst)
-{
-	t_figures	*begin;
-	t_figures	*elem;
-	t_figures	*list;
-
-	begin = *alst;
-	list = *alst;
-	elem = ec_malloc(sizeof(t_figures));
-	elem->next = NULL;
-	if (list)
-	{
-		while (list->next)
-			list = list->next;
-		list->next = elem;
-	}
-	else
-		begin = elem;
-	*alst = begin;
 }
 

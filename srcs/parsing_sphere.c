@@ -6,13 +6,13 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:13:36 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/25 16:04:28 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:37:11 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void pares_sphere(t_figures **elem, char **str)
+void parse_sphere(t_figures **elem, char **str)
 {
     t_figures *lst;
 
@@ -55,10 +55,34 @@ void		parse_plane(t_figures **elem, char **str)
 	lst->refl_idx = stof(str);
 	// in_range(lst->refl_idx, 0, 1, "plane");
 	lst->refr_idx = stof(str);
-	in_range(lst->refr_idx, 0, INFINITY, "plane");
+	// in_range(lst->refr_idx, 0, INFINITY, "plane");
 	lst->texture = stoi(str);
 	// in_range(lst->texture, 0, 5, "plane");
 	if (lst->texture == 2)
 		lst->wavelength = stof(str);
 	lst->color = parse_color(str);
 }
+
+void		ft_addnewlst_back(t_figures **alst)
+{
+	t_figures	*begin;
+	t_figures	*elem;
+	t_figures	*list;
+
+	begin = *alst;
+	list = *alst;
+	elem = ft_malloc(sizeof(t_figures));
+	elem->next = NULL;
+	if (list)
+	{
+		while (list->next)
+			list = list->next;
+		list->next = elem;
+	}
+	else
+		begin = elem;
+	*alst = begin;
+}
+
+
+

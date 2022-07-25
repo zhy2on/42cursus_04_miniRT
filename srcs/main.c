@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 15:33:07 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:36:22 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main(int ac, char **av)
 	}
 	// if (ac == 3 && ft_strcmp(av[2], "--save"))
 	// 	scene_error("invalid argument\n");
+	lst = NULL;
 	parse_file(&minirt, &data, &lst, av);
 	printf("TEST: %f %f %f , %f %f %f , %d\n", minirt.cam->next->o.e[0],minirt.cam->next->o.e[1],minirt.cam->next->o.e[2],
 	minirt.cam->next->nv.e[0],minirt.cam->next->nv.e[1],minirt.cam->next->nv.e[2], minirt.cam->next->fov);
@@ -75,5 +76,13 @@ int	main(int ac, char **av)
 	// mlx_hook(minirt.win_ptr, DESTROYNOTIFY, 1L << 17, exit_program, 0);
 	// mlx_hook(minirt.win_ptr, ON_KEYDOWN, 1L << 0, key_hook, &minirt);
 	// mlx_loop(minirt.mlx_ptr);
+	while (lst)
+	{
+		if (lst->flag == SP)
+			printf("%f %f %f %f %d\n", lst->fig.sp.c.e[0], lst->fig.sp.c.e[1], lst->fig.sp.c.e[2], lst->fig.sp.r, lst->fig.sp.inside);
+		else if (lst->flag == PL)
+			printf("%f %f %f\n", lst->fig.pl.p.e[0], lst->fig.pl.p.e[1], lst->fig.pl.p.e[2]);
+		lst = lst->next;
+	}
 	return (0);
 }
