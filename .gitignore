@@ -2,3 +2,4 @@ a.out
 objs/
 libft/libft.a
 miniRT
+.vscode
