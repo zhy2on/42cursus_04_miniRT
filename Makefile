@@ -65,14 +65,14 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCS_DIR)*.h
 
 clean :
 	@make -sC $(LIBFT_DIR) clean
-	@make -sC $(MLX_DIR) clean
+#	@make -sC $(MLX_DIR) clean
 	@rm -rf $(OBJS_DIR)
 	@echo "$(RED)[$(NAME)]: clean$(RESET)"
 
 fclean : clean
 	@rm -rf $(LIBFT_DIR)$(LIBFT_LIB)
 	@echo "$(RED)[$(LIBFT_LIB)]: deleted$(RESET)"
-	@rm -rf libmlx.dylib
+#	@rm -rf libmlx.dylib
 	@echo "$(RED)[libmlx.dylib]: deleted$(RESET)"
 	@rm -rf $(NAME)
 	@echo "$(RED)[$(NAME)]: deleted$(RESET)"
