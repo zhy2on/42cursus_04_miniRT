@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:13:36 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/25 20:10:54 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 20:32:35 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ t_figures	*get_figures_node(int flag)
 
 	figures = ft_malloc(sizeof(t_figures));
 	figures->flag = flag;
+	figures->next = NULL;
 	return (figures);
 }
 

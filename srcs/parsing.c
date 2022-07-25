@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 20:08:40 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 20:25:43 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	parse_elems(t_minirt *minirt, char **strptr)
 		parse_light(&minirt->scene, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
 		parse_sphere(minirt, &str);
-	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
-		parse_plane(minirt, &str);
+	// else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
+	// 	parse_plane(minirt, &str);
 	*strptr = str;
 }
 
