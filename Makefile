@@ -1,5 +1,5 @@
 CC			= gcc
-CFLAGS		= -Werror -Wextra -Wall
+CFLAGS		= -Werror -Wextra -Wall -g
 LIBFLAGS	= -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft
 INCFLAGS	= -I$(INCS_DIR) -I$(LIBFT_INC)
 CHECK		= -fsanitize=address
@@ -17,10 +17,11 @@ LIBFT_INC	= $(LIBFT_DIR)includes/
 LIBFT_LIB	= libft.a
 
 # === Source files === #
-SRCS		= main.c parsing.c utils.c vec3.c
+SRCS		= main.c parsing.c utils.c vec3.c parsing_utils.c \
+			  parsing_sphere.c
 
 # === Header files === #
-INC_FILES	= minirt.h vec3.h
+INC_FILES	= minirt.h vec3.h utils.h
 INCS		= $(addprefix $(INCS_DIR), $(INC_FILES))
 
 # === Dfine objects === #
@@ -52,7 +53,7 @@ $(NAME) : $(OBJS)
 	@make -sC $(MLX_DIR)
 	@$(CC) $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) $(OBJS) -o $@
 	@echo "$(GREEN)[$(NAME)]: done$(RESET)"
-#	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
+	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 
 bonus : 
 	@make WITH_BONUS=1 all
