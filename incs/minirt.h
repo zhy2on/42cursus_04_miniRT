@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 17:27:42 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 15:42:43 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,12 @@
 # include "vec3.h"
 # include "utils.h"
 # include "libft.h"
+# include "figures.h"
+
+// # include "parsing.h"
 
 # define BUFSIZE 32
-
+# define SP 0
 enum e_key
 {
 	ON_KEYDOWN = 2,
@@ -66,7 +69,7 @@ typedef struct s_cam
 	t_vec3			nv;
 	int				fov;
 	t_data			data;
-	struct s_camera	*next;
+	struct s_cam	*next;
 }				t_cam;
 
 typedef struct s_ray
@@ -99,5 +102,33 @@ typedef struct s_minirt {
 	void		*win_ptr;
 	t_cam		*cam;
 }				t_minirt;
+// figures
+typedef struct		s_figures
+{
+	int				flag;
+	union u_figures	fig;
+	int				color;
+	int				specular;
+	double			refl_idx;
+	double			refr_idx;
+	int				texture;
+	// t_p3			normal;
+	double			wavelength;
+	struct s_figures *next;
+}					t_figures;
 
+/*
+** parsing_C
+*/
+char	*readfile(char *str, int fd);
+void	parse_camera(t_minirt *minirt,t_data *data, char **str);
+void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr);
+void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str);
+void	parse_file(t_minirt *minirt, t_data *data, t_figures **lst, char **av);
+void	in_range(double nb, double min, double max, char *function);
+
+/*
+** parsing_sphere
+*/
+void		parse_sphere(t_figures **elem, char **str)
 #endif

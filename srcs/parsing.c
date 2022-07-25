@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 17:40:41 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 15:36:03 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,6 @@ char	*readfile(char *str, int fd)
 	return (str);
 }
 
-t_vec3 parse_vec3(char **str)
-{
-	t_vec3 vec;
-	
-	vec.e[0] = stof(str);
-	comma(str);
-	vec.e[1] = stof(str);
-	comma(str);
-	vec.e[2] = stof(str);
-	next(str);
-	return (vec);
-}
-
 void	parse_camera(t_minirt *minirt,t_data *data, char **str)
 {
 	t_cam 	*elem;
@@ -64,30 +51,31 @@ void	parse_camera(t_minirt *minirt,t_data *data, char **str)
 	}
 	else
 		minirt->cam = elem;
-	while(**str == 32 || **str == 9)
-		(*str)++;
+	next(str);
 	elem->idx = prev_idx + 1;
 	data->cam_num = elem->idx;
 	elem->o = parse_vec3(str);
 	elem->nv = normalize(parse_vec3(str));
 	elem->fov = stoi(str);
-	in_range(elem->fov, 0, 180, "camera");
+	// in_range(elem->fov, 0, 180, "camera");
 	if (minirt->cam == begin)
 		minirt->cam = begin;
 	else if (minirt->cam != begin)
 		minirt->cam = elem;
 }
 
-void	parse_elems(t_minirt *minirt, t_data *data, char **strptr)
+void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr)
 {
 	char *str;
 	str = *strptr;
 
 	if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
 		parse_camera(minirt, data, &str);
+	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
+		parse_sphere(lst, &str);
 }
 
-void	start_parse(t_minirt *minirt, t_data *data, char *str)
+void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str)
 {
 	while (*str)
 	{
@@ -97,19 +85,21 @@ void	start_parse(t_minirt *minirt, t_data *data, char *str)
 				str++;
 		}
 		else
-			parse_elems(minirt, data, &str);
+			parse_elems(minirt, data, lst, &str);
 		str++;
 	}
 }
 
-void	parse_file(t_minirt *minirt, t_data *data, char **av)
+void	parse_file(t_minirt *minirt, t_data *data, t_figures **lst, char **av)
 {
 	int		fd;
 	char	*str;
 
-	fd = open(av[1], O_RDONLY);
-	if (fd == -1 || av[1])
+	
+	fd = open(av[1], 0);
+	str = (char *)ft_malloc(sizeof(char) * (BUFSIZE + 1));
+	if (fd == -1 && av[1])
 		exit(put_error("error: fail to open file\n"));
 	str = readfile(str, fd);
-	start_parse(minirt, data, str);
+	start_parse(minirt, data, lst, str);
 }

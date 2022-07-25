@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 18:16:45 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 15:37:58 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@ void comma(char **str)
 	if (**str != ',')
 		put_error("camera x,y,z arguments bad formatted\n");
 	(*str)++;
+}
+
+t_vec3 parse_vec3(char **str)
+{
+	t_vec3 vec;
+	
+	vec.e[0] = stof(str);
+	comma(str);
+	vec.e[1] = stof(str);
+	comma(str);
+	vec.e[2] = stof(str);
+	next(str);
+	return (vec);
 }
 
 double	stof(char **str)
@@ -85,3 +98,25 @@ int	parse_color(char **str)
 		exit(put_error("error: out of color range\n"));
 	return (r | g | b);
 }
+
+void		ft_addnewlst_back(t_figures **alst)
+{
+	t_figures	*begin;
+	t_figures	*elem;
+	t_figures	*list;
+
+	begin = *alst;
+	list = *alst;
+	elem = ec_malloc(sizeof(t_figures));
+	elem->next = NULL;
+	if (list)
+	{
+		while (list->next)
+			list = list->next;
+		list->next = elem;
+	}
+	else
+		begin = elem;
+	*alst = begin;
+}
+
