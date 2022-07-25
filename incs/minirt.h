@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 16:08:40 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/23 17:27:42 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include "vec3.h"
+# include "utils.h"
 # include "libft.h"
 
 # define BUFSIZE 32
@@ -84,12 +85,10 @@ typedef struct s_light
 
 typedef struct s_scene
 {
-	int				res_init;
 	int				xres;
 	int				yres;
 	int				cam_nb;
 	t_light			*l;
-	int				al_init;
 	double			ambient_light;
 	int				al_color;
 	int				bgr;
@@ -100,11 +99,5 @@ typedef struct s_minirt {
 	void		*win_ptr;
 	t_cam		*cam;
 }				t_minirt;
-
-/*
-** utils **
-*/
-int		put_error(char *str);
-void	*ft_malloc(unsigned int size);
 
 #endif

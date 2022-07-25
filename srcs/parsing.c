@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 16:08:56 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/23 17:40:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,19 +30,6 @@ char	*readfile(char *str, int fd)
 		ret = read(fd, buf, BUFSIZE);
 	}
 	return (str);
-}
-
-void next(char **str)
-{
-	while (**str == 32 || **str == 9)
-		(*str)++;
-}
-
-void comma(char **str)
-{
-	if (**str != ',')
-		put_error("camera x,y,z arguments bad formatted\n");
-	(*str)++;
 }
 
 t_vec3 parse_vec3(char **str)
