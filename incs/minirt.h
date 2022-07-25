@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 15:38:36 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 15:49:09 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include "vec3.h"
-# include "utils.h"
 # include "libft.h"
 
 # define BUFSIZE 32
@@ -122,5 +121,11 @@ double	stof(char **str);
 int		stoi(char **str);
 int		parse_color(char **str);
 t_p3	parse_p3(char **str);
+
+/*
+** utils **
+*/
+int		put_error(char *str);
+void	*ft_malloc(unsigned int size);
 
 #endif

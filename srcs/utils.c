@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 14:27:36 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 15:49:13 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minirt.h"
 
 int	put_error(char *str)
 {
