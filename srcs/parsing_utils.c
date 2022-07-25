@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 14:32:38 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 15:38:27 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,17 @@ int	parse_color(char **str)
 	if (b < 0 || b > 255)
 		exit(put_error("out of color range\n"));
 	return (r | g | b);
+}
+
+t_p3	parse_p3(char **str)
+{
+	t_p3	p;
+
+	p.e[0] = stof(str);
+	comma(str);
+	p.e[1] = stof(str);
+	comma(str);
+	p.e[2] = stof(str);
+	next(str);
+	return (p);
 }

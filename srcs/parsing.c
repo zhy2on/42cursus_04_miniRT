@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 14:49:08 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 15:36:31 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	parse_elems(t_scene *scene, char **strptr)
 		parse_camera(scene, &str);
 	else if (*str == 'A' && *(str++))
 		parse_ambient_light(scene, &str);
+	else if (*str == 'L' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
+		parse_light(scene, &str);
 	*strptr = str;
 }
 
