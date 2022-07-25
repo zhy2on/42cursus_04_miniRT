@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 17:22:10 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:53:36 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,28 @@ int	exit_program(void *param)
 	return (1);
 }
 
+void	init_scene(t_scene *scene)
+{
+	scene->xres = -1;
+	scene->yres = -1;
+	scene->cam_nb = 0;
+	scene->l = NULL;
+	scene->ambient_light = -1;
+	scene->al_color = -1;
+	scene->bgr = -1;
+}
+
+void	init_minirt(t_minirt *minirt)
+{
+	minirt->cam = NULL;
+	minirt->figures = NULL;
+	init_scene(&minirt->scene);
+}
+
 int	main(int ac, char **av)
 {
 	t_minirt	minirt;
-	t_data		data;
-	t_figures 	*lst;
+	t_figures	*lst;
 	t_light		*light;
 
 	if (ac < 2 || ac > 3)
@@ -31,10 +48,9 @@ int	main(int ac, char **av)
 		printf("Usage: %s <scene.rt>\n", av[0]);
 		exit(EXIT_FAILURE);
 	}
-	lst = NULL;
-	minirt.cam = NULL;
-	init_scene(&minirt.scene);
-	parse_file(&minirt, &data, &lst, av);
+	init_minirt(&minirt);
+	parse_file(&minirt, av);
+	lst = minirt.figures;
 	while (minirt.cam)
 	{
 		printf("cam: %f %f %f , %f %f %f , %d\n", minirt.cam->o.e[0], minirt.cam->o.e[1], minirt.cam->o.e[2],

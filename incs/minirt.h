@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 17:27:23 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:50:30 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,25 +32,6 @@ enum e_key
 	DESTROYNOTIFY = 17,
 	KEY_ESC = 53
 } ;
-
-/*
-** vport_h : viewport_height
-** vport_w : viewport_width
-** focal_len: focal_length, distance from camera to the viewport
-** origin : camera position
-** l_l_c : lower_left_corner of viewport
-*//*
-// typedef struct s_cam
-// {
-// 	double	aspect_ratio;
-// 	double	vport_h;
-// 	double	vport_w;
-// 	double	focal_len;
-// 	t_p3	origin;
-// 	t_vec3	l_l_c;
-// 	t_vec3	horizontal;
-// 	t_vec3	vertical;
-// }				t_cam;*/
 
 typedef struct s_data {
 	void	*img;
@@ -96,63 +77,64 @@ typedef struct s_scene
 	int				bgr;
 }				t_scene;
 
+typedef struct s_figures
+{
+	int					flag;
+	union u_figures		fig;
+	int					color;
+	int					specular;
+	double				refl_idx;
+	double				refr_idx;
+	int					texture;
+	t_p3				normal;
+	double				wavelength;
+	struct s_figures	*next;
+}				t_figures;
+
 typedef struct s_minirt {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_cam		*cam;
+	t_figures	*figures;
 	t_scene		scene;
 }				t_minirt;
-// figures
-typedef struct s_figures
-{
-	int				flag;
-	union u_figures	fig;
-	int				color;
-	int				specular;
-	double			refl_idx;
-	double			refr_idx;
-	int				texture;
-	t_p3			normal;
-	double			wavelength;
-	struct s_figures *next;
-}				t_figures;
 
 /*
 ** parsing_sphere
 */
-void		parse_sphere(t_figures **elem, char **str);
-void		parse_plane(t_figures **elem, char **str);
+void		parse_sphere(t_minirt *minirt, char **str);
+void		parse_plane(t_minirt *minirt, char **str);
 
 /*
 ** parsing_utils **
 */
-void	next(char **str);
-double	stof(char **str);
-void    comma(char **str);
-int	    stoi(char **str);
-int	    parse_color(char **str);
-t_vec3  parse_vec3(char **str);
-void	ft_addnewlst_back(t_figures **alst);
+void		next(char **str);
+double		stof(char **str);
+void		comma(char **str);
+int			stoi(char **str);
+int			parse_color(char **str);
+t_vec3		parse_vec3(char **str);
+void		add_figures_back(t_minirt *minirt, t_figures *new);
 
 /*
 ** parsing
 */
-char	*readfile(char *str, int fd);
-void	parse_file(t_minirt *minirt, t_data *data, t_figures **lst, char **av);
-void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str);
-void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr);
+char		*readfile(char *str, int fd);
+void		parse_file(t_minirt *minirt, char **av);
+void		start_parse(t_minirt *minirt, char *str);
+void		parse_elems(t_minirt *minirt, char **strptr);
 
 /*
 ** parsing_light
 */
-void	init_scene(t_scene *scene);
-void	parse_ambient_light(t_scene *scene, char **str);
-void	parse_light(t_scene *scene, char **str);
+void		init_scene(t_scene *scene);
+void		parse_ambient_light(t_scene *scene, char **str);
+void		parse_light(t_scene *scene, char **str);
 
 /*
 ** utils **
 */
-void	put_error(char *str);
-void	*ft_malloc(unsigned int size);
+void		put_error(char *str);
+void		*ft_malloc(unsigned int size);
 
 #endif

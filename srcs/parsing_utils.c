@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 17:25:28 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:08:55 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@ void	next(char **str)
 		(*str)++;
 }
 
-void comma(char **str)
+void	comma(char **str)
 {
 	if (**str != ',')
-		put_error("camera x,y,z arguments bad formatted\n");
+		put_error("arguments bad formatted\n");
 	(*str)++;
 }
 
-t_vec3 parse_vec3(char **str)
+t_vec3	parse_vec3(char **str)
 {
-	t_vec3 vec;
-	
+	t_vec3	vec;
+
 	vec.e[0] = stof(str);
 	comma(str);
 	vec.e[1] = stof(str);

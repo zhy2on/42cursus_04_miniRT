@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:02:54 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 17:25:15 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 19:16:25 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,4 @@ void	parse_light(t_scene *scene, char **str)
 			ptr = ptr->next;
 		ptr->next = new;
 	}
-}
-
-void	init_scene(t_scene *scene)
-{
-	scene->xres = -1;
-	scene->yres = -1;
-	scene->cam_nb = 0;
-	scene->l = NULL;
-	scene->ambient_light = -1;
-	scene->al_color = -1;
-	scene->bgr = -1;
 }

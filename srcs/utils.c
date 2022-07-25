@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 17:25:50 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:43:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ void	*ft_malloc(unsigned int size)
 		put_error("malloc failed\n");
 	return (ptr);
 }
-
