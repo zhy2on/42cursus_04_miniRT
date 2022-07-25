@@ -3,86 +3,81 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:13:36 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/25 16:37:11 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:10:54 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void parse_sphere(t_figures **elem, char **str)
+t_figures	*get_figures_node(int flag)
 {
-    t_figures *lst;
+	t_figures	*figures;
 
-    ft_addnewlst_back(elem);
-    lst = *elem;
-    while (lst->next)
-        lst = lst->next;
-    lst->flag = SP;
-    next(str);
-    lst->fig.sp.c = parse_vec3(str);
-    lst->fig.sp.r = stof(str) / 2;
-	// in_range(lst->fig.sp.r, 0, INFINITY, "sphere");
-	lst->specular = stoi(str);
-	// in_range(lst->specular, 0, INFINITY, "sphere");
-	lst->refl_idx = stof(str);
-	// in_range(lst->refl_idx, 0, 1, "sphere");
-	lst->refr_idx = stof(str);
-	// in_range(lst->refr_idx, 0, INFINITY, "sphere");
-	lst->texture = stoi(str);
-	// in_range(lst->texture, 0, 5, "sphere");
-	if (lst->texture == 2)
-		lst->wavelength = stof(str);
-	lst->color = parse_color(str);
+	figures = ft_malloc(sizeof(t_figures));
+	figures->flag = flag;
+	return (figures);
 }
 
-void		parse_plane(t_figures **elem, char **str)
+void	parse_sphere(t_minirt *minirt, char **str)
 {
-	t_figures	*lst;
+	t_figures	*new;
 
-	ft_addnewlst_back(elem);
-	lst = *elem;
-	while (lst->next)
-		lst = lst->next;
-	lst->flag = PL;
+	new = get_figures_node(SP);
 	next(str);
-	lst->fig.pl.p = parse_vec3(str);
-	lst->normal = normalize(parse_vec3(str));
-	lst->specular = stoi(str);
-	// in_range(lst->specular, 0, INFINITY, "plane");
-	lst->refl_idx = stof(str);
-	// in_range(lst->refl_idx, 0, 1, "plane");
-	lst->refr_idx = stof(str);
-	// in_range(lst->refr_idx, 0, INFINITY, "plane");
-	lst->texture = stoi(str);
-	// in_range(lst->texture, 0, 5, "plane");
-	if (lst->texture == 2)
-		lst->wavelength = stof(str);
-	lst->color = parse_color(str);
+	new->fig.sp.c = parse_vec3(str);
+	new->fig.sp.r = stof(str) / 2;
+	new->specular = stoi(str);
+	new->refl_idx = stof(str);
+	new->refr_idx = stof(str);
+	new->texture = stoi(str);
+	if (new->texture == 2)
+		new->wavelength = stof(str);
+	new->color = parse_color(str);
+	if (new->fig.sp.r < 0 || new->fig.sp.r > INFINITY
+		|| new->specular < 0 || new->specular > INFINITY
+		|| new->refl_idx < 0 || new->refl_idx > 1
+		|| new->refr_idx < 0 || new->refr_idx > INFINITY
+		|| new->texture < 0 || new->texture > 5)
+		put_error("sphere set is out of range\n");
+	add_figures_back(minirt, new);
 }
 
-void		ft_addnewlst_back(t_figures **alst)
+void	parse_plane(t_minirt *minirt, char **str)
 {
-	t_figures	*begin;
-	t_figures	*elem;
-	t_figures	*list;
+	t_figures	*new;
 
-	begin = *alst;
-	list = *alst;
-	elem = ft_malloc(sizeof(t_figures));
-	elem->next = NULL;
-	if (list)
-	{
-		while (list->next)
-			list = list->next;
-		list->next = elem;
-	}
-	else
-		begin = elem;
-	*alst = begin;
+	new = get_figures_node(PL);
+	next(str);
+	new->fig.pl.p = parse_vec3(str);
+	new->normal = normalize(parse_vec3(str));
+	new->specular = stoi(str);
+	new->refl_idx = stof(str);
+	new->refr_idx = stof(str);
+	new->texture = stoi(str);
+	if (new->texture == 2)
+		new->wavelength = stof(str);
+	new->color = parse_color(str);
+	if (new->specular < 0 || new->specular > INFINITY
+		|| new->refl_idx < 0 || new->refl_idx > 1
+		|| new->refr_idx < 0 || new->refr_idx > INFINITY)
+		put_error("plane set is out of range\n");
+	add_figures_back(minirt, new);
 }
 
+void	add_figures_back(t_minirt *minirt, t_figures *new)
+{
+	t_figures	*ptr;
 
-
+	ptr = minirt->figures;
+	if (!ptr)
+		minirt->figures = new;
+	else
+	{
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = new;
+	}
+}

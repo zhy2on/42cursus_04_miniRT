@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 17:25:43 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 20:08:40 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,58 +32,57 @@ char	*readfile(char *str, int fd)
 	return (str);
 }
 
-void	parse_camera(t_minirt *minirt,t_data *data, char **str)
+t_cam	*get_cam_node(int idx, t_p3 o, t_vec3 nv, int fov)
 {
-	t_cam 	*elem;
-	t_cam 	*begin;
-	int 	prev_idx;
+	t_cam	*cam;
 
-	prev_idx = 0;
-	begin = minirt->cam;
-	elem = ft_malloc(sizeof(t_cam));
-	elem->next = NULL;
-	if(minirt->cam)
-	{
-		while (minirt->cam->next)
-			minirt->cam = minirt->cam->next;
-		prev_idx = minirt->cam->idx;
-		minirt->cam->next = elem;
-	}
-	else
-		minirt->cam = elem;
-	next(str);
-	elem->idx = prev_idx + 1;
-	data->cam_num = elem->idx;
-	elem->o = parse_vec3(str);
-	elem->nv = normalize(parse_vec3(str));
-	elem->fov = stoi(str);
-	// in_range(elem->fov, 0, 180, "camera");
-	if (minirt->cam == begin)
-		minirt->cam = begin;
-	else if (minirt->cam != begin)
-		minirt->cam = elem;
+	cam = ft_malloc(sizeof(t_cam));
+	cam->idx = idx;
+	cam->o = o;
+	cam->nv = nv;
+	cam->fov = fov;
+	cam->next = NULL;
+	return (cam);
 }
 
-void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr)
+void	parse_camera(t_minirt *minirt, char **str)
 {
-	char *str;
+	t_cam	*new;
+	t_cam	*ptr;
 
-	(void)lst;
+	next(str);
+	new = get_cam_node(minirt->scene.cam_nb++, parse_vec3(str),
+			normalize(parse_vec3(str)), stoi(str));
+	ptr = minirt->cam;
+	if (!ptr)
+		minirt->cam = new;
+	else
+	{
+		while (ptr->next)
+			ptr = ptr->next;
+		ptr->next = new;
+	}
+}
+
+void	parse_elems(t_minirt *minirt, char **strptr)
+{
+	char	*str;
+
 	str = *strptr;
 	if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
-		parse_camera(minirt, data, &str);
+		parse_camera(minirt, &str);
 	else if (*str == 'A' && *(str++))
 		parse_ambient_light(&minirt->scene, &str);
 	else if (*str == 'L' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
 		parse_light(&minirt->scene, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
-		parse_sphere(lst, &str);
+		parse_sphere(minirt, &str);
 	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
-		parse_plane(lst, &str);
+		parse_plane(minirt, &str);
 	*strptr = str;
 }
 
-void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str)
+void	start_parse(t_minirt *minirt, char *str)
 {
 	while (*str)
 	{
@@ -93,12 +92,12 @@ void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str)
 				str++;
 		}
 		else
-			parse_elems(minirt, data, lst, &str);
+			parse_elems(minirt, &str);
 		str++;
 	}
 }
 
-void	parse_file(t_minirt *minirt, t_data *data, t_figures **lst, char **av)
+void	parse_file(t_minirt *minirt, char **av)
 {
 	int		fd;
 	char	*str;
@@ -113,5 +112,5 @@ void	parse_file(t_minirt *minirt, t_data *data, t_figures **lst, char **av)
 		put_error("fail to open file\n");
 	str = (char *)ft_malloc(sizeof(char) * (BUFSIZE + 1));
 	str = readfile(str, fd);
-	start_parse(minirt, data, lst, str);
+	start_parse(minirt, str);
 }
