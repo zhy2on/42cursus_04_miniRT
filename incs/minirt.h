@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 17:27:42 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 14:26:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,5 +98,27 @@ typedef struct s_minirt {
 	void		*win_ptr;
 	t_cam		*cam;
 }				t_minirt;
+
+/*
+** parsing
+*/
+void	parse_file(t_scene *scene, char **av);
+void	start_parse(t_scene *t_scene, char *str);
+void	parse_elems(t_scene *t_scene, char **strptr);
+
+/*
+** parsing_light
+*/
+void	init_scene(t_scene *scene);
+void	parse_ambient_light(t_scene *scene, char **str);
+
+/*
+** parsing_utils
+*/
+void	next(char **str);
+void	comma(char **str);
+double	stof(char **str);
+int		stoi(char **str);
+int		parse_color(char **str);
 
 #endif

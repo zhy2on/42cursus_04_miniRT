@@ -17,7 +17,8 @@ LIBFT_INC	= $(LIBFT_DIR)includes/
 LIBFT_LIB	= libft.a
 
 # === Source files === #
-SRCS		= main.c parsing.c utils.c vec3.c
+SRCS		= main.c parsing.c utils.c vec3.c parsing_light.c parsing_utils.c
+#SRCS		= $(wildcard $(dir)/*.c)
 
 # === Header files === #
 INC_FILES	= minirt.h vec3.h
@@ -49,7 +50,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	@echo $(CLEAN)
 	@make -sC $(LIBFT_DIR)
-	@make -sC $(MLX_DIR)
+#	@make -sC $(MLX_DIR)
 	@$(CC) $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) $(OBJS) -o $@
 	@echo "$(GREEN)[$(NAME)]: done$(RESET)"
 #	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
@@ -64,14 +65,14 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCS_DIR)*.h
 
 clean :
 	@make -sC $(LIBFT_DIR) clean
-	@make -sC $(MLX_DIR) clean
+#	@make -sC $(MLX_DIR) clean
 	@rm -rf $(OBJS_DIR)
 	@echo "$(RED)[$(NAME)]: clean$(RESET)"
 
 fclean : clean
 	@rm -rf $(LIBFT_DIR)$(LIBFT_LIB)
 	@echo "$(RED)[$(LIBFT_LIB)]: deleted$(RESET)"
-	@rm -rf libmlx.dylib
+#	@rm -rf libmlx.dylib
 	@echo "$(RED)[libmlx.dylib]: deleted$(RESET)"
 	@rm -rf $(NAME)
 	@echo "$(RED)[$(NAME)]: deleted$(RESET)"

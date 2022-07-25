@@ -6,16 +6,23 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 18:16:45 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 14:32:38 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "minirt.h"
 
 void	next(char **str)
 {
 	while (**str == 32 || **str == 9)
 		(*str)++;
+}
+
+void	comma(char **str)
+{
+	if (**str != ',')
+		exit(put_error("parsing format error\n"));
+	(*str)++;
 }
 
 double	stof(char **str)
@@ -65,16 +72,16 @@ int	parse_color(char **str)
 
 	r = stoi(str);
 	if (r < 0 || r > 255)
-		exit(put_error("error: out of color range\n"));
+		exit(put_error("out of color range\n"));
 	r <<= 16;
 	comma(str);
 	g = stoi(str);
 	if (g < 0 || g > 255)
-		exit(put_error("error: out of color range\n"));
+		exit(put_error("out of color range\n"));
 	g <<= 8;
 	comma(str);
 	b = stoi(str);
 	if (b < 0 || b > 255)
-		exit(put_error("error: out of color range\n"));
+		exit(put_error("out of color range\n"));
 	return (r | g | b);
 }

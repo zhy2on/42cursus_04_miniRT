@@ -6,12 +6,15 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:27:12 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 17:28:42 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/25 14:28:37 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_H
 # define UTILS_H
+# include "libft.h"
+# include <stdlib.h>
+# include <unistd.h>
 
 /*
 ** utils **
