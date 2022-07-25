@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 16:21:40 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:27:23 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ typedef struct s_minirt {
 	void		*mlx_ptr;
 	void		*win_ptr;
 	t_cam		*cam;
+	t_scene		scene;
 }				t_minirt;
 // figures
 typedef struct s_figures
@@ -117,26 +118,10 @@ typedef struct s_figures
 }				t_figures;
 
 /*
-** parsing_C
-*/
-char	*readfile(char *str, int fd);
-void	parse_camera(t_minirt *minirt,t_data *data, char **str);
-void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr);
-void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str);
-void	parse_file(t_minirt *minirt, t_data *data, t_figures **lst, char **av);
-void	in_range(double nb, double min, double max, char *function);
-
-/*
 ** parsing_sphere
 */
 void		parse_sphere(t_figures **elem, char **str);
 void		parse_plane(t_figures **elem, char **str);
-
-/*
-** utils **
-*/
-int		put_error(char *str);
-void	*ft_malloc(unsigned int size);
 
 /*
 ** parsing_utils **
@@ -148,5 +133,26 @@ int	    stoi(char **str);
 int	    parse_color(char **str);
 t_vec3  parse_vec3(char **str);
 void	ft_addnewlst_back(t_figures **alst);
+
+/*
+** parsing
+*/
+char	*readfile(char *str, int fd);
+void	parse_file(t_minirt *minirt, t_data *data, t_figures **lst, char **av);
+void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str);
+void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr);
+
+/*
+** parsing_light
+*/
+void	init_scene(t_scene *scene);
+void	parse_ambient_light(t_scene *scene, char **str);
+void	parse_light(t_scene *scene, char **str);
+
+/*
+** utils **
+*/
+void	put_error(char *str);
+void	*ft_malloc(unsigned int size);
 
 #endif

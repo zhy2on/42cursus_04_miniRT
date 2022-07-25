@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 16:22:17 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 17:25:28 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,16 @@ int	parse_color(char **str)
 
 	r = stoi(str);
 	if (r < 0 || r > 255)
-		exit(put_error("error: out of color range\n"));
+		put_error("out of color range\n");
 	r <<= 16;
 	comma(str);
 	g = stoi(str);
 	if (g < 0 || g > 255)
-		exit(put_error("error: out of color range\n"));
+		put_error("out of color range\n");
 	g <<= 8;
 	comma(str);
 	b = stoi(str);
 	if (b < 0 || b > 255)
-		exit(put_error("error: out of color range\n"));
+		put_error("out of color range\n");
 	return (r | g | b);
 }
-
