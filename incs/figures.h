@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/25 15:21:44 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:03:19 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,9 @@
 # define FIGURES_H
 
 # include "minirt.h"
+
+# define SP 0
+# define PL 1
 
 typedef struct	s_sphere
 {

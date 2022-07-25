@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 15:42:43 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:04:26 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 // # include "parsing.h"
 
 # define BUFSIZE 32
-# define SP 0
+
 enum e_key
 {
 	ON_KEYDOWN = 2,
@@ -112,7 +112,7 @@ typedef struct		s_figures
 	double			refl_idx;
 	double			refr_idx;
 	int				texture;
-	// t_p3			normal;
+	t_p3			normal;
 	double			wavelength;
 	struct s_figures *next;
 }					t_figures;
@@ -130,5 +130,6 @@ void	in_range(double nb, double min, double max, char *function);
 /*
 ** parsing_sphere
 */
-void		parse_sphere(t_figures **elem, char **str)
+void		parse_sphere(t_figures **elem, char **str);
+void		parse_plane(t_figures **elem, char **str);
 #endif

@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 15:36:03 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/25 16:04:55 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,9 @@ void	parse_elems(t_minirt *minirt, t_data *data, t_figures **lst, char **strptr)
 		parse_camera(minirt, data, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
 		parse_sphere(lst, &str);
+	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
+		parse_plane(lst, &str);
+	
 }
 
 void	start_parse(t_minirt *minirt, t_data *data, t_figures **lst, char *str)
