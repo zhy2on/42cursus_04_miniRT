@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   figures.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/26 17:47:05 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 18:59:28 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,26 +18,26 @@
 # define SP 0
 # define PL 1
 
-typedef struct	s_sphere
+typedef struct s_sphere
 {
 	t_p3	c;
 	double	r;
 	int		inside;
 }				t_sphere;
 
-typedef struct	s_plane
+typedef struct s_plane
 {
 	t_p3	p;
 }				t_plane;
 
-typedef struct	s_square
+typedef struct s_square
 {
 	t_p3	c;
 	double	side;
 
 }				t_square;
 
-typedef struct	s_cylinder
+typedef struct s_cylinder
 {
 	t_p3	c;
 	t_p3	nv;
@@ -47,7 +47,7 @@ typedef struct	s_cylinder
 	double	dist2;
 }				t_cylinder;
 
-typedef struct	s_triangle
+typedef struct s_triangle
 {
 	t_p3	p1;
 	t_p3	p2;

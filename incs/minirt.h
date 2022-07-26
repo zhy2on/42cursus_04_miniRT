@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 17:59:46 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 19:32:46 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "figures.h"
 
 # define BUFSIZE 32
+# define EPSILON 0.0001
 
 enum e_key
 {
@@ -55,7 +56,7 @@ typedef struct s_cam
 typedef struct s_hit
 {
 	double		time;
-	t_p3		o;
+	t_p3		point;
 	t_vec3		nv;
 	int			color;
 	void		*obj;
@@ -85,10 +86,23 @@ typedef struct s_figures
 	double				refl_idx;
 	double				refr_idx;
 	int					texture;
-	t_p3				normal;
+	t_p3				nv;
 	double				wavelength;
 	struct s_figures	*next;
 }				t_figures;
+
+// typedef struct s_elem
+// {
+// 	t_p3			point;
+// 	t_vec3			normal;
+// 	t_vec3			*vertex;
+// 	short int		qtd_vertex;
+// 	int				colour;
+// 	double			ratio;
+// 	double			diam;
+// 	double			height;
+// 	struct s_elem	*next;
+// }					t_elem;
 
 typedef struct s_scene
 {

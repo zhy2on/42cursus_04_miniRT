@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:13:36 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/26 17:59:19 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 19:16:50 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	parse_plane(t_scene *scene, char **str)
 	new = get_figures_node(PL);
 	next(str);
 	new->fig.pl.p = parse_vec3(str);
-	new->normal = normalize(parse_vec3(str));
+	new->nv = normalize(parse_vec3(str));
 	new->specular = stoi(str);
 	new->refl_idx = stof(str);
 	new->refr_idx = stof(str);
