@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 15:56:01 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 16:14:38 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,10 @@ typedef struct s_figures
 }				t_figures;
 
 typedef struct s_minirt {
-	void		*mlx_ptr;
-	void		*win_ptr;
+	void		*mlx;
+	void		*win;
+	int			win_w;
+	int			win_h;
 	t_cam		*cam;
 	t_figures	*figures;
 	t_scene		scene;
@@ -104,8 +106,8 @@ typedef struct s_minirt {
 /*
 ** parsing_sphere
 */
-void		parse_sphere(t_minirt *minirt, char **str);
-void		parse_plane(t_minirt *minirt, char **str);
+void		parse_sphere(t_minirt *rt, char **str);
+void		parse_plane(t_minirt *rt, char **str);
 
 /*
 ** parsing_utils **
@@ -116,14 +118,14 @@ void		comma(char **str);
 int			stoi(char **str);
 int			parse_color(char **str);
 t_vec3		parse_vec3(char **str);
-void		add_figures_back(t_minirt *minirt, t_figures *new);
+void		add_figures_back(t_minirt *rt, t_figures *new);
 
 /*
 ** parsing
 */
 char		*readfile(char *str, int fd);
-void		parse_file(t_minirt *minirt, char **av);
-void		parse_elems(t_minirt *minirt, char *str);
+void		parse_file(t_minirt *rt, char **av);
+void		parse_elems(t_minirt *rt, char *str);
 
 /*
 ** parsing_light

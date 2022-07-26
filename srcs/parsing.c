@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 15:53:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 16:32:57 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ t_cam	*get_cam_node(int idx, t_p3 o, t_vec3 nv, int fov)
 	return (cam);
 }
 
-void	parse_camera(t_minirt *minirt, char **str)
+void	parse_camera(t_minirt *rt, char **str)
 {
 	t_cam	*new;
 	t_cam	*ptr;
 
 	next(str);
-	new = get_cam_node(minirt->scene.cam_nb++, parse_vec3(str),
+	new = get_cam_node(rt->scene.cam_nb++, parse_vec3(str),
 			normalize(parse_vec3(str)), stoi(str));
-	ptr = minirt->cam;
+	ptr = rt->cam;
 	if (!ptr)
-		minirt->cam = new;
+		rt->cam = new;
 	else
 	{
 		while (ptr->next)
@@ -64,23 +64,37 @@ void	parse_camera(t_minirt *minirt, char **str)
 	}
 }
 
-void	parse_elems(t_minirt *minirt, char *str)
+void	parse_res(t_minirt *rt, char **str)
+{
+	if (rt->win_w != -1 || rt->win_h != -1)
+		put_error("resolution declared multiple times\n");
+	next(str);
+	rt->win_w = stoi(str);
+	rt->win_h = stoi(str);
+	if (rt->win_w < 1 || rt->win_w > INFINITY
+		|| rt->win_h < 1 || rt->win_h > INFINITY)
+		put_error("resolution setting is out of range");
+}
+
+void	parse_elems(t_minirt *rt, char *str)
 {
 	if (*str == '#')
 		return ;
-	if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
-		parse_camera(minirt, &str);
+	if (*str == 'R' && *(str++))
+		parse_res(rt, &str);
 	else if (*str == 'A' && *(str++))
-		parse_ambient_light(&minirt->scene, &str);
+		parse_ambient_light(&rt->scene, &str);
+	else if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
+		parse_camera(rt, &str);
 	else if (*str == 'L' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
-		parse_light(&minirt->scene, &str);
+		parse_light(&rt->scene, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
-		parse_sphere(minirt, &str);
+		parse_sphere(rt, &str);
 	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
-		parse_plane(minirt, &str);
+		parse_plane(rt, &str);
 }
 
-void	parse_file(t_minirt *minirt, char **av)
+void	parse_file(t_minirt *rt, char **av)
 {
 	int		fd;
 	char	*str;
@@ -96,9 +110,9 @@ void	parse_file(t_minirt *minirt, char **av)
 	str = NULL;
 	while (get_next_line(fd, &str) > 0)
 	{
-		parse_elems(minirt, str);
+		parse_elems(rt, str);
 		free(str);
 	}
 	free(str);
-	cam_setting(&minirt->scene, minirt->cam);
+	cam_setting(&rt->scene, rt->cam);
 }

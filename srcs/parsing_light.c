@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:02:54 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 19:16:25 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 16:28:53 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	parse_ambient_light(t_scene *scene, char **str)
 {
 	if (scene->ambient_light != -1)
-		put_error("ambient light is already declared\n");
+		put_error("ambient light declared multiple times\n");
 	next(str);
 	scene->ambient_light = stof(str);
 	if (scene->ambient_light < 0 || scene->ambient_light > 1)

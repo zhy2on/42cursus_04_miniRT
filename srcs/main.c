@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 15:58:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 16:33:17 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	exit_program(void *param)
 {
-	param = (void *)param;
+	(void)param;
 	exit(0);
 	return (1);
 }
@@ -30,50 +30,48 @@ void	init_scene(t_scene *scene)
 	scene->bgr = -1;
 }
 
-void	init_minirt(t_minirt *minirt)
+void	init_minirt(t_minirt *rt)
 {
-	minirt->cam = NULL;
-	minirt->figures = NULL;
-	init_scene(&minirt->scene);
+	rt->mlx = NULL;
+	rt->win = NULL;
+	rt->win_w = -1;
+	rt->win_h = -1;
+	rt->cam = NULL;
+	rt->figures = NULL;
+	init_scene(&rt->scene);
+}
+
+int	key_hook(int keycode, t_minirt *rt)
+{
+	(void)rt;
+	if (keycode == KEY_ESC)
+		exit(0);
+	return (1);
+}
+
+void	init_mlx(t_minirt *rt)
+{
+	rt->mlx = mlx_init();
+	if (!rt->mlx)
+		put_error("fail to init mlx\n");
+	printf("start minirt\n");
+	rt->win = mlx_new_window(rt->mlx, rt->win_w, rt->win_h, "minirt");
+	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
+	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, &rt);
 }
 
 int	main(int ac, char **av)
 {
-	t_minirt	minirt;
-	t_figures	*lst;
-	t_light		*light;
-	t_cam		*cam;
+	t_minirt	rt;
 
 	if (ac < 2 || ac > 3)
 	{
 		printf("Usage: %s <scene.rt>\n", av[0]);
 		exit(EXIT_FAILURE);
 	}
-	init_minirt(&minirt);
-	parse_file(&minirt, av);
-	lst = minirt.figures;
-	cam = minirt.cam;
-	while (cam)
-	{
-		printf("cam: %f %f %f , %f %f %f , %d\n", cam->o.x, cam->o.y, cam->o.z,
-			cam->nv.x, cam->nv.y, cam->nv.z, cam->fov);
-		printf("llc: %f %f %f\n", cam->llc.x, cam->llc.y, cam->llc.z);
-		cam = cam->next;
-	}
-	while (lst)
-	{
-		if (lst->flag == SP)
-			printf("sp: %f %f %f %f %d\n", lst->fig.sp.c.x, lst->fig.sp.c.y, lst->fig.sp.c.z, lst->fig.sp.r, lst->fig.sp.inside);
-		else if (lst->flag == PL)
-			printf("pl: %f %f %f\n", lst->fig.pl.p.x, lst->fig.pl.p.y, lst->fig.pl.p.z);
-		lst = lst->next;
-	}
-	printf("A: %f %d\n", minirt.scene.ambient_light, minirt.scene.al_color);
-	light = minirt.scene.l;
-	while (light)
-	{
-		printf("L: %f %f %f %f %d\n", light->o.x, light->o.y, light->o.z, light->br, light->color);
-		light = light->next;
-	}
+	init_minirt(&rt);
+	parse_file(&rt, av);
+	init_mlx(&rt);
+	mlx_loop(rt.mlx);
 	return (0);
 }
