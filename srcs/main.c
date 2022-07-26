@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 17:53:22 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 18:45:12 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	init_scene(t_scene *scene)
 	scene->xres = -1;
 	scene->yres = -1;
 	scene->cam_nb = 0;
-	scene->ambient_light = -1;
+	scene->al_ratio = -1;
 	scene->al_color = -1;
 	scene->bgr = -1;
 }

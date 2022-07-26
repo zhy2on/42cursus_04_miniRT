@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 17:59:46 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 19:33:59 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef struct s_cam
 typedef struct s_hit
 {
 	double		time;
-	t_p3		o;
+	t_p3		point;
 	t_vec3		nv;
 	int			color;
 	void		*obj;
@@ -63,7 +63,7 @@ typedef struct s_hit
 
 typedef struct s_ray
 {
-	t_p3	orig;
+	t_p3	o;
 	t_vec3	dir;
 	t_hit	hit;
 }			t_ray;
@@ -98,7 +98,7 @@ typedef struct s_scene
 	int			xres;
 	int			yres;
 	int			cam_nb;
-	double		ambient_light;
+	double		al_ratio;
 	int			al_color;
 	int			bgr;
 }				t_scene;
