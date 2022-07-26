@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:13:36 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/26 16:22:00 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 17:59:19 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_figures	*get_figures_node(int flag)
 	return (figures);
 }
 
-void	parse_sphere(t_minirt *rt, char **str)
+void	parse_sphere(t_scene *scene, char **str)
 {
 	t_figures	*new;
 
@@ -43,10 +43,10 @@ void	parse_sphere(t_minirt *rt, char **str)
 		|| new->refr_idx < 0 || new->refr_idx > INFINITY
 		|| new->texture < 0 || new->texture > 5)
 		put_error("sphere set is out of range\n");
-	add_figures_back(rt, new);
+	add_figures_back(scene, new);
 }
 
-void	parse_plane(t_minirt *rt, char **str)
+void	parse_plane(t_scene *scene, char **str)
 {
 	t_figures	*new;
 
@@ -65,16 +65,16 @@ void	parse_plane(t_minirt *rt, char **str)
 		|| new->refl_idx < 0 || new->refl_idx > 1
 		|| new->refr_idx < 0 || new->refr_idx > INFINITY)
 		put_error("plane set is out of range\n");
-	add_figures_back(rt, new);
+	add_figures_back(scene, new);
 }
 
-void	add_figures_back(t_minirt *rt, t_figures *new)
+void	add_figures_back(t_scene *scene, t_figures *new)
 {
 	t_figures	*ptr;
 
-	ptr = rt->figures;
+	ptr = scene->figures;
 	if (!ptr)
-		rt->figures = new;
+		scene->figures = new;
 	else
 	{
 		while (ptr->next)

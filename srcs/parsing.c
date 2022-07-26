@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 16:32:57 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 17:58:56 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,17 +45,17 @@ t_cam	*get_cam_node(int idx, t_p3 o, t_vec3 nv, int fov)
 	return (cam);
 }
 
-void	parse_camera(t_minirt *rt, char **str)
+void	parse_camera(t_scene *scene, char **str)
 {
 	t_cam	*new;
 	t_cam	*ptr;
 
 	next(str);
-	new = get_cam_node(rt->scene.cam_nb++, parse_vec3(str),
+	new = get_cam_node(scene->cam_nb++, parse_vec3(str),
 			normalize(parse_vec3(str)), stoi(str));
-	ptr = rt->cam;
+	ptr = scene->cam;
 	if (!ptr)
-		rt->cam = new;
+		scene->cam = new;
 	else
 	{
 		while (ptr->next)
@@ -85,13 +85,13 @@ void	parse_elems(t_minirt *rt, char *str)
 	else if (*str == 'A' && *(str++))
 		parse_ambient_light(&rt->scene, &str);
 	else if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
-		parse_camera(rt, &str);
+		parse_camera(&rt->scene, &str);
 	else if (*str == 'L' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
 		parse_light(&rt->scene, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
-		parse_sphere(rt, &str);
+		parse_sphere(&rt->scene, &str);
 	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
-		parse_plane(rt, &str);
+		parse_plane(&rt->scene, &str);
 }
 
 void	parse_file(t_minirt *rt, char **av)
@@ -114,5 +114,5 @@ void	parse_file(t_minirt *rt, char **av)
 		free(str);
 	}
 	free(str);
-	cam_setting(&rt->scene, rt->cam);
+	set_cam(&rt->scene, rt->scene.cam);
 }

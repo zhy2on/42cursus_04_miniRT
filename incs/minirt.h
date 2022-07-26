@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 16:14:38 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 17:59:46 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@
 # include "libft.h"
 # include "figures.h"
 
-// # include "parsing.h"
-
 # define BUFSIZE 32
 
 enum e_key
@@ -35,9 +33,9 @@ enum e_key
 
 typedef struct s_img {
 	void	*ptr;
-	char	*buff;
+	char	*addr;
 	int		bpp;
-	int		bpl;
+	int		size;
 	int		endian;
 }				t_img;
 
@@ -54,10 +52,20 @@ typedef struct s_cam
 	struct s_cam	*next;
 }				t_cam;
 
+typedef struct s_hit
+{
+	double		time;
+	t_p3		o;
+	t_vec3		nv;
+	int			color;
+	void		*obj;
+}				t_hit;
+
 typedef struct s_ray
 {
 	t_p3	orig;
 	t_vec3	dir;
+	t_hit	hit;
 }			t_ray;
 
 typedef struct s_light
@@ -67,17 +75,6 @@ typedef struct s_light
 	int				color;
 	struct s_light	*next;
 }				t_light;
-
-typedef struct s_scene
-{
-	int				xres;
-	int				yres;
-	int				cam_nb;
-	t_light			*l;
-	double			ambient_light;
-	int				al_color;
-	int				bgr;
-}				t_scene;
 
 typedef struct s_figures
 {
@@ -93,21 +90,33 @@ typedef struct s_figures
 	struct s_figures	*next;
 }				t_figures;
 
+typedef struct s_scene
+{
+	t_cam		*cam;
+	t_figures	*figures;
+	t_light		*light;
+	int			xres;
+	int			yres;
+	int			cam_nb;
+	double		ambient_light;
+	int			al_color;
+	int			bgr;
+}				t_scene;
+
 typedef struct s_minirt {
+	int			save;
 	void		*mlx;
 	void		*win;
 	int			win_w;
 	int			win_h;
-	t_cam		*cam;
-	t_figures	*figures;
 	t_scene		scene;
 }				t_minirt;
 
 /*
 ** parsing_sphere
 */
-void		parse_sphere(t_minirt *rt, char **str);
-void		parse_plane(t_minirt *rt, char **str);
+void		parse_sphere(t_scene *scene, char **str);
+void		parse_plane(t_scene *scene, char **str);
 
 /*
 ** parsing_utils **
@@ -118,7 +127,7 @@ void		comma(char **str);
 int			stoi(char **str);
 int			parse_color(char **str);
 t_vec3		parse_vec3(char **str);
-void		add_figures_back(t_minirt *rt, t_figures *new);
+void		add_figures_back(t_scene *scene, t_figures *new);
 
 /*
 ** parsing
@@ -143,6 +152,11 @@ void		*ft_malloc(unsigned int size);
 /*
 ** cam **
 */
-void		cam_setting(t_scene *scene, t_cam *cam);
+void		set_cam(t_scene *scene, t_cam *cam);
+
+/*
+** render **
+*/
+void		render_scene(t_minirt *rt, t_cam *cam);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 16:33:17 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 17:53:22 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ int	exit_program(void *param)
 
 void	init_scene(t_scene *scene)
 {
+	scene->cam = NULL;
+	scene->figures = NULL;
+	scene->light = NULL;
 	scene->xres = -1;
 	scene->yres = -1;
 	scene->cam_nb = 0;
-	scene->l = NULL;
 	scene->ambient_light = -1;
 	scene->al_color = -1;
 	scene->bgr = -1;
@@ -32,12 +34,11 @@ void	init_scene(t_scene *scene)
 
 void	init_minirt(t_minirt *rt)
 {
+	rt->save = 0;
 	rt->mlx = NULL;
 	rt->win = NULL;
 	rt->win_w = -1;
 	rt->win_h = -1;
-	rt->cam = NULL;
-	rt->figures = NULL;
 	init_scene(&rt->scene);
 }
 
@@ -51,6 +52,7 @@ int	key_hook(int keycode, t_minirt *rt)
 
 void	init_mlx(t_minirt *rt)
 {
+	rt->save = 0;
 	rt->mlx = mlx_init();
 	if (!rt->mlx)
 		put_error("fail to init mlx\n");
@@ -63,6 +65,8 @@ void	init_mlx(t_minirt *rt)
 int	main(int ac, char **av)
 {
 	t_minirt	rt;
+	t_figures	*figures;
+	t_cam		*cam;
 
 	if (ac < 2 || ac > 3)
 	{
@@ -71,6 +75,26 @@ int	main(int ac, char **av)
 	}
 	init_minirt(&rt);
 	parse_file(&rt, av);
+	cam = rt.scene.cam;
+	while (cam)
+	{
+		printf("cam: %f %f %f , %f %f %f , %d\n", cam->o.x, cam->o.y, cam->o.z,
+			cam->nv.x, cam->nv.y, cam->nv.z, cam->fov);
+		printf("llc: %f %f %f\n", cam->llc.x, cam->llc.y, cam->llc.z);
+		cam = cam->next;
+	}
+	figures = rt.scene.figures;
+	while (figures)
+	{
+		if (figures->flag == SP)
+			printf("sp: %f %f %f %f %d\n",
+				figures->fig.sp.c.x, figures->fig.sp.c.y, figures->fig.sp.c.z,
+				figures->fig.sp.r, figures->fig.sp.inside);
+		else if (figures->flag == PL)
+			printf("pl: %f %f %f\n",
+				figures->fig.pl.p.x, figures->fig.pl.p.y, figures->fig.pl.p.z);
+		figures = figures->next;
+	}
 	init_mlx(&rt);
 	mlx_loop(rt.mlx);
 	return (0);
