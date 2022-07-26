@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 19:50:30 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:56:01 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,13 @@ enum e_key
 	KEY_ESC = 53
 } ;
 
-typedef struct s_data {
-	void	*img;
+typedef struct s_img {
+	void	*ptr;
 	char	*buff;
 	int		bpp;
 	int		bpl;
 	int		endian;
-	int		cam_num;
-}				t_data;
+}				t_img;
 
 typedef struct s_cam
 {
@@ -48,7 +47,10 @@ typedef struct s_cam
 	t_p3			o;
 	t_vec3			nv;
 	int				fov;
-	t_data			data;
+	t_vec3			hor;
+	t_vec3			ver;
+	t_vec3			llc;
+	t_img			img;
 	struct s_cam	*next;
 }				t_cam;
 
@@ -121,8 +123,7 @@ void		add_figures_back(t_minirt *minirt, t_figures *new);
 */
 char		*readfile(char *str, int fd);
 void		parse_file(t_minirt *minirt, char **av);
-void		start_parse(t_minirt *minirt, char *str);
-void		parse_elems(t_minirt *minirt, char **strptr);
+void		parse_elems(t_minirt *minirt, char *str);
 
 /*
 ** parsing_light
@@ -136,5 +137,10 @@ void		parse_light(t_scene *scene, char **str);
 */
 void		put_error(char *str);
 void		*ft_malloc(unsigned int size);
+
+/*
+** cam **
+*/
+void		cam_setting(t_scene *scene, t_cam *cam);
 
 #endif

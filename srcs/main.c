@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 14:58:31 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:58:50 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	main(int ac, char **av)
 	t_minirt	minirt;
 	t_figures	*lst;
 	t_light		*light;
+	t_cam		*cam;
 
 	if (ac < 2 || ac > 3)
 	{
@@ -51,11 +52,13 @@ int	main(int ac, char **av)
 	init_minirt(&minirt);
 	parse_file(&minirt, av);
 	lst = minirt.figures;
-	while (minirt.cam)
+	cam = minirt.cam;
+	while (cam)
 	{
-		printf("cam: %f %f %f , %f %f %f , %d\n", minirt.cam->o.x, minirt.cam->o.y, minirt.cam->o.z,
-		   minirt.cam->nv.x, minirt.cam->nv.y, minirt.cam->nv.z, minirt.cam->fov);
-		minirt.cam = minirt.cam->next;
+		printf("cam: %f %f %f , %f %f %f , %d\n", cam->o.x, cam->o.y, cam->o.z,
+			cam->nv.x, cam->nv.y, cam->nv.z, cam->fov);
+		printf("llc: %f %f %f\n", cam->llc.x, cam->llc.y, cam->llc.z);
+		cam = cam->next;
 	}
 	while (lst)
 	{

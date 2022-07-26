@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 20:25:43 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 15:53:55 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,10 @@ void	parse_camera(t_minirt *minirt, char **str)
 	}
 }
 
-void	parse_elems(t_minirt *minirt, char **strptr)
+void	parse_elems(t_minirt *minirt, char *str)
 {
-	char	*str;
-
-	str = *strptr;
+	if (*str == '#')
+		return ;
 	if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
 		parse_camera(minirt, &str);
 	else if (*str == 'A' && *(str++))
@@ -77,24 +76,8 @@ void	parse_elems(t_minirt *minirt, char **strptr)
 		parse_light(&minirt->scene, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
 		parse_sphere(minirt, &str);
-	// else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
-	// 	parse_plane(minirt, &str);
-	*strptr = str;
-}
-
-void	start_parse(t_minirt *minirt, char *str)
-{
-	while (*str)
-	{
-		if (*str == '#')
-		{
-			while (*str && *str != '\n')
-				str++;
-		}
-		else
-			parse_elems(minirt, &str);
-		str++;
-	}
+	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
+		parse_plane(minirt, &str);
 }
 
 void	parse_file(t_minirt *minirt, char **av)
@@ -110,7 +93,12 @@ void	parse_file(t_minirt *minirt, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		put_error("fail to open file\n");
-	str = (char *)ft_malloc(sizeof(char) * (BUFSIZE + 1));
-	str = readfile(str, fd);
-	start_parse(minirt, str);
+	str = NULL;
+	while (get_next_line(fd, &str) > 0)
+	{
+		parse_elems(minirt, str);
+		free(str);
+	}
+	free(str);
+	cam_setting(&minirt->scene, minirt->cam);
 }
