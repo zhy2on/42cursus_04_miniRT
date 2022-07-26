@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 20:08:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 14:58:31 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ t_vec3	parse_vec3(char **str)
 {
 	t_vec3	vec;
 
-	vec.e[0] = stof(str);
+	vec.x = stof(str);
 	comma(str);
-	vec.e[1] = stof(str);
+	vec.y = stof(str);
 	comma(str);
-	vec.e[2] = stof(str);
+	vec.z = stof(str);
 	next(str);
 	return (vec);
 }

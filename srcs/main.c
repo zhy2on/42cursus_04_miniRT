@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 19:53:36 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 14:58:31 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,23 +53,23 @@ int	main(int ac, char **av)
 	lst = minirt.figures;
 	while (minirt.cam)
 	{
-		printf("cam: %f %f %f , %f %f %f , %d\n", minirt.cam->o.e[0], minirt.cam->o.e[1], minirt.cam->o.e[2],
-		   minirt.cam->nv.e[0], minirt.cam->nv.e[1], minirt.cam->nv.e[2], minirt.cam->fov);
+		printf("cam: %f %f %f , %f %f %f , %d\n", minirt.cam->o.x, minirt.cam->o.y, minirt.cam->o.z,
+		   minirt.cam->nv.x, minirt.cam->nv.y, minirt.cam->nv.z, minirt.cam->fov);
 		minirt.cam = minirt.cam->next;
 	}
 	while (lst)
 	{
 		if (lst->flag == SP)
-			printf("sp: %f %f %f %f %d\n", lst->fig.sp.c.e[0], lst->fig.sp.c.e[1], lst->fig.sp.c.e[2], lst->fig.sp.r, lst->fig.sp.inside);
+			printf("sp: %f %f %f %f %d\n", lst->fig.sp.c.x, lst->fig.sp.c.y, lst->fig.sp.c.z, lst->fig.sp.r, lst->fig.sp.inside);
 		else if (lst->flag == PL)
-			printf("pl: %f %f %f\n", lst->fig.pl.p.e[0], lst->fig.pl.p.e[1], lst->fig.pl.p.e[2]);
+			printf("pl: %f %f %f\n", lst->fig.pl.p.x, lst->fig.pl.p.y, lst->fig.pl.p.z);
 		lst = lst->next;
 	}
 	printf("A: %f %d\n", minirt.scene.ambient_light, minirt.scene.al_color);
 	light = minirt.scene.l;
 	while (light)
 	{
-		printf("L: %f %f %f %f %d\n", light->o.e[0], light->o.e[1], light->o.e[2], light->br, light->color);
+		printf("L: %f %f %f %f %d\n", light->o.x, light->o.y, light->o.z, light->br, light->color);
 		light = light->next;
 	}
 	return (0);

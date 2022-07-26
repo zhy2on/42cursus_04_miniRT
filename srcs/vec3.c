@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/23 14:39:14 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 14:58:31 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ t_vec3	get_vec3(double e0, double e1, double e2)
 {
 	t_vec3	ret;
 
-	ret.e[0] = e0;
-	ret.e[1] = e1;
-	ret.e[2] = e2;
+	ret.x = e0;
+	ret.y = e1;
+	ret.z = e2;
 	return (ret);
 }
 
@@ -26,9 +26,9 @@ t_vec3	vadd(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 
-	ret.e[0] = u.e[0] + v.e[0];
-	ret.e[1] = u.e[1] + v.e[1];
-	ret.e[2] = u.e[2] + v.e[2];
+	ret.x = u.x + v.x;
+	ret.y = u.y + v.y;
+	ret.z = u.z + v.z;
 	return (ret);
 }
 
@@ -36,9 +36,9 @@ t_vec3	vsub(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 
-	ret.e[0] = u.e[0] - v.e[0];
-	ret.e[1] = u.e[1] - v.e[1];
-	ret.e[2] = u.e[2] - v.e[2];
+	ret.x = u.x - v.x;
+	ret.y = u.y - v.y;
+	ret.z = u.z - v.z;
 	return (ret);
 }
 
@@ -46,9 +46,9 @@ t_vec3	vmul(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 
-	ret.e[0] = u.e[0] * v.e[0];
-	ret.e[1] = u.e[1] * v.e[1];
-	ret.e[2] = u.e[2] * v.e[2];
+	ret.x = u.x * v.x;
+	ret.y = u.y * v.y;
+	ret.z = u.z * v.z;
 	return (ret);
 }
 
@@ -56,9 +56,9 @@ t_vec3	vmul_n(t_vec3 u, double n)
 {
 	t_vec3	ret;
 
-	ret.e[0] = u.e[0] * n;
-	ret.e[1] = u.e[1] * n;
-	ret.e[2] = u.e[2] * n;
+	ret.x = u.x * n;
+	ret.y = u.y * n;
+	ret.z = u.z * n;
 	return (ret);
 }
 
@@ -66,9 +66,9 @@ t_vec3	vdiv(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 
-	ret.e[0] = u.e[0] / v.e[0];
-	ret.e[1] = u.e[1] / v.e[1];
-	ret.e[2] = u.e[2] / v.e[2];
+	ret.x = u.x / v.x;
+	ret.y = u.y / v.y;
+	ret.z = u.z / v.z;
 	return (ret);
 }
 
@@ -76,30 +76,30 @@ t_vec3	vdiv_n(t_vec3 u, double n)
 {
 	t_vec3	ret;
 
-	ret.e[0] = u.e[0] / n;
-	ret.e[1] = u.e[1] / n;
-	ret.e[2] = u.e[2] / n;
+	ret.x = u.x / n;
+	ret.y = u.y / n;
+	ret.z = u.z / n;
 	return (ret);
 }
 
 double	dot(t_vec3 u, t_vec3 v)
 {
-	return (u.e[0] * v.e[0] + u.e[1] * v.e[1] + u.e[2] * v.e[2]);
+	return (u.x * v.x + u.y * v.y + u.z * v.z);
 }
 
 t_vec3	cross(t_vec3 u, t_vec3 v)
 {
 	t_vec3	ret;
 
-	ret.e[0] = u.e[1] * v.e[2] - u.e[2] * v.e[1];
-	ret.e[1] = u.e[2] * v.e[0] - u.e[0] * v.e[2];
-	ret.e[2] = u.e[0] * v.e[1] - u.e[1] * v.e[0];
+	ret.x = u.y * v.z - u.z * v.y;
+	ret.y = u.z * v.x - u.x * v.z;
+	ret.z = u.x * v.y - u.y * v.x;
 	return (ret);
 }
 
 double	length_squared(t_vec3 v)
 {
-	return (v.e[0] * v.e[0] + v.e[1] * v.e[1] + v.e[2] * v.e[2]);
+	return (v.x * v.x + v.y * v.y + v.z * v.z);
 }
 
 double	length(t_vec3 v)
@@ -113,8 +113,8 @@ t_vec3	normalize(t_vec3 v)
 	double	mod;
 
 	mod = length(v);
-	nv.e[0] = v.e[0] / mod;
-	nv.e[1] = v.e[1] / mod;
-	nv.e[2] = v.e[2] / mod;
+	nv.x = v.x / mod;
+	nv.y = v.y / mod;
+	nv.z = v.z / mod;
 	return (nv);
 }
