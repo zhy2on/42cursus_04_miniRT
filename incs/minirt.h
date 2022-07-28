@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 19:32:46 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/28 18:06:06 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,4 +173,11 @@ void		set_cam(t_scene *scene, t_cam *cam);
 */
 void		render_scene(t_minirt *rt, t_cam *cam);
 
+/*
+** hit **
+*/
+int			hit_pl(t_ray *ray, t_figures *elem);
+int			hit_sp(t_ray *ray, t_figures *elem);
+// static void	bhaskara(float a, float b, float c, float *res);
+t_vec3		get_hit_point(t_ray ray);
 #endif

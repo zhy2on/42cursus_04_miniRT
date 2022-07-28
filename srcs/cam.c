@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 14:41:27 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 17:09:59 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/28 18:14:00 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	set_cam(t_scene *scene, t_cam *cam)
 	t_vec3	w;
 	t_vec3	u;
 	t_vec3	v;
-	t_vec3	tmp;
+	// t_vec3	tmp;
 
 	while (cam)
 	{
@@ -27,10 +27,13 @@ void	set_cam(t_scene *scene, t_cam *cam)
 		w = normalize(vscale(cam->nv, -1));
 		u = cross(create_vec3(0, 1, 0), w);
 		v = cross(w, u);
-		tmp = v;
-		v = w;
-		w = u;
-		u = tmp;
+		// w = normalize(vscale(cam->nv, -1));
+		// u = cross(create_vec3(0, 1, 0), w);
+		// v = cross(w, u);
+		// tmp = v;
+		// v = w;
+		// w = u;
+		// u = tmp;
 		cam->hor = vscale(u, -vp[0]);
 		cam->ver = vscale(v, -vp[1]);
 		cam->llc = vsub(cam->o, vscale(cam->hor, 0.5));

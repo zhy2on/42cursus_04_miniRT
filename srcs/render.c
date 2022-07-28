@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 16:58:55 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/07/28 18:16:42 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,17 @@ t_ray	create_ray(t_cam *cam, double x, double y)
 int	raytrace(t_minirt *rt, t_ray *ray)
 {
 	ray->hit.time = INFINITY;
-	if (rt->scene.figures->flag == PL)
+	// if (rt->scene.figures->flag == PL)
+	// {
+	// 	if (hit_pl(ray, rt->scene.figures))
+	// 		return (ray->hit.color);
+	// 	else
+	// 		return (0);
+	// }
+	
+	if (rt->scene.figures->flag == SP)
 	{
-		if (hit_pl(ray, rt->scene.figures))
+		if (hit_sp(ray, rt->scene.figures))
 			return (ray->hit.color);
 		else
 			return (0);
