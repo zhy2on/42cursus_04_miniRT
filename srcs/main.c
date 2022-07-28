@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 17:53:22 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 14:48:41 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ void	init_mlx(t_minirt *rt)
 	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, &rt);
 }
 
+
 int	main(int ac, char **av)
 {
 	t_minirt	rt;
@@ -96,6 +97,7 @@ int	main(int ac, char **av)
 		figures = figures->next;
 	}
 	init_mlx(&rt);
+	render_scene(&rt, rt.scene.cam);
 	mlx_loop(rt.mlx);
 	return (0);
 }
