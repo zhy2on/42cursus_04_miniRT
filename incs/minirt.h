@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:02:10 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 21:29:14 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ typedef struct s_hit
 
 typedef struct s_ray
 {
-	t_p3	o;
+	t_p3	orig;
 	t_vec3	dir;
 	t_hit	hit;
 }			t_ray;
@@ -87,10 +87,23 @@ typedef struct s_figures
 	double				refl_idx;
 	double				refr_idx;
 	int					texture;
-	t_p3				normal;
+	t_p3				nv;
 	double				wavelength;
 	struct s_figures	*next;
 }				t_figures;
+
+// typedef struct s_elem
+// {
+// 	t_p3			point;
+// 	t_vec3			normal;
+// 	t_vec3			*vertex;
+// 	short int		qtd_vertex;
+// 	int				colour;
+// 	double			ratio;
+// 	double			diam;
+// 	double			height;
+// 	struct s_elem	*next;
+// }					t_elem;
 
 typedef struct s_scene
 {
@@ -161,4 +174,11 @@ void		set_cam(t_scene *scene, t_cam *cam);
 */
 void		render_scene(t_minirt *rt, t_cam *cam);
 
+/*
+** hit **
+*/
+int			hit_pl(t_ray *ray, t_figures *elem);
+int			hit_sp(t_ray *ray, t_figures *elem);
+// static void	bhaskara(float a, float b, float c, float *res);
+t_vec3		get_hit_point(t_ray ray);
 #endif

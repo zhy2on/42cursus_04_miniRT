@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:06:38 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 21:39:27 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_ray	create_ray(t_cam *cam, double x, double y)
 {
 	t_ray	ray;
 
-	ray.o = cam->o;
+	ray.orig = cam->o;
 	ray.dir = vadd(vscale(cam->hor, x), vscale(cam->ver, y));
 	ray.dir = vadd(ray.dir, cam->llc);
-	ray.dir = normalize(vsub(ray.dir, ray.o));
+	ray.dir = normalize(vsub(ray.dir, ray.orig));
 	return (ray);
 }
 
@@ -91,7 +91,7 @@ void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 	t_p3	oc;
 	double	k[3];
 
-	oc = vsub(ray->o, sp.c);
+	oc = vsub(ray->orig, sp.c);
 	k[0] = dot(ray->dir, ray->dir);
 	k[1] = 2 * dot(ray->dir, oc);
 	k[2] = dot(oc, oc) - sp.r * sp.r;
@@ -110,7 +110,29 @@ void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 
 t_p3	get_hit_point(t_ray ray)
 {
-	return (vadd(ray.o, vscale(ray.dir, ray.hit.time)));
+	return (vadd(ray.orig, vscale(ray.dir, ray.hit.time)));
+}
+
+int	hit_plane(t_figures *elem, t_ray *ray)
+{
+	double	time;
+	double	den;
+
+	den = dot(normalize(ray->dir), elem->nv);
+	if (!den)
+		return (0);
+	time = (dot(vsub(elem->fig.pl.p, ray->orig), elem->nv) / den);
+	if (ray->hit.time > time && time > EPSILON)
+	{
+		ray->hit.time = time;
+		ray->hit.point = get_hit_point(*ray);
+		if (dot(ray->dir, elem->nv) > 0)
+			elem->nv = vscale(elem->nv, -1);
+		ray->hit.nv = elem->nv;
+		ray->hit.color = elem->color;
+		return (1);
+	}
+	return (0);
 }
 
 int	hit_sphere(t_figures *elem, t_ray *ray)
@@ -142,7 +164,9 @@ int	intersect(t_minirt *rt, t_ray *ray)
 	while (elem)
 	{
 		if (elem->flag == SP)
-			ret = hit_sphere(elem, ray);
+			ret |= hit_sphere(elem, ray);
+		else if (elem->flag == PL)
+			ret |= hit_plane(elem, ray);
 		elem = elem->next;
 	}
 	return (ret);
