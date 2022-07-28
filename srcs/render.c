@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 20:44:59 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 21:06:38 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,35 @@ int	cprod(int c1, int c2)
 	return ((rgb[0] << 0x10) | (rgb[1] << 0x08) | rgb[2]);
 }
 
+int	cadd(int c1, int c2)
+{
+	int		r;
+	int		g;
+	int		b;
+
+	r = check_rgb((c1 >> 0x10) + (c2 >> 0x10));
+	g = check_rgb((c1 >> 0x08 & 0xFF) + (c2 >> 0x08 & 0xFF));
+	b = check_rgb((c1 & 0xFF) + (c2 & 0xFF));
+	return ((r << 0x10) | (g << 0x08) | b);
+}
+
+int	ccomp(t_light *light, t_hit hit)
+{
+	t_vec3		light_normal;
+	float		gain;
+	float		r2;
+	float		light_bright;
+
+	light_normal = vsub(light->o, hit.point);
+	r2 = length_squared(light_normal);
+	gain = dot(normalize(light_normal), hit.nv);
+	if (gain <= 0)
+		light_bright = 0;
+	else
+		light_bright = (light->br * gain * ALBEDO) / (4.0 * M_PI * r2);
+	return (cprod(cadd(0, cscale(hit.color, light_bright)), light->color));
+}
+
 void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 {
 	double	discriminant;
@@ -99,7 +128,6 @@ int	hit_sphere(t_figures *elem, t_ray *ray)
 		ray->hit.color = elem->color;
 		return (1);
 	}
-	// printf("hi\n");
 	return (0);
 }
 
@@ -124,11 +152,20 @@ int	raytrace(t_minirt *rt, t_ray *ray)
 {
 	int		al_color;
 	int		color;
+	int		vis;
+	t_light	*light;
 
 	if (!intersect(rt, ray))
 		return (0);
 	al_color = cscale(rt->scene.al_color, rt->scene.al_ratio);
 	color = cprod(ray->hit.color, al_color);
+	light = rt->scene.light;
+	while (light)
+	{
+		vis = 1;
+		color = cadd(color, vis * ccomp(light, ray->hit));
+		light = light->next;
+	}
 	return (color);
 }
 
