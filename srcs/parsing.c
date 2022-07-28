@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 17:58:56 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 19:46:43 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ void	parse_res(t_minirt *rt, char **str)
 	next(str);
 	rt->win_w = stoi(str);
 	rt->win_h = stoi(str);
+	rt->scene.xres = rt->win_w;
+	rt->scene.yres = rt->win_h;
 	if (rt->win_w < 1 || rt->win_w > INFINITY
 		|| rt->win_h < 1 || rt->win_h > INFINITY)
 		put_error("resolution setting is out of range");

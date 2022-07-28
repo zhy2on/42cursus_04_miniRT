@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 18:45:12 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 20:55:43 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,6 @@ void	init_mlx(t_minirt *rt)
 int	main(int ac, char **av)
 {
 	t_minirt	rt;
-	t_figures	*figures;
-	t_cam		*cam;
 
 	if (ac < 2 || ac > 3)
 	{
@@ -75,27 +73,8 @@ int	main(int ac, char **av)
 	}
 	init_minirt(&rt);
 	parse_file(&rt, av);
-	cam = rt.scene.cam;
-	while (cam)
-	{
-		printf("cam: %f %f %f , %f %f %f , %d\n", cam->o.x, cam->o.y, cam->o.z,
-			cam->nv.x, cam->nv.y, cam->nv.z, cam->fov);
-		printf("llc: %f %f %f\n", cam->llc.x, cam->llc.y, cam->llc.z);
-		cam = cam->next;
-	}
-	figures = rt.scene.figures;
-	while (figures)
-	{
-		if (figures->flag == SP)
-			printf("sp: %f %f %f %f %d\n",
-				figures->fig.sp.c.x, figures->fig.sp.c.y, figures->fig.sp.c.z,
-				figures->fig.sp.r, figures->fig.sp.inside);
-		else if (figures->flag == PL)
-			printf("pl: %f %f %f\n",
-				figures->fig.pl.p.x, figures->fig.pl.p.y, figures->fig.pl.p.z);
-		figures = figures->next;
-	}
 	init_mlx(&rt);
+	render_scene(&rt, rt.scene.cam);
 	mlx_loop(rt.mlx);
 	return (0);
 }

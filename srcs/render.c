@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 19:34:19 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 20:44:59 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ int	check_rgb(int n)
 		return (n);
 }
 
-int	csacle(int color, double d)
+int	cscale(int color, double d)
 {
 	int		rgb[3];
 
-	rgb[0] = check_rgb(d * (colour >> 0x10));
-	rgb[1] = check_rgb(d * ((colour >> 0x08) & 0xFF));
-	rgb[2] = check_rgb(d * (colour & 0xFF));
+	rgb[0] = check_rgb(d * (color >> 0x10));
+	rgb[1] = check_rgb(d * ((color >> 0x08) & 0xFF));
+	rgb[2] = check_rgb(d * (color & 0xFF));
 	return ((rgb[0] << 0x10) | (rgb[1] << 0x08) | rgb[2]);
 }
 
@@ -63,9 +63,9 @@ void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 	double	k[3];
 
 	oc = vsub(ray->o, sp.c);
-	k[0] = dot(ray->d, ray->d);
-	k[1] = 2 * dot(ray->d, oc);
-	k[2] = dot(oc, oc) - sp.r * .sp.r;
+	k[0] = dot(ray->dir, ray->dir);
+	k[1] = 2 * dot(ray->dir, oc);
+	k[2] = dot(oc, oc) - sp.r * sp.r;
 	discriminant = k[1] * k[1] - (4 * k[0] * k[2]);
 	if (discriminant < 0)
 	{
@@ -81,58 +81,66 @@ void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 
 t_p3	get_hit_point(t_ray ray)
 {
-	return (vadd(ray.o, vsacle(ray.dir, ray.hit.time)));
+	return (vadd(ray.o, vscale(ray.dir, ray.hit.time)));
 }
 
-int	hit_sphere(t_ray *ray, t_figures *elem)
+int	hit_sphere(t_figures *elem, t_ray *ray)
 {
 	double		time[2];
 	t_sphere	sp;
 
-	sp = elem->figures.sp;
+	sp = elem->fig.sp;
 	get_sphere_root(time, ray, sp);
 	if (ray->hit.time > time[0] && time[0] > 0)
 	{
 		ray->hit.time = time[0];
 		ray->hit.point = get_hit_point(*ray);
-		ray->hit.nv = normalize(v_sub(ray->hit.point, sp.c));
+		ray->hit.nv = normalize(vsub(ray->hit.point, sp.c));
 		ray->hit.color = elem->color;
 		return (1);
 	}
+	// printf("hi\n");
 	return (0);
 }
 
 int	intersect(t_minirt *rt, t_ray *ray)
 {
 	int			ret;
-	t_figures	*ptr;
+	t_figures	*elem;
 
 	ray->hit.time = INFINITY;
 	ret = 0;
-	ptr = rt->scene.figures;
-	while (ptr)
+	elem = rt->scene.figures;
+	while (elem)
 	{
-		if (ptr->flag == SP)
-			hit_sphere();
-		ptr = ptr->next;
+		if (elem->flag == SP)
+			ret = hit_sphere(elem, ray);
+		elem = elem->next;
 	}
+	return (ret);
 }
 
 int	raytrace(t_minirt *rt, t_ray *ray)
 {
 	int		al_color;
 	int		color;
-	t_light	*light;
 
 	if (!intersect(rt, ray))
 		return (0);
 	al_color = cscale(rt->scene.al_color, rt->scene.al_ratio);
-	color = cpord(ray->hit.color, al_color);
-	light = rt->scene.light;
+	color = cprod(ray->hit.color, al_color);
 	return (color);
 }
 
-void	render_scene(t_rt *rt, t_cam *cam)
+void		mlx_put_pixel2img(t_img *img, int x, int y, int colour)
+{
+	char	*dst;
+
+	dst = img->addr + (y * img->size + x * (img->bpp / 8));
+	*(unsigned int *)dst = colour;
+}
+
+void	render_scene(t_minirt *rt, t_cam *cam)
 {
 	int		x;
 	int		y;
@@ -154,7 +162,7 @@ void	render_scene(t_rt *rt, t_cam *cam)
 		{
 			ray = create_ray(cam, (double)x / rt->win_w, (double)y / rt->win_h);
 			color = raytrace(rt, &ray);
-			mlx_put_pixel2img(&cam->img, x, (rt->size_y - 1) - y, color);
+			mlx_put_pixel2img(&cam->img, x, (rt->win_h - 1) - y, color);
 		}
 	}
 	if (!rt->save)

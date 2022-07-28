@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 19:33:59 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 20:19:03 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include "figures.h"
 
 # define BUFSIZE 32
+# define EPSILON 0.00001
 
 enum e_key
 {
