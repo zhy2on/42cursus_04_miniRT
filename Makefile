@@ -1,6 +1,6 @@
 CC			= gcc
 CFLAGS		= -Werror -Wextra -Wall -g
-LIBFLAGS	= -L$(MLX_DIR) -lmlx -L$(LIBFT_DIR) -lft
+LIBFLAGS	= -lmlx -framework OpenGL -framework AppKit -L$(LIBFT_DIR) -lft
 INCFLAGS	= -I$(INCS_DIR) -I$(LIBFT_INC)
 CHECK		= -fsanitize=address
 
@@ -8,7 +8,6 @@ CHECK		= -fsanitize=address
 
 
 # === Directories === #
-MLX_DIR		= ./mlx/
 SRCS_DIR	= ./srcs/
 OBJS_DIR	= ./objs/
 INCS_DIR	= ./incs/
@@ -17,7 +16,8 @@ LIBFT_INC	= $(LIBFT_DIR)includes/
 LIBFT_LIB	= libft.a
 
 # === Source files === #
-SRCS		= main.c parsing.c utils.c vec3.c parsing_light.c parsing_utils.c parsing_sphere.c
+SRCS		= main.c parsing.c utils.c vec3.c parsing_light.c parsing_utils.c parsing_sphere.c \
+				cam.c render.c
 #SRCS		= $(wildcard $(dir)/*.c)
 
 # === Header files === #
@@ -50,10 +50,8 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	@echo $(CLEAN)
 	@make -sC $(LIBFT_DIR)
-	@make -sC $(MLX_DIR)
 	@$(CC) $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) $(OBJS) -o $@
 	@echo "$(GREEN)[$(NAME)]: done$(RESET)"
-	install_name_tool -change libmlx.dylib mlx/libmlx.dylib $(NAME)
 
 bonus : 
 	@make WITH_BONUS=1 all
@@ -65,15 +63,12 @@ $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCS_DIR)*.h
 
 clean :
 	@make -sC $(LIBFT_DIR) clean
-#	@make -sC $(MLX_DIR) clean
 	@rm -rf $(OBJS_DIR)
 	@echo "$(RED)[$(NAME)]: clean$(RESET)"
 
 fclean : clean
 	@rm -rf $(LIBFT_DIR)$(LIBFT_LIB)
 	@echo "$(RED)[$(LIBFT_LIB)]: deleted$(RESET)"
-#	@rm -rf libmlx.dylib
-	@echo "$(RED)[libmlx.dylib]: deleted$(RESET)"
 	@rm -rf $(NAME)
 	@echo "$(RED)[$(NAME)]: deleted$(RESET)"
 

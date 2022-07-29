@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 20:08:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/28 21:32:50 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,11 @@ t_vec3	parse_vec3(char **str)
 {
 	t_vec3	vec;
 
-	vec.e[0] = stof(str);
+	vec.x = stof(str);
 	comma(str);
-	vec.e[1] = stof(str);
+	vec.y = stof(str);
 	comma(str);
-	vec.e[2] = stof(str);
+	vec.z = stof(str);
 	next(str);
 	return (vec);
 }
@@ -86,12 +86,12 @@ int	parse_color(char **str)
 	r = stoi(str);
 	if (r < 0 || r > 255)
 		put_error("out of color range\n");
-	r <<= 16;
+	r <<= 0x10;
 	comma(str);
 	g = stoi(str);
 	if (g < 0 || g > 255)
 		put_error("out of color range\n");
-	g <<= 8;
+	g <<= 0x8;
 	comma(str);
 	b = stoi(str);
 	if (b < 0 || b > 255)

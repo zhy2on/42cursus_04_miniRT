@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:02:54 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/25 19:16:25 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/26 18:44:51 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 void	parse_ambient_light(t_scene *scene, char **str)
 {
-	if (scene->ambient_light != -1)
-		put_error("ambient light is already declared\n");
+	if (scene->al_ratio != -1)
+		put_error("ambient light declared multiple times\n");
 	next(str);
-	scene->ambient_light = stof(str);
-	if (scene->ambient_light < 0 || scene->ambient_light > 1)
+	scene->al_ratio = stof(str);
+	if (scene->al_ratio < 0 || scene->al_ratio > 1)
 		put_error("ambient light ratio is out of range\n");
 	scene->al_color = parse_color(str);
 }
@@ -44,9 +44,9 @@ void	parse_light(t_scene *scene, char **str)
 	new = get_light_node(parse_vec3(str), stof(str), parse_color(str));
 	if (new->br < 0 || new->br > 1)
 		put_error("light ratio is out of range\n");
-	ptr = scene->l;
+	ptr = scene->light;
 	if (!ptr)
-		scene->l = new;
+		scene->light = new;
 	else
 	{
 		while (ptr->next)
