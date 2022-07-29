@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/29 15:21:54 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:18:35 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,14 @@ int	exit_program(void *param)
 
 void	init_scene(t_scene *scene)
 {
-	scene->cam_start = NULL;
 	scene->cam = NULL;
 	scene->figures = NULL;
 	scene->light = NULL;
 	scene->xres = -1;
 	scene->yres = -1;
 	scene->cam_nb = 0;
-	scene->al_ratio = -1;
-	scene->al_color = -1;
+	scene->al_br = -1;
+	scene->al_clr = -1;
 	scene->bgr = -1;
 }
 
@@ -38,23 +37,16 @@ void	init_minirt(t_minirt *rt)
 	rt->save = 0;
 	rt->mlx = NULL;
 	rt->win = NULL;
-	rt->win_w = -1;
-	rt->win_h = -1;
 	init_scene(&rt->scene);
 }
 
 int	key_hook(int keycode, t_minirt *rt)
 {
-	t_cam	*cam;
-
 	if (keycode == KEY_ESC)
 		exit(0);
 	if (keycode != KEY_SPACE)
 		return (0);
-	cam = rt->scene.cam;
 	rt->scene.cam = rt->scene.cam->next;
-	if (!rt->scene.cam)
-		rt->scene.cam = rt->scene.cam_start;
 	render_scene(rt, rt->scene.cam);
 	mlx_put_image_to_window(rt->mlx, rt->win, rt->scene.cam->img.ptr, 0, 0);
 	return (1);
@@ -67,7 +59,7 @@ void	set_mlx(t_minirt *rt)
 	if (!rt->mlx)
 		put_error("fail to init mlx\n");
 	printf("start minirt\n");
-	rt->win = mlx_new_window(rt->mlx, rt->win_w, rt->win_h, "minirt");
+	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, "");
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
 	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, rt);
 }

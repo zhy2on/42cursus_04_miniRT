@@ -4,3 +4,4 @@ objs
 libft/libft.a
 miniRT
 .vscode
+.DS_Store

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/29 15:03:46 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:28:42 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,12 @@ typedef struct s_hit
 	double		time;
 	t_p3		point;
 	t_vec3		nv;
-	int			color;
-	void		*obj;
+	int			clr;
 }				t_hit;
 
 typedef struct s_ray
 {
-	t_p3	orig;
+	t_p3	o;
 	t_vec3	dir;
 	t_hit	hit;
 }			t_ray;
@@ -75,48 +74,34 @@ typedef struct s_light
 {
 	t_p3			o;
 	double			br;
-	int				color;
+	int				clr;
 	struct s_light	*next;
 }				t_light;
 
 typedef struct s_figures
 {
-	int					flag;
+	int					type;
 	union u_figures		fig;
-	int					color;
+	int					clr;
 	int					specular;
 	double				refl_idx;
 	double				refr_idx;
 	int					texture;
-	t_p3				nv;
+	t_vec3				nv;
 	double				wavelength;
 	struct s_figures	*next;
 }				t_figures;
 
-// typedef struct s_elem
-// {
-// 	t_p3			point;
-// 	t_vec3			normal;
-// 	t_vec3			*vertex;
-// 	short int		qtd_vertex;
-// 	int				colour;
-// 	double			ratio;
-// 	double			diam;
-// 	double			height;
-// 	struct s_elem	*next;
-// }					t_elem;
-
 typedef struct s_scene
 {
-	t_cam		*cam_start;
-	t_cam		*cam;
-	t_figures	*figures;
-	t_light		*light;
 	int			xres;
 	int			yres;
 	int			cam_nb;
-	double		al_ratio;
-	int			al_color;
+	t_cam		*cam;
+	t_figures	*figures;
+	t_light		*light;
+	double		al_br;
+	int			al_clr;
 	int			bgr;
 }				t_scene;
 
@@ -124,8 +109,6 @@ typedef struct s_minirt {
 	int			save;
 	void		*mlx;
 	void		*win;
-	int			win_w;
-	int			win_h;
 	t_scene		scene;
 }				t_minirt;
 
@@ -181,6 +164,6 @@ void		render_scene(t_minirt *rt, t_cam *cam);
 */
 int			hit_pl(t_ray *ray, t_figures *elem);
 int			hit_sp(t_ray *ray, t_figures *elem);
-// static void	bhaskara(float a, float b, float c, float *res);
 t_vec3		get_hit_point(t_ray ray);
+
 #endif

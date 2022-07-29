@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_sphere.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:13:36 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/28 21:32:18 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:22:00 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_figures	*get_figures_node(int flag)
+t_figures	*get_figures_node(int type)
 {
 	t_figures	*figures;
 
 	figures = ft_malloc(sizeof(t_figures));
-	figures->flag = flag;
+	figures->type = type;
 	figures->next = NULL;
 	return (figures);
 }
@@ -36,7 +36,7 @@ void	parse_sphere(t_scene *scene, char **str)
 	new->texture = stoi(str);
 	if (new->texture == 2)
 		new->wavelength = stof(str);
-	new->color = parse_color(str);
+	new->clr = parse_color(str);
 	if (new->fig.sp.r < 0 || new->fig.sp.r > INFINITY
 		|| new->specular < 0 || new->specular > INFINITY
 		|| new->refl_idx < 0 || new->refl_idx > 1
@@ -60,7 +60,7 @@ void	parse_plane(t_scene *scene, char **str)
 	new->texture = stoi(str);
 	if (new->texture == 2)
 		new->wavelength = stof(str);
-	new->color = parse_color(str);
+	new->clr = parse_color(str);
 	if (new->specular < 0 || new->specular > INFINITY
 		|| new->refl_idx < 0 || new->refl_idx > 1
 		|| new->refr_idx < 0 || new->refr_idx > INFINITY)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/29 18:12:45 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:24:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ t_ray	create_ray(t_cam *cam, double x, double y)
 {
 	t_ray	ray;
 
-	ray.orig = cam->o;
+	ray.o = cam->o;
 	ray.dir = vadd(vscale(cam->hor, x), vscale(cam->ver, y));
 	ray.dir = vadd(ray.dir, cam->llc);
-	ray.dir = normalize(vsub(ray.dir, ray.orig));
+	ray.dir = normalize(vsub(ray.dir, ray.o));
 	return (ray);
 }
 
@@ -82,7 +82,7 @@ int	ccomp(t_light *light, t_hit hit)
 		light_bright = 0;
 	else
 		light_bright = (light->br * gain * ALBEDO) / (4.0 * M_PI * r2);
-	return (cprod(cadd(0, cscale(hit.color, light_bright)), light->color));
+	return (cprod(cadd(0, cscale(hit.clr, light_bright)), light->clr));
 }
 
 void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
@@ -91,7 +91,7 @@ void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 	t_p3	oc;
 	double	k[3];
 
-	oc = vsub(ray->orig, sp.c);
+	oc = vsub(ray->o, sp.c);
 	k[0] = dot(ray->dir, ray->dir);
 	k[1] = 2 * dot(ray->dir, oc);
 	k[2] = dot(oc, oc) - sp.r * sp.r;
@@ -110,7 +110,7 @@ void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 
 t_p3	get_hit_point(t_ray ray)
 {
-	return (vadd(ray.orig, vscale(ray.dir, ray.hit.time)));
+	return (vadd(ray.o, vscale(ray.dir, ray.hit.time)));
 }
 
 int	hit_plane(t_figures *elem, t_ray *ray)
@@ -121,7 +121,7 @@ int	hit_plane(t_figures *elem, t_ray *ray)
 	den = dot(normalize(ray->dir), elem->nv);
 	if (!den)
 		return (0);
-	time = (dot(vsub(elem->fig.pl.p, ray->orig), elem->nv) / den);
+	time = (dot(vsub(elem->fig.pl.p, ray->o), elem->nv) / den);
 	if (ray->hit.time > time && time > EPSILON)
 	{
 		ray->hit.time = time;
@@ -129,7 +129,7 @@ int	hit_plane(t_figures *elem, t_ray *ray)
 		if (dot(ray->dir, elem->nv) > 0)
 			elem->nv = vscale(elem->nv, -1);
 		ray->hit.nv = elem->nv;
-		ray->hit.color = elem->color;
+		ray->hit.clr = elem->clr;
 		return (1);
 	}
 	return (0);
@@ -147,7 +147,7 @@ int	hit_sphere(t_figures *elem, t_ray *ray)
 		ray->hit.time = time[0];
 		ray->hit.point = get_hit_point(*ray);
 		ray->hit.nv = normalize(vsub(ray->hit.point, sp.c));
-		ray->hit.color = elem->color;
+		ray->hit.clr = elem->clr;
 		return (1);
 	}
 	return (0);
@@ -163,9 +163,9 @@ int	intersect(t_minirt *rt, t_ray *ray)
 	elem = rt->scene.figures;
 	while (elem)
 	{
-		if (elem->flag == SP)
+		if (elem->type == SP)
 			ret |= hit_sphere(elem, ray);
-		else if (elem->flag == PL)
+		else if (elem->type == PL)
 			ret |= hit_plane(elem, ray);
 		elem = elem->next;
 	}
@@ -176,7 +176,7 @@ int	in_shadow(t_minirt *rt, t_hit hit, t_light *light)
 {
 	t_ray	shadow;
 
-	shadow.orig = hit.point;
+	shadow.o = hit.point;
 	shadow.dir = normalize(vsub(light->o, hit.point));
 	return (intersect(rt, &shadow));
 }
@@ -190,8 +190,8 @@ int	raytrace(t_minirt *rt, t_ray *ray)
 
 	if (!intersect(rt, ray))
 		return (0);
-	al_color = cscale(rt->scene.al_color, rt->scene.al_ratio);
-	color = cprod(ray->hit.color, al_color);
+	al_color = cscale(rt->scene.al_clr, rt->scene.al_br);
+	color = cprod(ray->hit.clr, al_color);
 	light = rt->scene.light;
 	while (light)
 	{
@@ -212,27 +212,27 @@ void		mlx_put_pixel2img(t_img *img, int x, int y, int colour)
 
 void	render_scene(t_minirt *rt, t_cam *cam)
 {
-	int		x;
-	int		y;
+	double	x;
+	double	y;
 	t_ray	ray;
 	int		color;
 
 	if (!cam)
 		return ;
-	cam->img.ptr = mlx_new_image(rt->mlx, rt->win_w, rt->win_h);
+	cam->img.ptr = mlx_new_image(rt->mlx, rt->scene.xres, rt->scene.yres);
 	cam->img.addr = mlx_get_data_addr(cam->img.ptr, &cam->img.bpp,
 			&cam->img.size, &cam->img.endian);
 	if (!cam->img.ptr || !cam->img.addr)
 		put_error("fail to set mlx\n");
 	y = -1;
-	while (++y < (rt->win_h - 1))
+	while (++y < (rt->scene.yres - 1))
 	{
 		x = -1;
-		while (++x < (rt->win_w - 1))
+		while (++x < (rt->scene.xres - 1))
 		{
-			ray = create_ray(cam, (double)x / rt->win_w, (double)y / rt->win_h);
+			ray = create_ray(cam, x / rt->scene.xres, y / rt->scene.yres);
 			color = raytrace(rt, &ray);
-			mlx_put_pixel2img(&cam->img, x, (rt->win_h - 1) - y, color);
+			mlx_put_pixel2img(&cam->img, x, (rt->scene.yres - 1) - y, color);
 		}
 	}
 	if (!rt->save)
