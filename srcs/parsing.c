@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:28:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/29 15:08:32 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,10 @@ void	parse_camera(t_scene *scene, char **str)
 			normalize(parse_vec3(str)), stoi(str));
 	ptr = scene->cam;
 	if (!ptr)
+	{
 		scene->cam = new;
+		scene->cam_start = new;
+	}
 	else
 	{
 		while (ptr->next)

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:39:27 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/29 15:05:23 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,6 +172,15 @@ int	intersect(t_minirt *rt, t_ray *ray)
 	return (ret);
 }
 
+int	in_shadow(t_minirt *rt, t_hit hit, t_light *light)
+{
+	t_ray	shadow;
+
+	shadow.orig = vadd(hit.point, vscale(hit.nv, 0.1));
+	shadow.dir = normalize(vsub(light->o, shadow.orig));
+	return (intersect(rt, &shadow));
+}
+
 int	raytrace(t_minirt *rt, t_ray *ray)
 {
 	int		al_color;
@@ -186,7 +195,7 @@ int	raytrace(t_minirt *rt, t_ray *ray)
 	light = rt->scene.light;
 	while (light)
 	{
-		vis = 1;
+		vis = !in_shadow(rt, ray->hit, light);
 		color = cadd(color, vis * ccomp(light, ray->hit));
 		light = light->next;
 	}

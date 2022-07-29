@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:28:14 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/29 15:21:54 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	exit_program(void *param)
 
 void	init_scene(t_scene *scene)
 {
+	scene->cam_start = NULL;
 	scene->cam = NULL;
 	scene->figures = NULL;
 	scene->light = NULL;
@@ -44,13 +45,22 @@ void	init_minirt(t_minirt *rt)
 
 int	key_hook(int keycode, t_minirt *rt)
 {
-	(void)rt;
+	t_cam	*cam;
+
 	if (keycode == KEY_ESC)
 		exit(0);
+	if (keycode != KEY_SPACE)
+		return (0);
+	cam = rt->scene.cam;
+	rt->scene.cam = rt->scene.cam->next;
+	if (!rt->scene.cam)
+		rt->scene.cam = rt->scene.cam_start;
+	render_scene(rt, rt->scene.cam);
+	mlx_put_image_to_window(rt->mlx, rt->win, rt->scene.cam->img.ptr, 0, 0);
 	return (1);
 }
 
-void	init_mlx(t_minirt *rt)
+void	set_mlx(t_minirt *rt)
 {
 	rt->save = 0;
 	rt->mlx = mlx_init();
@@ -59,7 +69,7 @@ void	init_mlx(t_minirt *rt)
 	printf("start minirt\n");
 	rt->win = mlx_new_window(rt->mlx, rt->win_w, rt->win_h, "minirt");
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
-	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, &rt);
+	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, rt);
 }
 
 int	main(int ac, char **av)
@@ -73,7 +83,7 @@ int	main(int ac, char **av)
 	}
 	init_minirt(&rt);
 	parse_file(&rt, av);
-	init_mlx(&rt);
+	set_mlx(&rt);
 	render_scene(&rt, rt.scene.cam);
 	mlx_loop(rt.mlx);
 	return (0);

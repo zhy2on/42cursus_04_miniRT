@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:29:14 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/29 15:03:46 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ enum e_key
 {
 	ON_KEYDOWN = 2,
 	DESTROYNOTIFY = 17,
-	KEY_ESC = 53
+	KEY_ESC = 53,
+	KEY_SPACE = 49
 } ;
 
 typedef struct s_img {
@@ -107,6 +108,7 @@ typedef struct s_figures
 
 typedef struct s_scene
 {
+	t_cam		*cam_start;
 	t_cam		*cam;
 	t_figures	*figures;
 	t_light		*light;

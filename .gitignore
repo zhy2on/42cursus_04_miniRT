@@ -1,5 +1,6 @@
 a.out
-objs/
+objs
+./libft/objs
 libft/libft.a
 miniRT
 .vscode
