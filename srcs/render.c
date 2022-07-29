@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/29 15:05:23 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/29 18:12:45 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
 	}
 	else
 	{
-		root[0] = (-k[1] + sqrt(discriminant)) / (2 * k[0]);
-		root[1] = (-k[1] - sqrt(discriminant)) / (2 * k[0]);
+		root[0] = (-k[1] - sqrt(discriminant)) / (2 * k[0]);
+		root[1] = (-k[1] + sqrt(discriminant)) / (2 * k[0]);
 	}
 }
 
@@ -176,8 +176,8 @@ int	in_shadow(t_minirt *rt, t_hit hit, t_light *light)
 {
 	t_ray	shadow;
 
-	shadow.orig = vadd(hit.point, vscale(hit.nv, 0.1));
-	shadow.dir = normalize(vsub(light->o, shadow.orig));
+	shadow.orig = hit.point;
+	shadow.dir = normalize(vsub(light->o, hit.point));
 	return (intersect(rt, &shadow));
 }
 
