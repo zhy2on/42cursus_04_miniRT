@@ -17,7 +17,7 @@ LIBFT_LIB	= libft.a
 
 # === Source files === #
 SRCS		= main.c parsing.c utils.c vec3.c parsing_light.c parsing_utils.c parsing_sphere.c \
-				cam.c render.c
+				cam.c render.c color.c hit.c raytrace.c
 #SRCS		= $(wildcard $(dir)/*.c)
 
 # === Header files === #

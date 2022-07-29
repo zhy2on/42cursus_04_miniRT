@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 04:18:35 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:43:43 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,27 +17,6 @@ int	exit_program(void *param)
 	(void)param;
 	exit(0);
 	return (1);
-}
-
-void	init_scene(t_scene *scene)
-{
-	scene->cam = NULL;
-	scene->figures = NULL;
-	scene->light = NULL;
-	scene->xres = -1;
-	scene->yres = -1;
-	scene->cam_nb = 0;
-	scene->al_br = -1;
-	scene->al_clr = -1;
-	scene->bgr = -1;
-}
-
-void	init_minirt(t_minirt *rt)
-{
-	rt->save = 0;
-	rt->mlx = NULL;
-	rt->win = NULL;
-	init_scene(&rt->scene);
 }
 
 int	key_hook(int keycode, t_minirt *rt)
@@ -64,15 +43,28 @@ void	set_mlx(t_minirt *rt)
 	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, rt);
 }
 
+void	init_minirt(t_minirt *rt)
+{
+	rt->save = 0;
+	rt->mlx = NULL;
+	rt->win = NULL;
+	rt->scene.cam = NULL;
+	rt->scene.figures = NULL;
+	rt->scene.light = NULL;
+	rt->scene.xres = -1;
+	rt->scene.yres = -1;
+	rt->scene.cam_nb = 0;
+	rt->scene.al_br = -1;
+	rt->scene.al_clr = -1;
+	rt->scene.bgr = -1;
+}
+
 int	main(int ac, char **av)
 {
 	t_minirt	rt;
 
 	if (ac < 2 || ac > 3)
-	{
-		printf("Usage: %s <scene.rt>\n", av[0]);
-		exit(EXIT_FAILURE);
-	}
+		put_error("Usage: ./miniRT <scene.rt>\n");
 	init_minirt(&rt);
 	parse_file(&rt, av);
 	set_mlx(&rt);

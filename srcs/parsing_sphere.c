@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:13:36 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/30 04:22:00 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:37:38 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ void	parse_sphere(t_scene *scene, char **str)
 	next(str);
 	new->fig.sp.c = parse_vec3(str);
 	new->fig.sp.r = stof(str) / 2;
-	new->specular = stoi(str);
+	new->specular = stof(str);
 	new->refl_idx = stof(str);
 	new->refr_idx = stof(str);
-	new->texture = stoi(str);
+	new->texture = stof(str);
 	if (new->texture == 2)
 		new->wavelength = stof(str);
 	new->clr = parse_color(str);
@@ -54,10 +54,10 @@ void	parse_plane(t_scene *scene, char **str)
 	next(str);
 	new->fig.pl.p = parse_vec3(str);
 	new->nv = normalize(parse_vec3(str));
-	new->specular = stoi(str);
+	new->specular = stof(str);
 	new->refl_idx = stof(str);
 	new->refr_idx = stof(str);
-	new->texture = stoi(str);
+	new->texture = stof(str);
 	if (new->texture == 2)
 		new->wavelength = stof(str);
 	new->clr = parse_color(str);

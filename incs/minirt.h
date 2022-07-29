@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 04:28:42 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:51:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,6 @@ void		parse_plane(t_scene *scene, char **str);
 void		next(char **str);
 double		stof(char **str);
 void		comma(char **str);
-int			stoi(char **str);
 int			parse_color(char **str);
 t_vec3		parse_vec3(char **str);
 void		add_figures_back(t_scene *scene, t_figures *new);
@@ -162,8 +161,22 @@ void		render_scene(t_minirt *rt, t_cam *cam);
 /*
 ** hit **
 */
-int			hit_pl(t_ray *ray, t_figures *elem);
-int			hit_sp(t_ray *ray, t_figures *elem);
+int			hit_sphere(t_figures *elem, t_ray *ray);
+int			hit_plane(t_figures *elem, t_ray *ray);
 t_vec3		get_hit_point(t_ray ray);
+
+/*
+** color **
+*/
+int			ccomp(t_light *light, t_hit hit);
+int			cadd(int c1, int c2);
+int			cprod(int c1, int c2);
+int			cscale(int color, double d);
+int			check_rgb(int n);
+
+/*
+** ray trace **
+*/
+int			raytrace(t_minirt *rt, t_ray *ray);
 
 #endif

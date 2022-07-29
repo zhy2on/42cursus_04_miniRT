@@ -6,31 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 03:39:02 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:37:38 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-char	*readfile(char *str, int fd)
-{
-	char	buf[BUFSIZE + 1];
-	char	*ptr;
-	int		ret;
-
-	ret = read(fd, buf, BUFSIZE);
-	while (ret > 0)
-	{
-		ptr = str;
-		buf[ret] = '\0';
-		str = ft_strjoin(str, buf);
-		if (!str)
-			return (NULL);
-		free(ptr);
-		ret = read(fd, buf, BUFSIZE);
-	}
-	return (str);
-}
 
 t_cam	*get_cam_node(int idx, t_p3 o, t_vec3 nv, int fov)
 {
@@ -53,7 +33,7 @@ void	parse_camera(t_scene *scene, char **str)
 
 	next(str);
 	new = get_cam_node(scene->cam_nb++, parse_vec3(str),
-			normalize(parse_vec3(str)), stoi(str));
+			normalize(parse_vec3(str)), stof(str));
 	ptr = scene->cam;
 	if (!ptr)
 		scene->cam = new;
@@ -67,13 +47,13 @@ void	parse_camera(t_scene *scene, char **str)
 	new->next = scene->cam;
 }
 
-void	parse_res(t_scene *scene, char **str)
+void	parse_resolution(t_scene *scene, char **str)
 {
 	if (scene->xres != -1 || scene->yres != -1)
 		put_error("resolution declared multiple times\n");
 	next(str);
-	scene->xres = stoi(str);
-	scene->yres = stoi(str);
+	scene->xres = stof(str);
+	scene->yres = stof(str);
 	if (scene->xres < 1 || scene->xres > INFINITY
 		|| scene->yres < 1 || scene->yres > INFINITY)
 		put_error("resolution setting is out of range");
@@ -84,7 +64,7 @@ void	parse_scene(t_scene *scene, char *str)
 	if (*str == '#')
 		return ;
 	if (*str == 'R' && *(str++))
-		parse_res(scene, &str);
+		parse_resolution(scene, &str);
 	else if (*str == 'A' && *(str++))
 		parse_ambient_light(scene, &str);
 	else if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
