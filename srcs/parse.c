@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 04:37:38 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 18:49:01 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ void	parse_scene(t_scene *scene, char *str)
 		parse_sphere(scene, &str);
 	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
 		parse_plane(scene, &str);
+	else if (*str == 'c' && *(str + 1) == 'y' && *(str++) && *(str++))
+		parse_cylinder(scene, &str);
 }
 
 void	parse_file(t_minirt *rt, char **av)

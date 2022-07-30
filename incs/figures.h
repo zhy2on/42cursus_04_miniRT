@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   figures.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/28 21:28:41 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 18:43:47 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,12 @@
 
 # include "minirt.h"
 
-# define SP 0
-# define PL 1
+enum e_type
+{
+	SP,
+	PL,
+	CY
+} ;
 
 typedef struct s_sphere
 {
@@ -42,7 +46,7 @@ typedef struct s_cylinder
 	t_p3	c;
 	t_p3	nv;
 	double	r;
-	double	h;
+	double	height;
 	double	dist1;
 	double	dist2;
 }				t_cylinder;

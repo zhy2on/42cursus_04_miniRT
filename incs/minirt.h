@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 04:51:06 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 18:48:45 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 # define BUFSIZE 32
 # define EPSILON 0.00001
-# define ALBEDO		1000
+# define ALBEDO	1000
 
 enum e_key
 {
@@ -117,6 +117,7 @@ typedef struct s_minirt {
 */
 void		parse_sphere(t_scene *scene, char **str);
 void		parse_plane(t_scene *scene, char **str);
+void		parse_cylinder(t_scene *scene, char **str);
 
 /*
 ** parsing_utils **
@@ -131,9 +132,8 @@ void		add_figures_back(t_scene *scene, t_figures *new);
 /*
 ** parsing
 */
-char		*readfile(char *str, int fd);
 void		parse_file(t_minirt *rt, char **av);
-void		parse_elems(t_minirt *rt, char *str);
+void		parse_scene(t_scene *scene, char *str);
 
 /*
 ** parsing_light

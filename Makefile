@@ -16,7 +16,7 @@ LIBFT_INC	= $(LIBFT_DIR)includes/
 LIBFT_LIB	= libft.a
 
 # === Source files === #
-SRCS		= main.c parsing.c utils.c vec3.c parsing_light.c parsing_utils.c parsing_sphere.c \
+SRCS		= main.c utils.c vec3.c parse_figures.c parse_light.c parse_utils.c parse.c \
 				cam.c render.c color.c hit.c raytrace.c
 #SRCS		= $(wildcard $(dir)/*.c)
 
