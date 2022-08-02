@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 17:45:34 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 21:32:28 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,7 @@ double	length_squared(t_vec3 v);
 double	length(t_vec3 v);
 
 t_vec3	normalize(t_vec3 v);
+
+double	distance(t_vec3 u, t_vec3 v);
 
 #endif

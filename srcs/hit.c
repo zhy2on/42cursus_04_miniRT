@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/02 20:00:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 21:54:00 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,33 @@ t_p3	get_hit_point(t_ray ray)
 	return (vadd(ray.o, vscale(ray.dir, ray.hit.time)));
 }
 
+double	hit_plane_time(t_p3 o, t_vec3 dir, t_p3 p, t_vec3 nv)
+{
+	double	x;
+	double	denom;
+
+	denom = dot(nv, dir);
+	if (denom == 0)
+		return (INFINITY);
+	x = (dot(nv, vsub(p, o))) / denom;
+	if (x > 0)
+		return (x);
+	else
+		return (INFINITY);
+}
+
 int	hit_plane(t_ray *ray, t_figures *elem)
 {
-	double	time;
-	double	den;
+	double	pl_time;
 	t_plane	pl;
 
 	pl = elem->fig.pl;
-	den = dot(normalize(ray->dir), pl.nv);
-	if (!den)
+	pl_time = hit_plane_time(ray->o, ray->dir, pl.p, pl.nv);
+	if (pl_time == INFINITY)
 		return (0);
-	time = (dot(vsub(pl.p, ray->o), pl.nv) / den);
-	if (ray->hit.time > time && time > EPSILON)
+	if (ray->hit.time > pl_time && pl_time > EPSILON)
 	{
-		ray->hit.time = time;
+		ray->hit.time = pl_time;
 		ray->hit.point = get_hit_point(*ray);
 		if (dot(ray->dir, pl.nv) > 0)
 			pl.nv = vscale(pl.nv, -1);
@@ -84,15 +97,13 @@ int	hit_sphere(t_ray *ray, t_figures *elem)
 	return (0);
 }
 
-double	cylinder_hit_time(t_ray *ray, t_figures *elem, double *y,
-		double time[2])
+double	cylinder_hit_time(t_ray *ray, t_cylinder cy, double *y)
 {
 	t_vec3		v[2];
 	t_vec3		oc;
-	t_cylinder	cy;
 	double		dist[2];
+	double		time[2];
 
-	cy = elem->fig.cy;
 	oc = vsub(ray->o, cy.c);
 	v[0] = vsub(ray->dir, vscale(cy.nv, dot(ray->dir, cy.nv)));
 	v[1] = vsub(oc, vscale(cy.nv, dot(oc, cy.nv)));
@@ -113,22 +124,56 @@ double	cylinder_hit_time(t_ray *ray, t_figures *elem, double *y,
 	return (INFINITY);
 }
 
+double	caps_hit_time(t_ray *ray, t_cylinder cy)
+{
+	double	time[2];
+	int		ret[2];
+	t_vec3	v[2];
+	t_p3	c2;
+
+	c2 = vadd(cy.c, vscale(cy.nv, cy.height));
+	time[0] = hit_plane_time(ray->o, ray->dir, cy.c, cy.nv);
+	time[1] = hit_plane_time(ray->o, ray->dir, c2, cy.nv);
+	if (time[0] < INFINITY || time[1] < INFINITY)
+	{
+		v[0] = vadd(ray->o, vscale(ray->dir, time[0]));
+		v[1] = vadd(ray->o, vscale(ray->dir, time[1]));
+		ret[0] = (time[0] < INFINITY && distance(v[0], cy.c) <= cy.r);
+		ret[1] = (time[1] < INFINITY && distance(v[1], c2) <= cy.r);
+		if (ret[0] && ret[1])
+		{
+			if (time[0] < time[1])
+				return (time[0]);
+			return (time[1]);
+		}
+		else if (ret[0])
+			return (time[0]);
+		else if (ret[1])
+			return (time[1]);
+	}
+	return (INFINITY);
+}
+
 int	hit_cylinder(t_ray *ray, t_figures *elem)
 {
 	double		time[2];
-	double		cy_time;
 	double		y;
 	t_cylinder	cy;
 
 	cy = elem->fig.cy;
-	cy_time = cylinder_hit_time(ray, elem, &y, time);
-	if (cy_time < INFINITY && ray->hit.time > cy_time && cy_time > EPSILON)
+	time[0] = cylinder_hit_time(ray, cy, &y);
+	time[1] = caps_hit_time(ray, cy);
+	if (time[1] < time[0])
+		time[0] = time[1];
+	if (time[0] < INFINITY && ray->hit.time > time[0] && time[0] > EPSILON)
 	{
-		ray->hit.time = cy_time;
+		ray->hit.time = time[0];
 		ray->hit.point = get_hit_point(*ray);
-		ray->hit.nv = normalize(vsub(ray->hit.point,
-					vadd(vscale(cy.nv, y), cy.c)));
+		if (time[0] == time[1])
+			ray->hit.nv = cy.nv;
+		else
+			ray->hit.nv = normalize(vsub(ray->hit.point, vadd(vscale(cy.nv, y), cy.c)));
 		ray->hit.clr = elem->clr;
 	}
-	return (cy_time != INFINITY);
+	return (time[0] < INFINITY);
 }

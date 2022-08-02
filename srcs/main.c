@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/02 19:22:49 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 20:06:26 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,19 +65,12 @@ void	init_minirt(t_minirt *rt)
 int	main(int ac, char **av)
 {
 	t_minirt	rt;
-	t_figures	*elem;
 
 	if (ac < 2 || ac > 3)
 		put_error("Usage: ./miniRT <scene.rt>\n");
 	init_minirt(&rt);
 	parse_file(&rt, av);
 	set_mlx(&rt);
-	elem = rt.scene.figures;
-	while (elem)
-	{
-		printf("%d\n", elem->type);
-		elem = elem->next;
-	}
 	render_scene(&rt, rt.scene.cam);
 	mlx_loop(rt.mlx);
 	return (0);

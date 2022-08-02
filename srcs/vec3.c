@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/26 19:12:09 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/02 21:32:21 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,4 +80,12 @@ t_vec3	normalize(t_vec3 v)
 
 	mod = length(v);
 	return (create_vec3(v.x / mod, v.y / mod, v.z / mod));
+}
+
+double	distance(t_vec3 u, t_vec3 v)
+{
+	double	d;
+
+	d = sqrt(pow(v.x - u.x, 2) + pow(v.y - u.y, 2) + pow(v.z - u.z, 2));
+	return (d);
 }
