@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 18:49:01 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 18:05:44 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cam	*get_cam_node(int idx, t_p3 o, t_vec3 nv, int fov)
+t_cam	*get_cam_node(t_p3 o, t_vec3 nv, int fov)
 {
 	t_cam	*cam;
 
 	cam = ft_malloc(sizeof(t_cam));
-	cam->idx = idx;
 	cam->o = o;
 	cam->nv = nv;
 	cam->fov = fov;
@@ -29,22 +28,22 @@ void	parse_camera(t_scene *scene, char **str)
 {
 	t_cam	*new;
 	t_cam	*ptr;
-	int		i;
 
 	next(str);
-	new = get_cam_node(scene->cam_nb++, parse_vec3(str),
+	new = get_cam_node(parse_vec3(str),
 			normalize(parse_vec3(str)), stof(str));
 	ptr = scene->cam;
 	if (!ptr)
+	{
+		scene->first = new;
 		scene->cam = new;
+	}
 	else
 	{
-		i = 0;
-		while (i++ < scene->cam_nb)
+		while (ptr->next)
 			ptr = ptr->next;
 		ptr->next = new;
 	}
-	new->next = scene->cam;
 }
 
 void	parse_resolution(t_scene *scene, char **str)

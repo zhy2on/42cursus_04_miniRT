@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 19:03:18 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 18:07:13 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	key_hook(int keycode, t_minirt *rt)
 		exit(0);
 	if (keycode != KEY_SPACE)
 		return (0);
-	rt->scene.cam = rt->scene.cam->next;
+	if (rt->scene.cam->next)
+		rt->scene.cam = rt->scene.cam->next;
+	else
+		rt->scene.cam = rt->scene.first;
 	render_scene(rt, rt->scene.cam);
 	mlx_put_image_to_window(rt->mlx, rt->win, rt->scene.cam->img.ptr, 0, 0);
 	return (1);
@@ -48,12 +51,12 @@ void	init_minirt(t_minirt *rt)
 	rt->save = 0;
 	rt->mlx = NULL;
 	rt->win = NULL;
+	rt->scene.first = NULL;
 	rt->scene.cam = NULL;
 	rt->scene.figures = NULL;
 	rt->scene.light = NULL;
 	rt->scene.xres = -1;
 	rt->scene.yres = -1;
-	rt->scene.cam_nb = 0;
 	rt->scene.al_br = -1;
 	rt->scene.al_clr = -1;
 	rt->scene.bgr = -1;

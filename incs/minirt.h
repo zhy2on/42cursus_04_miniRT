@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 20:45:10 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 18:03:08 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ typedef struct s_img {
 
 typedef struct s_cam
 {
-	int				idx;
 	t_p3			o;
 	t_vec3			nv;
 	int				fov;
@@ -96,7 +95,7 @@ typedef struct s_scene
 {
 	int			xres;
 	int			yres;
-	int			cam_nb;
+	t_cam		*first;
 	t_cam		*cam;
 	t_figures	*figures;
 	t_light		*light;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/02 01:16:23 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 17:55:07 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,8 @@ void	solve_quadratic(double a, double b, double c, double root[2])
 		root[0] = tmp[1];
 		root[1] = tmp[0];
 	}
+	if (tmp[0] < 0 && tmp[1] > 0)
+		root[0] = tmp[1];
 }
 
 int	hit_sphere(t_ray *ray, t_figures *elem)
@@ -68,8 +70,8 @@ int	hit_sphere(t_ray *ray, t_figures *elem)
 	sp = elem->fig.sp;
 	oc = vsub(ray->o, sp.c);
 	solve_quadratic(length_squared(ray->dir), 2 * dot(ray->dir, oc),
-		dot(oc, oc) - pow(sp.r, 2), time);
-	if (ray->hit.time > time[0] && time[0] > 0)
+		length_squared(oc) - pow(sp.r, 2), time);
+	if (ray->hit.time > time[0] && time[0] > EPSILON)
 	{
 		ray->hit.time = time[0];
 		ray->hit.point = get_hit_point(*ray);
@@ -80,70 +82,52 @@ int	hit_sphere(t_ray *ray, t_figures *elem)
 	return (0);
 }
 
-// double	solve_cylinder(t_ray *ray, t_cylinder cy, double *y, int ret[2])
-// {
-// 	t_vec3		vu[2];
-// 	t_vec3		oc;
-// 	t_vec3		co;
-// 	double		time[2];
-// 	double		dist[2];
-
-// 	oc = vsub(ray->o, cy.c);
-// 	vu[0] = vsub(ray->dir, vscale(cy.nv, dot(ray->dir, cy.nv)));
-// 	vu[1] = vsub(oc, vscale(cy.nv, dot(oc, cy.nv)));
-// 	solve_quadratic(dot(vu[0], vu[0]), 2 * dot(vu[0], vu[1]),
-// 		dot(vu[1], vu[1]) - pow(cy.r, 2), time);
-// 	co = vsub(cy.c, ray->o);
-// 	dist[0] = dot(cy.nv, vsub(vscale(ray->dir, time[0]), co));
-// 	dist[1] = dot(cy.nv, vsub(vscale(ray->dir, time[1]), co));
-// 	ret[0] = (dist[0] >= 0 && dist[0] <= cy.height && time[0] > EPSILON);
-// 	ret[1] = (dist[1] >= 0 && dist[1] <= cy.height && time[1] > EPSILON);
-// 	if (ret[0] == 0 & ret[1] == 1)
-// 	{
-// 		*y = dist[1];
-// 		return (time[1]);
-// 	}
-// 	*y = dist[0];
-// 	return (time[0]);
-// }
-
-double	calc_cylinder(t_ray *ray, t_cylinder cy, double time[2])
+double	cylinder_hit_time(t_ray *ray, t_figures *elem, double *y,
+		double time[2])
 {
-	t_vec3		u;
-	t_vec3		v;
+	t_vec3		v[2];
 	t_vec3		oc;
+	t_cylinder	cy;
 	double		dist[2];
 
+	cy = elem->fig.cy;
 	oc = vsub(ray->o, cy.c);
-	u = vsub(ray->dir, vscale(cy.nv, dot(ray->dir, cy.nv)));
-	v = vsub(oc, vscale(cy.nv, dot(oc, cy.nv)));
-	solve_quadratic(dot(v, v), 2 * dot(v, u), dot(u, u) - pow(cy.r, 2), time);
+	v[0] = vsub(ray->dir, vscale(cy.nv, dot(ray->dir, cy.nv)));
+	v[1] = vsub(oc, vscale(cy.nv, dot(oc, cy.nv)));
+	solve_quadratic(length_squared(v[0]),
+		2 * dot(v[0], v[1]), length_squared(v[1]) - pow(cy.r, 2), time);
 	dist[0] = dot(cy.nv, vsub(vscale(ray->dir, time[0]), vscale(oc, -1)));
 	dist[1] = dot(cy.nv, vsub(vscale(ray->dir, time[1]), vscale(oc, -1)));
-	if (!((dist[0] >= 0 && dist[1] <= cy.height && time[0] > EPSILON)
-			|| (dist[1] >= 0 && dist[1] <= cy.height && time[0] > EPSILON)))
+	if (dist[0] >= 0 && dist[0] <= cy.height && time[0] > EPSILON)
+	{
+		*y = dist[0];
+		return (time[0]);
+	}
+	if (dist[1] >= 0 && dist[1] <= cy.height && time[1] > EPSILON)
+	{
+		*y = dist[1];
 		return (time[1]);
-	return (time[0]);
+	}
+	return (INFINITY);
 }
 
 int	hit_cylinder(t_ray *ray, t_figures *elem)
 {
-	int		ret[2];
 	double	time[2];
 	double	cy_time;
 	double	y;
 
-	cy_time = calc_cylinder(ray, elem->fig.cy, time);
-	if ((ret[0] || ret[1]) && ray->hit.time > time && time > EPSILON)
+	cy_time = cylinder_hit_time(ray, elem, &y, time);
+	if (cy_time != INFINITY && ray->hit.time > cy_time && cy_time > EPSILON)
 	{
-		ray->hit.time = time;
+		ray->hit.time = cy_time;
 		ray->hit.point = get_hit_point(*ray);
-		if (ret[0] == false & ret[1] == true)
-			ray->hit.normal = v_scale(ray->hit.normal, -1);
+		if (cy_time == time[1])
+			ray->hit.nv = vscale(ray->hit.nv, -1);
 		else
-			ray->hit.normal = v_norm(v_sub(ray->hit.point,
-			v_add(v_scale(elem->normal, y), elem->point)));
-		ray->hit.colour = elem->colour;
+			ray->hit.nv = normalize(vsub(ray->hit.point,
+						vadd(vscale(elem->nv, y), elem->fig.cy.c)));
+		ray->hit.clr = elem->clr;
 	}
-	return (ret[0] || ret[1]);
+	return (cy_time != INFINITY);
 }
