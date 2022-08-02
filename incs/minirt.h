@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:29:14 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 19:55:26 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,14 @@
 
 # define BUFSIZE 32
 # define EPSILON 0.00001
-# define ALBEDO		1000
+# define ALBEDO	1000
 
 enum e_key
 {
 	ON_KEYDOWN = 2,
 	DESTROYNOTIFY = 17,
-	KEY_ESC = 53
+	KEY_ESC = 53,
+	KEY_SPACE = 49
 } ;
 
 typedef struct s_img {
@@ -43,7 +44,6 @@ typedef struct s_img {
 
 typedef struct s_cam
 {
-	int				idx;
 	t_p3			o;
 	t_vec3			nv;
 	int				fov;
@@ -59,13 +59,12 @@ typedef struct s_hit
 	double		time;
 	t_p3		point;
 	t_vec3		nv;
-	int			color;
-	void		*obj;
+	int			clr;
 }				t_hit;
 
 typedef struct s_ray
 {
-	t_p3	orig;
+	t_p3	o;
 	t_vec3	dir;
 	t_hit	hit;
 }			t_ray;
@@ -74,47 +73,33 @@ typedef struct s_light
 {
 	t_p3			o;
 	double			br;
-	int				color;
+	int				clr;
 	struct s_light	*next;
 }				t_light;
 
 typedef struct s_figures
 {
-	int					flag;
+	int					type;
 	union u_figures		fig;
-	int					color;
+	int					clr;
 	int					specular;
 	double				refl_idx;
 	double				refr_idx;
 	int					texture;
-	t_p3				nv;
 	double				wavelength;
 	struct s_figures	*next;
 }				t_figures;
 
-// typedef struct s_elem
-// {
-// 	t_p3			point;
-// 	t_vec3			normal;
-// 	t_vec3			*vertex;
-// 	short int		qtd_vertex;
-// 	int				colour;
-// 	double			ratio;
-// 	double			diam;
-// 	double			height;
-// 	struct s_elem	*next;
-// }					t_elem;
-
 typedef struct s_scene
 {
+	int			xres;
+	int			yres;
+	t_cam		*first;
 	t_cam		*cam;
 	t_figures	*figures;
 	t_light		*light;
-	int			xres;
-	int			yres;
-	int			cam_nb;
-	double		al_ratio;
-	int			al_color;
+	double		al_br;
+	int			al_clr;
 	int			bgr;
 }				t_scene;
 
@@ -122,8 +107,6 @@ typedef struct s_minirt {
 	int			save;
 	void		*mlx;
 	void		*win;
-	int			win_w;
-	int			win_h;
 	t_scene		scene;
 }				t_minirt;
 
@@ -132,6 +115,7 @@ typedef struct s_minirt {
 */
 void		parse_sphere(t_scene *scene, char **str);
 void		parse_plane(t_scene *scene, char **str);
+void		parse_cylinder(t_scene *scene, char **str);
 
 /*
 ** parsing_utils **
@@ -139,7 +123,6 @@ void		parse_plane(t_scene *scene, char **str);
 void		next(char **str);
 double		stof(char **str);
 void		comma(char **str);
-int			stoi(char **str);
 int			parse_color(char **str);
 t_vec3		parse_vec3(char **str);
 void		add_figures_back(t_scene *scene, t_figures *new);
@@ -147,9 +130,8 @@ void		add_figures_back(t_scene *scene, t_figures *new);
 /*
 ** parsing
 */
-char		*readfile(char *str, int fd);
 void		parse_file(t_minirt *rt, char **av);
-void		parse_elems(t_minirt *rt, char *str);
+void		parse_scene(t_scene *scene, char *str);
 
 /*
 ** parsing_light
@@ -177,8 +159,23 @@ void		render_scene(t_minirt *rt, t_cam *cam);
 /*
 ** hit **
 */
-int			hit_pl(t_ray *ray, t_figures *elem);
-int			hit_sp(t_ray *ray, t_figures *elem);
-// static void	bhaskara(float a, float b, float c, float *res);
+int			hit_sphere(t_ray *ray, t_figures *elem);
+int			hit_plane(t_ray *ray, t_figures *elem);
+int			hit_cylinder(t_ray *ray, t_figures *elem);
 t_vec3		get_hit_point(t_ray ray);
+
+/*
+** color **
+*/
+int			ccomp(t_light *light, t_hit hit);
+int			cadd(int c1, int c2);
+int			cprod(int c1, int c2);
+int			cscale(int color, double d);
+int			check_rgb(int n);
+
+/*
+** ray trace **
+*/
+int			raytrace(t_minirt *rt, t_ray *ray);
+
 #endif

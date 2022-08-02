@@ -1,43 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:28:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 20:00:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-char	*readfile(char *str, int fd)
-{
-	char	buf[BUFSIZE + 1];
-	char	*ptr;
-	int		ret;
-
-	ret = read(fd, buf, BUFSIZE);
-	while (ret > 0)
-	{
-		ptr = str;
-		buf[ret] = '\0';
-		str = ft_strjoin(str, buf);
-		if (!str)
-			return (NULL);
-		free(ptr);
-		ret = read(fd, buf, BUFSIZE);
-	}
-	return (str);
-}
-
-t_cam	*get_cam_node(int idx, t_p3 o, t_vec3 nv, int fov)
+t_cam	*get_cam_node(t_p3 o, t_vec3 nv, int fov)
 {
 	t_cam	*cam;
 
 	cam = ft_malloc(sizeof(t_cam));
-	cam->idx = idx;
 	cam->o = o;
 	cam->nv = nv;
 	cam->fov = fov;
@@ -51,11 +30,14 @@ void	parse_camera(t_scene *scene, char **str)
 	t_cam	*ptr;
 
 	next(str);
-	new = get_cam_node(scene->cam_nb++, parse_vec3(str),
-			normalize(parse_vec3(str)), stoi(str));
+	new = get_cam_node(parse_vec3(str),
+			normalize(parse_vec3(str)), stof(str));
 	ptr = scene->cam;
 	if (!ptr)
+	{
+		scene->first = new;
 		scene->cam = new;
+	}
 	else
 	{
 		while (ptr->next)
@@ -64,36 +46,36 @@ void	parse_camera(t_scene *scene, char **str)
 	}
 }
 
-void	parse_res(t_minirt *rt, char **str)
+void	parse_resolution(t_scene *scene, char **str)
 {
-	if (rt->win_w != -1 || rt->win_h != -1)
+	if (scene->xres != -1 || scene->yres != -1)
 		put_error("resolution declared multiple times\n");
 	next(str);
-	rt->win_w = stoi(str);
-	rt->win_h = stoi(str);
-	rt->scene.xres = rt->win_w;
-	rt->scene.yres = rt->win_h;
-	if (rt->win_w < 1 || rt->win_w > INFINITY
-		|| rt->win_h < 1 || rt->win_h > INFINITY)
+	scene->xres = stof(str);
+	scene->yres = stof(str);
+	if (scene->xres < 1 || scene->xres > INFINITY
+		|| scene->yres < 1 || scene->yres > INFINITY)
 		put_error("resolution setting is out of range");
 }
 
-void	parse_elems(t_minirt *rt, char *str)
+void	parse_scene(t_scene *scene, char *str)
 {
 	if (*str == '#')
 		return ;
 	if (*str == 'R' && *(str++))
-		parse_res(rt, &str);
+		parse_resolution(scene, &str);
 	else if (*str == 'A' && *(str++))
-		parse_ambient_light(&rt->scene, &str);
+		parse_ambient_light(scene, &str);
 	else if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
-		parse_camera(&rt->scene, &str);
+		parse_camera(scene, &str);
 	else if (*str == 'L' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
-		parse_light(&rt->scene, &str);
+		parse_light(scene, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
-		parse_sphere(&rt->scene, &str);
+		parse_sphere(scene, &str);
 	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
-		parse_plane(&rt->scene, &str);
+		parse_plane(scene, &str);
+	else if (*str == 'c' && *(str + 1) == 'y' && *(str++) && *(str++))
+		parse_cylinder(scene, &str);
 }
 
 void	parse_file(t_minirt *rt, char **av)
@@ -112,7 +94,7 @@ void	parse_file(t_minirt *rt, char **av)
 	str = NULL;
 	while (get_next_line(fd, &str) > 0)
 	{
-		parse_elems(rt, str);
+		parse_scene(&rt->scene, str);
 		free(str);
 	}
 	free(str);

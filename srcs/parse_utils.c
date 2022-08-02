@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/28 21:32:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 04:37:58 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,38 +62,23 @@ double	stof(char **str)
 	return (d * neg);
 }
 
-int	stoi(char **str)
-{
-	int	i;
-	int	neg;
-
-	i = 0;
-	neg = 1;
-	if (**str == '-' && *((*str)++))
-		neg = -1;
-	while (ft_isdigit(**str))
-		i = i * 10 + (*((*str)++) - '0');
-	next(str);
-	return (i * neg);
-}
-
 int	parse_color(char **str)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	r = stoi(str);
+	r = stof(str);
 	if (r < 0 || r > 255)
 		put_error("out of color range\n");
 	r <<= 0x10;
 	comma(str);
-	g = stoi(str);
+	g = stof(str);
 	if (g < 0 || g > 255)
 		put_error("out of color range\n");
 	g <<= 0x8;
 	comma(str);
-	b = stoi(str);
+	b = stof(str);
 	if (b < 0 || b > 255)
 		put_error("out of color range\n");
 	return (r | g | b);
