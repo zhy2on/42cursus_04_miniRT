@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 18:48:45 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/07/30 20:45:10 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,8 +161,9 @@ void		render_scene(t_minirt *rt, t_cam *cam);
 /*
 ** hit **
 */
-int			hit_sphere(t_figures *elem, t_ray *ray);
-int			hit_plane(t_figures *elem, t_ray *ray);
+int			hit_sphere(t_ray *ray, t_figures *elem);
+int			hit_plane(t_ray *ray, t_figures *elem);
+int			hit_cylinder(t_ray *ray, t_figures *elem);
 t_vec3		get_hit_point(t_ray ray);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 04:49:04 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 01:16:23 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_p3	get_hit_point(t_ray ray)
 	return (vadd(ray.o, vscale(ray.dir, ray.hit.time)));
 }
 
-int	hit_plane(t_figures *elem, t_ray *ray)
+int	hit_plane(t_ray *ray, t_figures *elem)
 {
 	double	time;
 	double	den;
@@ -39,36 +39,36 @@ int	hit_plane(t_figures *elem, t_ray *ray)
 	return (0);
 }
 
-void	get_sphere_root(double root[2], t_ray *ray, t_sphere sp)
+void	solve_quadratic(double a, double b, double c, double root[2])
 {
-	double	discriminant;
-	t_p3	oc;
-	double	k[3];
+	double	sqrt_discriminant;
+	double	tmp[2];
 
-	oc = vsub(ray->o, sp.c);
-	k[0] = dot(ray->dir, ray->dir);
-	k[1] = 2 * dot(ray->dir, oc);
-	k[2] = dot(oc, oc) - sp.r * sp.r;
-	discriminant = k[1] * k[1] - (4 * k[0] * k[2]);
-	if (discriminant < 0)
+	sqrt_discriminant = sqrt(pow(b, 2) - 4 * a * c);
+	tmp[0] = (-b - sqrt_discriminant) / (2 * a);
+	tmp[1] = (-b + sqrt_discriminant) / (2 * a);
+	if (tmp[0] < tmp[1])
 	{
-		root[0] = INFINITY;
-		root[1] = INFINITY;
+		root[0] = tmp[0];
+		root[1] = tmp[1];
 	}
 	else
 	{
-		root[0] = (-k[1] - sqrt(discriminant)) / (2 * k[0]);
-		root[1] = (-k[1] + sqrt(discriminant)) / (2 * k[0]);
+		root[0] = tmp[1];
+		root[1] = tmp[0];
 	}
 }
 
-int	hit_sphere(t_figures *elem, t_ray *ray)
+int	hit_sphere(t_ray *ray, t_figures *elem)
 {
-	double		time[2];
+	t_vec3		oc;
 	t_sphere	sp;
+	double		time[2];
 
 	sp = elem->fig.sp;
-	get_sphere_root(time, ray, sp);
+	oc = vsub(ray->o, sp.c);
+	solve_quadratic(length_squared(ray->dir), 2 * dot(ray->dir, oc),
+		dot(oc, oc) - pow(sp.r, 2), time);
 	if (ray->hit.time > time[0] && time[0] > 0)
 	{
 		ray->hit.time = time[0];
@@ -78,4 +78,72 @@ int	hit_sphere(t_figures *elem, t_ray *ray)
 		return (1);
 	}
 	return (0);
+}
+
+// double	solve_cylinder(t_ray *ray, t_cylinder cy, double *y, int ret[2])
+// {
+// 	t_vec3		vu[2];
+// 	t_vec3		oc;
+// 	t_vec3		co;
+// 	double		time[2];
+// 	double		dist[2];
+
+// 	oc = vsub(ray->o, cy.c);
+// 	vu[0] = vsub(ray->dir, vscale(cy.nv, dot(ray->dir, cy.nv)));
+// 	vu[1] = vsub(oc, vscale(cy.nv, dot(oc, cy.nv)));
+// 	solve_quadratic(dot(vu[0], vu[0]), 2 * dot(vu[0], vu[1]),
+// 		dot(vu[1], vu[1]) - pow(cy.r, 2), time);
+// 	co = vsub(cy.c, ray->o);
+// 	dist[0] = dot(cy.nv, vsub(vscale(ray->dir, time[0]), co));
+// 	dist[1] = dot(cy.nv, vsub(vscale(ray->dir, time[1]), co));
+// 	ret[0] = (dist[0] >= 0 && dist[0] <= cy.height && time[0] > EPSILON);
+// 	ret[1] = (dist[1] >= 0 && dist[1] <= cy.height && time[1] > EPSILON);
+// 	if (ret[0] == 0 & ret[1] == 1)
+// 	{
+// 		*y = dist[1];
+// 		return (time[1]);
+// 	}
+// 	*y = dist[0];
+// 	return (time[0]);
+// }
+
+double	calc_cylinder(t_ray *ray, t_cylinder cy, double time[2])
+{
+	t_vec3		u;
+	t_vec3		v;
+	t_vec3		oc;
+	double		dist[2];
+
+	oc = vsub(ray->o, cy.c);
+	u = vsub(ray->dir, vscale(cy.nv, dot(ray->dir, cy.nv)));
+	v = vsub(oc, vscale(cy.nv, dot(oc, cy.nv)));
+	solve_quadratic(dot(v, v), 2 * dot(v, u), dot(u, u) - pow(cy.r, 2), time);
+	dist[0] = dot(cy.nv, vsub(vscale(ray->dir, time[0]), vscale(oc, -1)));
+	dist[1] = dot(cy.nv, vsub(vscale(ray->dir, time[1]), vscale(oc, -1)));
+	if (!((dist[0] >= 0 && dist[1] <= cy.height && time[0] > EPSILON)
+			|| (dist[1] >= 0 && dist[1] <= cy.height && time[0] > EPSILON)))
+		return (time[1]);
+	return (time[0]);
+}
+
+int	hit_cylinder(t_ray *ray, t_figures *elem)
+{
+	int		ret[2];
+	double	time[2];
+	double	cy_time;
+	double	y;
+
+	cy_time = calc_cylinder(ray, elem->fig.cy, time);
+	if ((ret[0] || ret[1]) && ray->hit.time > time && time > EPSILON)
+	{
+		ray->hit.time = time;
+		ray->hit.point = get_hit_point(*ray);
+		if (ret[0] == false & ret[1] == true)
+			ray->hit.normal = v_scale(ray->hit.normal, -1);
+		else
+			ray->hit.normal = v_norm(v_sub(ray->hit.point,
+			v_add(v_scale(elem->normal, y), elem->point)));
+		ray->hit.colour = elem->colour;
+	}
+	return (ret[0] || ret[1]);
 }
