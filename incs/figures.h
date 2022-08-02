@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   figures.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/07/30 19:10:53 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 20:00:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 
 enum e_type
 {
-	SP,
 	PL,
+	SP,
 	CY
 } ;
 
@@ -32,6 +32,7 @@ typedef struct s_sphere
 typedef struct s_plane
 {
 	t_p3	p;
+	t_vec3	nv;
 }				t_plane;
 
 typedef struct s_cylinder
@@ -40,8 +41,6 @@ typedef struct s_cylinder
 	t_vec3	nv;
 	double	r;
 	double	height;
-	double	dist1;
-	double	dist2;
 }				t_cylinder;
 
 union			u_figures

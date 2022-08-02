@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_figures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 05:11:19 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 18:55:44 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 19:56:24 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	parse_plane(t_scene *scene, char **str)
 	new = get_figures_node(PL);
 	next(str);
 	new->fig.pl.p = parse_vec3(str);
-	new->nv = normalize(parse_vec3(str));
+	new->fig.pl.nv = normalize(parse_vec3(str));
 	new->specular = stof(str);
 	new->refl_idx = stof(str);
 	new->refr_idx = stof(str);
@@ -76,6 +76,7 @@ void	parse_cylinder(t_scene *scene, char **str)
 	next(str);
 	new->fig.cy.c = parse_vec3(str);
 	new->fig.cy.nv = normalize(parse_vec3(str));
+	printf("%f %f %f\n", new->fig.cy.nv.x, new->fig.cy.nv.y, new->fig.cy.nv.z);
 	new->fig.cy.r = stof(str) / 2;
 	new->fig.cy.height = stof(str);
 	new->specular = stof(str);

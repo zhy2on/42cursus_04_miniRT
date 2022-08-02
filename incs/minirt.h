@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/02 18:03:08 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/02 19:55:26 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ typedef struct s_figures
 	double				refl_idx;
 	double				refr_idx;
 	int					texture;
-	t_vec3				nv;
 	double				wavelength;
 	struct s_figures	*next;
 }				t_figures;
