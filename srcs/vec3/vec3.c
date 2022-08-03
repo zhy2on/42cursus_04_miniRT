@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/02 21:32:21 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 02:20:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,60 +32,7 @@ t_vec3	vsub(t_vec3 u, t_vec3 v)
 	return (create_vec3(u.x - v.x, u.y - v.y, u.z - v.z));
 }
 
-t_vec3	vmul(t_vec3 u, t_vec3 v)
-{
-	return (create_vec3(u.x * v.x, u.y * v.y, u.z * v.z));
-}
-
 t_vec3	vscale(t_vec3 u, double n)
 {
 	return (create_vec3(u.x * n, u.y * n, u.z * n));
-}
-
-t_vec3	vdiv(t_vec3 u, t_vec3 v)
-{
-	return (create_vec3(u.x / v.x, u.y / v.y, u.z / v.z));
-}
-
-t_vec3	vdiv_n(t_vec3 u, double n)
-{
-	return (create_vec3(u.x / n, u.y / n, u.z / n));
-}
-
-double	dot(t_vec3 u, t_vec3 v)
-{
-	return (u.x * v.x + u.y * v.y + u.z * v.z);
-}
-
-t_vec3	cross(t_vec3 u, t_vec3 v)
-{
-	return (create_vec3(u.y * v.z - u.z * v.y,
-			u.z * v.x - u.x * v.z,
-			u.x * v.y - u.y * v.x));
-}
-
-double	length_squared(t_vec3 v)
-{
-	return (v.x * v.x + v.y * v.y + v.z * v.z);
-}
-
-double	length(t_vec3 v)
-{
-	return (sqrt(length_squared(v)));
-}
-
-t_vec3	normalize(t_vec3 v)
-{
-	double	mod;
-
-	mod = length(v);
-	return (create_vec3(v.x / mod, v.y / mod, v.z / mod));
-}
-
-double	distance(t_vec3 u, t_vec3 v)
-{
-	double	d;
-
-	d = sqrt(pow(v.x - u.x, 2) + pow(v.y - u.y, 2) + pow(v.z - u.z, 2));
-	return (d);
 }

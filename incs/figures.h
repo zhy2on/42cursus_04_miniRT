@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   figures.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/08/02 21:28:41 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 02:37:37 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FIGURES_H
 # define FIGURES_H
 
-# include "minirt.h"
+# include "vec3.h"
 
 enum e_type
 {

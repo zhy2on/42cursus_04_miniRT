@@ -4,6 +4,7 @@
 		"numbers": "cpp",
 		"random": "cpp",
 		"queue": "cpp",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"minirt.h": "c"
 	}
 }
