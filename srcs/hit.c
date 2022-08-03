@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/03 18:59:28 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/03 19:33:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,10 @@ void	solve_quadratic(double a, double b, double c, double root[2])
 	root[0] = (-b - sqrt_disc) / (2 * a);
 	root[1] = (-b + sqrt_disc) / (2 * a);
 	if (isnan(root[0]))
-		root[0] = INFINITY;
+		root[0] = 0;
 	if (isnan(root[1]))
-		root[1] = INFINITY;
-	if (root[1] < root[0])
+		root[1] = 0;
+	if (root[1] > EPSILON && root[1] < root[0])
 	{
 		tmp = root[1];
 		root[1] = root[0];
@@ -102,12 +102,12 @@ double	hit_cylinder_time(t_ray *ray, t_cylinder cy, double *y)
 		2 * dot(v[0], v[1]), length_squared(v[1]) - pow(cy.r, 2), time);
 	dist[0] = dot(cy.nv, vsub(vscale(ray->dir, time[0]), vscale(oc, -1)));
 	dist[1] = dot(cy.nv, vsub(vscale(ray->dir, time[1]), vscale(oc, -1)));
-	if (dist[0] >= 0 && dist[0] <= cy.height)
+	if (dist[0] > EPSILON && dist[0] <= cy.height)
 	{
 		*y = dist[0];
 		return (time[0]);
 	}
-	if (dist[1] >= 0 && dist[1] <= cy.height)
+	if (dist[1] > EPSILON && dist[1] <= cy.height)
 	{
 		*y = dist[1];
 		return (time[1]);
@@ -125,12 +125,14 @@ double	hit_caps_time(t_ray *ray, t_cylinder cy)
 	c2 = vadd(cy.c, vscale(cy.nv, cy.height));
 	time[0] = hit_plane_time(ray->o, ray->dir, cy.c, cy.nv);
 	time[1] = hit_plane_time(ray->o, ray->dir, c2, cy.nv);
+	ret[0] = 0;
+	ret[1] = 0;
 	v[0] = vadd(ray->o, vscale(ray->dir, time[0]));
 	v[1] = vadd(ray->o, vscale(ray->dir, time[1]));
 	ret[0] = (time[0] < INFINITY && distance(v[0], cy.c) <= cy.r);
 	ret[1] = (time[1] < INFINITY && distance(v[1], c2) <= cy.r);
 	if (!ret[0] && !ret[1])
-		return (INFINITY);
+		return (0);
 	if (ret[0] && !ret[1])
 		return (time[0]);
 	if (!ret[0] && ret[1])
@@ -183,8 +185,9 @@ int	hit_cylinder(t_ray *ray, t_figures *elem)
 		ray->hit.nv = normalize(vsub(ray->hit.point,
 					vadd(vscale(cy.nv, y), cy.c)));
 		ray->hit.clr = elem->clr;
+		return (1);
 	}
-	return (time < INFINITY);
+	return (0);
 }
 
 int	hit_caps(t_ray *ray, t_figures *elem)
@@ -202,6 +205,7 @@ int	hit_caps(t_ray *ray, t_figures *elem)
 			cy.nv = vscale(cy.nv, -1);
 		ray->hit.nv = cy.nv;
 		ray->hit.clr = elem->clr;
+		return (1);
 	}
-	return (time < INFINITY);
+	return (0);
 }
