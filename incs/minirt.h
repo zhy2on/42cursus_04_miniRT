@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:53:59 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 03:54:30 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,14 +52,5 @@ void		solve_quadratic(double a, double b, double c, double root[2]);
 t_ray		create_ray(t_cam *cam, double x, double y);
 void		set_pixel_color(t_img *img, int x, int y, int colour);
 void		render_scene(t_minirt *rt, t_cam *cam);
-
-/*
-** color.c **
-*/
-int			ccomp(t_light *light, t_hit hit);
-int			cadd(int c1, int c2);
-int			cprod(int c1, int c2);
-int			cscale(int color, double d);
-int			check_rgb(int n);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:45:07 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 03:52:46 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,5 +34,14 @@ double	hit_caps_time(t_ray ray, t_cylinder cy);
 int		hit_caps(t_ray *ray, t_figures *elem);
 double	hit_cylinder_time(t_ray ray, t_cylinder cy, double *y);
 int		hit_cylinder(t_ray *ray, t_figures *elem);
+
+/*
+** color.c **
+*/
+int		check_rgb(int n);
+int		cscale(int color, double d);
+int		cprod(int c1, int c2);
+int		cadd(int c1, int c2);
+int		ccomp(t_light *light, t_hit hit);
 
 #endif
