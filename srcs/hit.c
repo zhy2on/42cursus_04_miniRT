@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/03 20:32:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/03 21:25:58 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,11 +20,15 @@ t_p3	get_hit_point(t_ray ray)
 double	hit_plane_time(t_p3 o, t_vec3 dir, t_p3 p, t_vec3 nv)
 {
 	double	denom;
+	double	pl_time;
 
 	denom = dot(nv, dir);
 	if (denom == 0)
 		return (INFINITY);
-	return ((dot(nv, vsub(p, o))) / denom);
+	pl_time = (dot(nv, vsub(p, o))) / denom;
+	if (pl_time <= EPSILON)
+		return (INFINITY);
+	return (pl_time);
 }
 
 int	hit_plane(t_ray *ray, t_figures *elem)
@@ -34,7 +38,7 @@ int	hit_plane(t_ray *ray, t_figures *elem)
 
 	pl = elem->fig.pl;
 	pl_time = hit_plane_time(ray->o, ray->dir, pl.p, pl.nv);
-	if (ray->hit.time > pl_time && pl_time > EPSILON)
+	if (ray->hit.time > pl_time)
 	{
 		ray->hit.time = pl_time;
 		ray->hit.point = get_hit_point(*ray);
@@ -83,7 +87,7 @@ int	hit_sphere(t_ray *ray, t_figures *elem)
 	oc = vsub(ray->o, sp.c);
 	solve_quadratic(length_squared(ray->dir), 2 * dot(ray->dir, oc),
 		length_squared(oc) - pow(sp.r, 2), time);
-	if (ray->hit.time > time[0] && time[0] > EPSILON)
+	if (ray->hit.time > time[0])
 	{
 		ray->hit.time = time[0];
 		ray->hit.point = get_hit_point(*ray);
@@ -173,7 +177,7 @@ int	hit_caps(t_ray *ray, t_figures *elem)
 
 	cy = elem->fig.cy;
 	time = hit_caps_time(ray, cy);
-	if (time < INFINITY && ray->hit.time > time && time > EPSILON)
+	if (time < INFINITY && ray->hit.time > time)
 	{
 		ray->hit.time = time;
 		ray->hit.point = get_hit_point(*ray);
