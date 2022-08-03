@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/02 20:06:26 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/03 17:57:21 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	key_hook(int keycode, t_minirt *rt)
 		exit(0);
 	if (keycode != KEY_SPACE)
 		return (0);
-	if (rt->scene.cam->next)
-		rt->scene.cam = rt->scene.cam->next;
-	else
+	if (!rt->scene.cam->next)
 		rt->scene.cam = rt->scene.first;
+	else
+		rt->scene.cam = rt->scene.cam->next;
 	render_scene(rt, rt->scene.cam);
 	mlx_put_image_to_window(rt->mlx, rt->win, rt->scene.cam->img.ptr, 0, 0);
 	return (1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/03 14:34:40 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/03 18:59:28 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,21 +49,15 @@ int	hit_plane(t_ray *ray, t_figures *elem)
 
 void	solve_quadratic(double a, double b, double c, double root[2])
 {
-	double	disc;
+	double	sqrt_disc;
 	double	tmp;
 
-	disc = pow(b, 2) - 4 * a * c;
-	if (disc < 0)
-	{
+	sqrt_disc = sqrt(pow(b, 2) - 4 * a * c);
+	root[0] = (-b - sqrt_disc) / (2 * a);
+	root[1] = (-b + sqrt_disc) / (2 * a);
+	if (isnan(root[0]))
 		root[0] = INFINITY;
-		root[1] = INFINITY;
-		return ;
-	}
-	root[0] = (-b - sqrt(disc)) / (2 * a);
-	root[1] = (-b + sqrt(disc)) / (2 * a);
-	if (root[0] < EPSILON || root[0] > INFINITY)
-		root[0] = INFINITY;
-	if (root[1] < EPSILON || root[1] > INFINITY)
+	if (isnan(root[1]))
 		root[1] = INFINITY;
 	if (root[1] < root[0])
 	{
@@ -108,12 +102,12 @@ double	hit_cylinder_time(t_ray *ray, t_cylinder cy, double *y)
 		2 * dot(v[0], v[1]), length_squared(v[1]) - pow(cy.r, 2), time);
 	dist[0] = dot(cy.nv, vsub(vscale(ray->dir, time[0]), vscale(oc, -1)));
 	dist[1] = dot(cy.nv, vsub(vscale(ray->dir, time[1]), vscale(oc, -1)));
-	if (dist[0] >= 0 && dist[0] <= cy.height && time[0] > EPSILON)
+	if (dist[0] >= 0 && dist[0] <= cy.height)
 	{
 		*y = dist[0];
 		return (time[0]);
 	}
-	if (dist[1] >= 0 && dist[1] <= cy.height && time[1] > EPSILON)
+	if (dist[1] >= 0 && dist[1] <= cy.height)
 	{
 		*y = dist[1];
 		return (time[1]);
@@ -131,27 +125,22 @@ double	hit_caps_time(t_ray *ray, t_cylinder cy)
 	c2 = vadd(cy.c, vscale(cy.nv, cy.height));
 	time[0] = hit_plane_time(ray->o, ray->dir, cy.c, cy.nv);
 	time[1] = hit_plane_time(ray->o, ray->dir, c2, cy.nv);
-	if (time[0] < INFINITY || time[1] < INFINITY)
-	{
-		v[0] = vadd(ray->o, vscale(ray->dir, time[0]));
-		v[1] = vadd(ray->o, vscale(ray->dir, time[1]));
-		ret[0] = (time[0] < INFINITY && distance(v[0], cy.c) <= cy.r);
-		ret[1] = (time[1] < INFINITY && distance(v[1], c2) <= cy.r);
-		if (ret[0] && ret[1])
-		{
-			if (time[0] < time[1])
-				return (time[0]);
-			return (time[1]);
-		}
-		else if (ret[0])
-			return (time[0]);
-		else if (ret[1])
-			return (time[1]);
-	}
-	return (INFINITY);
+	v[0] = vadd(ray->o, vscale(ray->dir, time[0]));
+	v[1] = vadd(ray->o, vscale(ray->dir, time[1]));
+	ret[0] = (time[0] < INFINITY && distance(v[0], cy.c) <= cy.r);
+	ret[1] = (time[1] < INFINITY && distance(v[1], c2) <= cy.r);
+	if (!ret[0] && !ret[1])
+		return (INFINITY);
+	if (ret[0] && !ret[1])
+		return (time[0]);
+	if (!ret[0] && ret[1])
+		return (time[1]);
+	if (time[0] < time[1])
+		return (time[0]);
+	return (time[1]);
 }
 
-int	hit_cylinder(t_ray *ray, t_figures *elem)
+int	hit_cylinder_caps(t_ray *ray, t_figures *elem)
 {
 	double		time[2];
 	double		y;
@@ -160,12 +149,59 @@ int	hit_cylinder(t_ray *ray, t_figures *elem)
 	cy = elem->fig.cy;
 	time[0] = hit_cylinder_time(ray, cy, &y);
 	time[1] = hit_caps_time(ray, cy);
+	if (time[0] < time[1])
+		cy.nv = normalize(vsub(ray->hit.point, vadd(vscale(cy.nv, y), cy.c)));
+	else
+	{
+		time[0] = time[1];
+		if (dot(ray->dir, cy.nv) > 0)
+			cy.nv = vscale(cy.nv, -1);
+	}
 	if (time[0] < INFINITY && ray->hit.time > time[0] && time[0] > EPSILON)
 	{
 		ray->hit.time = time[0];
 		ray->hit.point = get_hit_point(*ray);
-		ray->hit.nv = normalize(vsub(ray->hit.point, vadd(vscale(cy.nv, y), cy.c)));
+		ray->hit.nv = cy.nv;
+		ray->hit.clr = elem->clr;
+		return (1);
+	}
+	return (0);
+}
+
+int	hit_cylinder(t_ray *ray, t_figures *elem)
+{
+	double		time;
+	double		y;
+	t_cylinder	cy;
+
+	cy = elem->fig.cy;
+	time = hit_cylinder_time(ray, cy, &y);
+	if (time < INFINITY && ray->hit.time > time && time > EPSILON)
+	{
+		ray->hit.time = time;
+		ray->hit.point = get_hit_point(*ray);
+		ray->hit.nv = normalize(vsub(ray->hit.point,
+					vadd(vscale(cy.nv, y), cy.c)));
 		ray->hit.clr = elem->clr;
 	}
-	return (time[0] < INFINITY);
+	return (time < INFINITY);
+}
+
+int	hit_caps(t_ray *ray, t_figures *elem)
+{
+	double		time;
+	t_cylinder	cy;
+
+	cy = elem->fig.cy;
+	time = hit_caps_time(ray, cy);
+	if (time < INFINITY && ray->hit.time > time && time > EPSILON)
+	{
+		ray->hit.time = time;
+		ray->hit.point = get_hit_point(*ray);
+		if (dot(ray->dir, cy.nv) > 0)
+			cy.nv = vscale(cy.nv, -1);
+		ray->hit.nv = cy.nv;
+		ray->hit.clr = elem->clr;
+	}
+	return (time < INFINITY);
 }
