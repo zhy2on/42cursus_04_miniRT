@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/03 19:16:49 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/03 20:11:21 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,7 @@ int			hit_cylinder(t_ray *ray, t_figures *elem);
 int			hit_caps(t_ray *ray, t_figures *elem);
 t_vec3		get_hit_point(t_ray ray);
 int			hit_cylinder_caps(t_ray *ray, t_figures *elem);
+int			hit_cy(t_ray *ray, t_figures *elem);
 
 /*
 ** color **

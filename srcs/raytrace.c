@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/03 19:21:52 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/03 20:33:14 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,8 @@ int	intersect(t_minirt *rt, t_ray *ray)
 			ret |= hit_sphere(ray, elem);
 		else if (elem->type == CY)
 		{
-			ret |= hit_cylinder(ray, elem);
 			ret |= hit_caps(ray, elem);
+			ret |= hit_cylinder(ray, elem);
 		}
 		elem = elem->next;
 	}
