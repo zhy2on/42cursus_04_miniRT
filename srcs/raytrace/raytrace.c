@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:08:46 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 05:12:42 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ int	intersect(t_minirt *rt, t_ray *ray)
 	while (elem)
 	{
 		if (elem->type == PL)
-			ret |= hit_plane(ray, elem);
+			ret |= hit_plane(ray, *elem);
 		else if (elem->type == SP)
-			ret |= hit_sphere(ray, elem);
+			ret |= hit_sphere(ray, *elem);
 		else if (elem->type == CY)
-			ret |= hit_cylinder(ray, elem);
+			ret |= hit_cylinder(ray, *elem);
 		elem = elem->next;
 	}
 	return (ret);
@@ -56,7 +56,7 @@ int	raytrace(t_minirt *rt, t_ray *ray)
 	if (!intersect(rt, ray))
 		return (0);
 	al_clr = cscale(rt->scene.al_clr, rt->scene.al_br);
-	clr = cprod(ray->hit.clr, al_clr);
+	clr = cprod(ray->hit.elem.clr, al_clr);
 	light = rt->scene.light;
 	while (light)
 	{

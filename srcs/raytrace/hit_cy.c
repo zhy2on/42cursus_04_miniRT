@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:12:16 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 05:11:12 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,12 @@ double	hit_caps_time(t_ray ray, t_cylinder cy)
 	return (time[1]);
 }
 
-int	hit_caps(t_ray *ray, t_figures *elem)
+int	hit_caps(t_ray *ray, t_figures elem)
 {
 	double		time;
 	t_cylinder	cy;
 
-	cy = elem->fig.cy;
+	cy = elem.fig.cy;
 	time = hit_caps_time(*ray, cy);
 	if (time < INFINITY && ray->hit.time > time)
 	{
@@ -51,7 +51,7 @@ int	hit_caps(t_ray *ray, t_figures *elem)
 		if (dot(ray->dir, cy.nv) > 0)
 			cy.nv = vscale(cy.nv, -1);
 		ray->hit.nv = cy.nv;
-		ray->hit.clr = elem->clr;
+		ray->hit.elem = elem;
 		return (1);
 	}
 	return (0);
@@ -84,14 +84,14 @@ double	hit_cylinder_time(t_ray ray, t_cylinder cy, double *y)
 	return (INFINITY);
 }
 
-int	hit_cylinder(t_ray *ray, t_figures *elem)
+int	hit_cylinder(t_ray *ray, t_figures elem)
 {
 	double		time;
 	double		y;
 	t_cylinder	cy;
 	int			ret;
 
-	cy = elem->fig.cy;
+	cy = elem.fig.cy;
 	time = hit_cylinder_time(*ray, cy, &y);
 	ret = 0;
 	if (time < INFINITY && ray->hit.time > time)
@@ -100,7 +100,7 @@ int	hit_cylinder(t_ray *ray, t_figures *elem)
 		ray->hit.point = get_hit_point(*ray);
 		ray->hit.nv = normalize(vsub(ray->hit.point,
 					vadd(vscale(cy.nv, y), cy.c)));
-		ray->hit.clr = elem->clr;
+		ray->hit.elem = elem;
 		ret = 1;
 	}
 	ret |= hit_caps(ray, elem);
