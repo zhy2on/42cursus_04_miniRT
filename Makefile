@@ -2,10 +2,6 @@ CC			= gcc
 CFLAGS		= -Werror -Wextra -Wall -g
 LIBFLAGS	= -lmlx -framework OpenGL -framework AppKit -L$(LIBFT_DIR) -lft
 INCFLAGS	= -I$(INCS_DIR) -I$(LIBFT_INC)
-CHECK		= -fsanitize=address
-
-# === For flags === #
-
 
 # === Directories === #
 SRCS_DIR	= ./srcs/
@@ -15,27 +11,26 @@ LIBFT_DIR	= ./libft/
 LIBFT_INC	= $(LIBFT_DIR)includes/
 LIBFT_LIB	= libft.a
 
-# === Source files === #
-SRCS		= main.c utils.c vec3.c parse_figures.c parse_light.c parse_utils.c parse.c \
-				cam.c render.c color.c hit.c raytrace.c
-#SRCS		= $(wildcard $(dir)/*.c)
-
 # === Header files === #
-INC_FILES	= minirt.h vec3.h utils.h
-INCS		= $(addprefix $(INCS_DIR), $(INC_FILES))
+INCS		= $(wildcard $(INCS_DIR)*.h)
 
-# === Dfine objects === #
-SRC_TO_OBJ	= $(SRCS:.c=.o)
-OBJS		= $(addprefix $(OBJS_DIR), $(SRC_TO_OBJ))
+# === Define srcs === #
+SUBDIRS		= parse raytrace vec3
+S_SUBDIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(SRCS_DIR), $(dir)))
+SRCS		= $(wildcard $(SRCS_DIR)*.c) $(foreach dir, $(S_SUBDIRS), $(wildcard $(dir)/*.c))
+
+# === Dfine objs === #
+O_SUBDIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(OBJS_DIR), $(dir)))
+OBJS		= $(subst $(SRCS_DIR), $(OBJS_DIR), $(SRCS:.c=.o))
 
 NAME		= miniRT
 
 # === For make bonus === #
-#ifdef WITH_BONUS
-#	OBJS = $(BONUS_OBJECTS)
-#else
-#	OBJS = $(OBJECTS)
-#endif
+# ifdef WITH_BONUS
+# 	OBJS = $(BONUS_OBJECTS)
+# else
+# 	OBJS = $(OBJECTS)
+# endif
 
 # === Keywords === #
 CLEAN = "\033[2K \033[A"
