@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:20:11 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 17:21:53 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,14 @@ t_vec3	vsub(t_vec3 u, t_vec3 v)
 t_vec3	vscale(t_vec3 u, double n)
 {
 	return (create_vec3(u.x * n, u.y * n, u.z * n));
+}
+
+double	vsin(t_p3 a, t_p3 b)
+{
+	return (sqrt(1 - pow(vcos(a, b), 2)));
+}
+
+double	vcos(t_p3 a, t_p3 b)
+{
+	return (dot(a, b) / (mod(a) * mod(b)));
 }
