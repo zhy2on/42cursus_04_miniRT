@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:20:43 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 17:24:24 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,5 +44,7 @@ double	length_squared(t_vec3 v);
 t_vec3	normalize(t_vec3 v);
 
 double	distance(t_vec3 u, t_vec3 v);
-
+double	mod(t_p3 v);
+double	vcos(t_p3 a, t_p3 b);
+double	vsin(t_p3 a, t_p3 b);
 #endif

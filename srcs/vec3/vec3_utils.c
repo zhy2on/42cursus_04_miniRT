@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:18:49 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:20:04 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/04 17:21:18 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 double	dot(t_vec3 u, t_vec3 v)
 {
 	return (u.x * v.x + u.y * v.y + u.z * v.z);
+}
+
+double	mod(t_p3 v)
+{
+	return (sqrt(dot(v, v)));
 }
 
 t_vec3	cross(t_vec3 u, t_vec3 v)

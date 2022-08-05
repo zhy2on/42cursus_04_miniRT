@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/08/04 19:30:59 by junyopar         ###   ########.fr       */
+=======
 /*   Updated: 2022/08/04 03:54:30 by jihoh            ###   ########.fr       */
+>>>>>>> 91064784e75ade4db7b06b87f090183ecaf95dcb
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +31,7 @@
 
 # define BUFSIZE 32
 # define EPSILON 0.00001
-# define ALBEDO	1000
+# define ALBEDO	150
 
 enum e_key
 {
@@ -53,4 +57,17 @@ t_ray		create_ray(t_cam *cam, double x, double y);
 void		set_pixel_color(t_img *img, int x, int y, int colour);
 void		render_scene(t_minirt *rt, t_cam *cam);
 
+<<<<<<< HEAD
+/*
+** color.c **
+*/
+// int			ccomp(t_light *light, t_hit hit);
+int			ccomp(t_light *light, t_ray ray, t_minirt *rt);
+int			cadd(int c1, int c2);
+int			cprod(int c1, int c2);
+int			cscale(int color, double d);
+int			check_rgb(int n);
+t_vec3		reflect_ray(t_p3 ray, t_p3 normal);
+=======
+>>>>>>> 91064784e75ade4db7b06b87f090183ecaf95dcb
 #endif
