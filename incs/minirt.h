@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/06 22:11:05 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 02:40:51 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define BUFSIZE 32
 # define EPSILON 0.00001
-# define ALBEDO	150
+# define ALBEDO	0.9
 
 enum e_key
 {

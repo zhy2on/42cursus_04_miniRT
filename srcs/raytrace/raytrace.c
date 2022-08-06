@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/06 22:13:27 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 02:14:57 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,10 @@ int	raytrace(t_minirt *rt, t_ray *ray)
 	al_clr = cscale(rt->scene.al_clr, rt->scene.al_br);
 	clr = cprod(ray->hit.elem.clr, al_clr);
 	light = rt->scene.light;
-	// refract_ray(ra)
 	while (light)
 	{
 		vis = !in_shadow(rt, ray->hit, light);
-		clr = cadd(clr, vis * ccomp(light, *ray, rt));
+		clr = cadd(clr, vis * ccomp(*light, *ray));
 		light = light->next;
 	}
 	return (clr);
