@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 18:58:05 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/06 22:35:55 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,8 @@ void	set_cam(t_scene *scene, t_cam *cam)
 
 	while (cam)
 	{
-		// vp[0] = 2 * tan(cam->fov / 2);
-		vp[0] = 2 * tan((cam->fov * M_PI / 180) / 2);
-		vp[1] = vp[0] * (double)scene->yres / scene->xres;
+		vp[1] = 2 * tan(cam->fov / 2 * M_PI / 180);
+		vp[0] = vp[1] * (double)scene->xres / scene->yres;
 		w = normalize(vscale(cam->nv, -1));
 		if (w.y == 1 || w.y == -1)
 			u = create_vec3(w.y, 0, 0);
