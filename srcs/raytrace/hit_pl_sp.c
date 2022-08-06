@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:10:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 05:11:00 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:16:26 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,9 @@ double	hit_plane_time(t_p3 o, t_vec3 dir, t_p3 p, t_vec3 nv)
 	if (denom == 0)
 		return (INFINITY);
 	time = (dot(nv, vsub(p, o))) / denom;
-	return (time_clamp(time));
+	if (time <= EPSILON)
+		return (INFINITY);
+	return (time);
 }
 
 int	hit_plane(t_ray *ray, t_figures elem)

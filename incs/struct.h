@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:33:56 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 05:08:30 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:04:02 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,9 @@ typedef struct s_scene
 	t_light		*light;
 	double		al_br;
 	int			al_clr;
-	int			bgr;
 }				t_scene;
 
 typedef struct s_minirt {
-	int			save;
 	void		*mlx;
 	void		*win;
 	t_scene		scene;

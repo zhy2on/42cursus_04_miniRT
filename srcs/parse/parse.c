@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/06 22:35:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:19:21 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	parse_resolution(t_scene *scene, char **str)
 	scene->yres = stof(str);
 	if (scene->xres < 1 || scene->xres > INFINITY
 		|| scene->yres < 1 || scene->yres > INFINITY)
-		put_error("resolution setting is out of range");
+		put_error("resolution setting is out of range\n");
 }
 
 void	parse_scene(t_scene *scene, char *str)
@@ -68,6 +68,8 @@ void	parse_scene(t_scene *scene, char *str)
 		parse_plane(scene, &str);
 	else if (*str == 'c' && *(str + 1) == 'y' && *(str++) && *(str++))
 		parse_cylinder(scene, &str);
+	else if (*str)
+		put_error("invalid elment type\n");
 }
 
 void	parse_file(t_minirt *rt, char **av)
@@ -90,5 +92,9 @@ void	parse_file(t_minirt *rt, char **av)
 		free(str);
 	}
 	free(str);
+	if (rt->scene.xres < 0 || rt->scene.yres < 0)
+		put_error("resolutioin is not declared\n");
+	if (!rt->scene.cam)
+		put_error("cam is not declarred\n");
 	set_cam(&rt->scene, rt->scene.cam);
 }

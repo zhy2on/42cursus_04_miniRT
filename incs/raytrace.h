@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/06 22:11:53 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:16:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,17 @@ int		hit_cylinder(t_ray *ray, t_figures elem);
 /*
 ** color.c **
 */
-int		check_rgb(int n);
 int		cscale(int color, double d);
 int		cprod(int c1, int c2);
 int		cadd(int c1, int c2);
-int		ccomp(t_light *light, t_ray ray, t_minirt *rt);
+int		ccomp(t_light light, t_ray ray);
+
+/*
+** lighting.c **
+*/
+double	diffuse(t_light light, t_ray ray);
+t_vec3	reflect_ray(t_vec3 p_to_light, t_vec3 hit_normal);
+double	specular(t_light light, t_ray ray);
+int		lighting(t_light light, t_ray ray);
 
 #endif

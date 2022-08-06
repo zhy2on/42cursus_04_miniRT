@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/08/04 02:37:37 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:06:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct s_sphere
 {
 	t_p3	c;
 	double	r;
-	int		inside;
 }				t_sphere;
 
 typedef struct s_plane
