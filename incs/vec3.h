@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec3.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 17:24:24 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/07 04:02:22 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ typedef struct s_vec3
 }				t_vec3;
 
 typedef t_vec3	t_p3;
-typedef t_vec3	t_clr;
 
 t_vec3	create_vec3(double x, double y, double z);
 
@@ -44,7 +43,5 @@ double	length_squared(t_vec3 v);
 t_vec3	normalize(t_vec3 v);
 
 double	distance(t_vec3 u, t_vec3 v);
-double	mod(t_p3 v);
-double	vcos(t_p3 a, t_p3 b);
-double	vsin(t_p3 a, t_p3 b);
+
 #endif

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:11:10 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:15:55 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,12 @@ void	*ft_malloc(unsigned int size)
 	return (ptr);
 }
 
-double	time_clamp(double x)
+double	clamp(double x, double min, double max)
 {
-	if (x <= EPSILON)
-		return (INFINITY);
+	if (x < min)
+		return (min);
+	if (x > max)
+		return (max);
 	return (x);
 }
 
@@ -47,8 +49,12 @@ void	solve_quadratic(double a, double b, double c, double root[2])
 	double	tmp;
 
 	sqrt_disc = sqrt(pow(b, 2) - 4 * a * c);
-	root[0] = time_clamp((-b - sqrt_disc) / (2 * a));
-	root[1] = time_clamp((-b + sqrt_disc) / (2 * a));
+	root[0] = (-b - sqrt_disc) / (2 * a);
+	if (root[0] <= EPSILON)
+		root[0] = INFINITY;
+	root[1] = (-b + sqrt_disc) / (2 * a);
+	if (root[1] <= EPSILON)
+		root[1] = INFINITY;
 	if (root[1] < root[0])
 	{
 		tmp = root[1];

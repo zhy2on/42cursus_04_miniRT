@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 02:14:57 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 03:46:16 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	raytrace(t_minirt *rt, t_ray *ray)
 	while (light)
 	{
 		vis = !in_shadow(rt, ray->hit, light);
-		clr = cadd(clr, vis * ccomp(*light, *ray));
+		clr = cadd(clr, vis * lighting(*light, *ray));
 		light = light->next;
 	}
 	return (clr);

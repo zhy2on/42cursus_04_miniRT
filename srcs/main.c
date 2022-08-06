@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:12:28 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:04:18 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	key_hook(int keycode, t_minirt *rt)
 
 void	set_mlx(t_minirt *rt)
 {
-	rt->save = 0;
 	rt->mlx = mlx_init();
 	if (!rt->mlx)
 		put_error("fail to init mlx\n");
@@ -48,7 +47,6 @@ void	set_mlx(t_minirt *rt)
 
 void	init_minirt(t_minirt *rt)
 {
-	rt->save = 0;
 	rt->mlx = NULL;
 	rt->win = NULL;
 	rt->scene.first = NULL;
@@ -59,7 +57,6 @@ void	init_minirt(t_minirt *rt)
 	rt->scene.yres = -1;
 	rt->scene.al_br = -1;
 	rt->scene.al_clr = -1;
-	rt->scene.bgr = -1;
 }
 
 int	main(int ac, char **av)

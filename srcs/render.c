@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:14:03 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 04:04:25 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,5 @@ void	render_scene(t_minirt *rt, t_cam *cam)
 			set_pixel_color(&cam->img, x, (rt->scene.yres - 1) - y, color);
 		}
 	}
-	if (!rt->save)
-		mlx_put_image_to_window(rt->mlx, rt->win, cam->img.ptr, 0, 0);
+	mlx_put_image_to_window(rt->mlx, rt->win, cam->img.ptr, 0, 0);
 }
