@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   color.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:39:36 by jihoh             #+#    #+#             */
-<<<<<<< HEAD:srcs/color.c
-/*   Updated: 2022/08/04 19:33:41 by junyopar         ###   ########.fr       */
-=======
-/*   Updated: 2022/08/04 05:12:20 by jihoh            ###   ########.fr       */
->>>>>>> 91064784e75ade4db7b06b87f090183ecaf95dcb:srcs/raytrace/color.c
+/*   Updated: 2022/08/06 22:12:32 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,16 +114,10 @@ int	ccomp(t_light *light, t_ray ray, t_minirt *rt)
 		light_bright = light->br * pow(vcos(relfected, p_to_cam), rt->scene.figures->specular);
 	}
 	else
-<<<<<<< HEAD:srcs/color.c
 	{
 		light_bright = 0;
 	}
 	// cadd(light_bright, light->clr);
 	light_bright += (light->br * gain * ALBEDO) / (4.0 * M_PI * r2);
-	return (cprod(cadd(0, cscale(ray.hit.clr, light_bright)), light->clr));
+	return (cprod(cadd(0, cscale(ray.hit.elem.clr, light_bright)), light->clr));
 }
-=======
-		light_bright = (light->br * gain * ALBEDO) / (4.0 * M_PI * r2);
-	return (cprod(cadd(0, cscale(hit.elem.clr, light_bright)), light->clr));
-}
->>>>>>> 91064784e75ade4db7b06b87f090183ecaf95dcb:srcs/raytrace/color.c
