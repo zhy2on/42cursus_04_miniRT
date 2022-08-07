@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 15:14:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 17:18:52 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 20:24:34 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ double	hit_cone_time(t_ray ray, t_cone con)
 		time);
 	dist[0] = dot(con.nv, vsub(vscale(ray.dir, time[0]), vscale(oc, -1)));
 	dist[1] = dot(con.nv, vsub(vscale(ray.dir, time[1]), vscale(oc, -1)));
-	if (dist[0] >= 0 || dist[0] <= con.height)
+	if (dist[0] >= 0 && dist[0] <= con.height)
 		return (time[0]);
-	if (dist[1] >= 0 || dist[1] <= con.height)
+	if (dist[1] >= 0 && dist[1] <= con.height)
 		return (time[1]);
 	return (INFINITY);
 }
