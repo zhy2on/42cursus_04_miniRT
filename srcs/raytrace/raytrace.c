@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 03:46:16 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 12:17:09 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,14 @@ int	intersect(t_minirt *rt, t_ray *ray)
 int	in_shadow(t_minirt *rt, t_hit hit, t_light *light)
 {
 	t_ray	shadow;
-	double	inter;
+	int		ret;
 
 	shadow.o = hit.point;
 	shadow.dir = normalize(vsub(light->o, hit.point));
-	inter = intersect(rt, &shadow);
+	ret = intersect(rt, &shadow);
 	if (distance(hit.point, light->o) <= distance(hit.point, shadow.hit.point))
 		return (0);
-	return (inter);
+	return (ret);
 }
 
 int	raytrace(t_minirt *rt, t_ray *ray)

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 04:19:21 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 12:12:09 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,6 @@ void	parse_file(t_minirt *rt, char **av)
 	if (rt->scene.xres < 0 || rt->scene.yres < 0)
 		put_error("resolutioin is not declared\n");
 	if (!rt->scene.cam)
-		put_error("cam is not declarred\n");
+		put_error("cam is not declared\n");
 	set_cam(&rt->scene, rt->scene.cam);
 }

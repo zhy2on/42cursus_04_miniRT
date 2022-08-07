@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 04:16:06 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 14:54:55 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,9 @@
 # include "struct.h"
 # include "figures.h"
 # include "vec3.h"
+
+# define ALBEDO	0.9
+# define SPECULAR_POWER 100
 
 /*
 ** raytrace.c **
