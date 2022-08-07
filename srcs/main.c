@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 04:04:18 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 16:54:14 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ void	set_mlx(t_minirt *rt)
 {
 	rt->mlx = mlx_init();
 	if (!rt->mlx)
-		put_error("fail to init mlx\n");
-	printf("start minirt\n");
+		put_error("fail to init mlx");
+	printf("start minirt");
 	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, "");
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
 	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, rt);
@@ -64,7 +64,7 @@ int	main(int ac, char **av)
 	t_minirt	rt;
 
 	if (ac < 2 || ac > 3)
-		put_error("Usage: ./miniRT <scene.rt>\n");
+		put_error("Usage: ./miniRT <scene.rt>");
 	init_minirt(&rt);
 	parse_file(&rt, av);
 	set_mlx(&rt);

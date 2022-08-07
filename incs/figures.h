@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/08/07 04:06:11 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 17:12:28 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ enum e_type
 {
 	PL,
 	SP,
-	CY
+	CY,
+	CON
 } ;
 
 typedef struct s_sphere
@@ -42,11 +43,20 @@ typedef struct s_cylinder
 	double	height;
 }				t_cylinder;
 
+typedef struct s_cone
+{
+	t_p3	c;
+	t_vec3	nv;
+	double	theta;
+	double	height;
+}				t_cone;
+
 union			u_figures
 {
 	t_sphere	sp;
 	t_plane		pl;
 	t_cylinder	cy;
+	t_cone		con;
 };
 
 #endif

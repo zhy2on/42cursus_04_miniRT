@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 04:19:21 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 17:27:50 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,13 @@ void	set_cam(t_scene *scene, t_cam *cam)
 void	parse_resolution(t_scene *scene, char **str)
 {
 	if (scene->xres != -1 || scene->yres != -1)
-		put_error("resolution declared multiple times\n");
+		put_error("resolution declared multiple times");
 	next(str);
 	scene->xres = stof(str);
 	scene->yres = stof(str);
 	if (scene->xres < 1 || scene->xres > INFINITY
 		|| scene->yres < 1 || scene->yres > INFINITY)
-		put_error("resolution setting is out of range\n");
+		put_error("resolution setting is out of range");
 }
 
 void	parse_scene(t_scene *scene, char *str)
@@ -58,9 +58,9 @@ void	parse_scene(t_scene *scene, char *str)
 		parse_resolution(scene, &str);
 	else if (*str == 'A' && *(str++))
 		parse_ambient_light(scene, &str);
-	else if (*str == 'C' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
+	else if (*str == 'C' && *(str++))
 		parse_camera(scene, &str);
-	else if (*str == 'L' && (*(str + 1) == 32 || *(str + 1) == 9) && *(str++))
+	else if (*str == 'L' && *(str++))
 		parse_light(scene, &str);
 	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
 		parse_sphere(scene, &str);
@@ -68,8 +68,11 @@ void	parse_scene(t_scene *scene, char *str)
 		parse_plane(scene, &str);
 	else if (*str == 'c' && *(str + 1) == 'y' && *(str++) && *(str++))
 		parse_cylinder(scene, &str);
+	else if (*str == 'c' && *(str + 1) == 'o' && *(str + 2) == 'n'
+		&& *(str++) && *(str++) && *(str++))
+		parse_cone(scene, &str);
 	else if (*str)
-		put_error("invalid elment type\n");
+		put_error("invalid elment type");
 }
 
 void	parse_file(t_minirt *rt, char **av)
@@ -81,10 +84,10 @@ void	parse_file(t_minirt *rt, char **av)
 	len = ft_strlen(av[1]);
 	if (!av[1] || len < 3 || av[1][len - 1] != 't'
 		|| av[1][len - 2] != 'r' || av[1][len - 3] != '.')
-		put_error("file format must be .rt\n");
+		put_error("file format must be .rt");
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
-		put_error("fail to open file\n");
+		put_error("fail to open file");
 	str = NULL;
 	while (get_next_line(fd, &str) > 0)
 	{
@@ -93,8 +96,8 @@ void	parse_file(t_minirt *rt, char **av)
 	}
 	free(str);
 	if (rt->scene.xres < 0 || rt->scene.yres < 0)
-		put_error("resolutioin is not declared\n");
+		put_error("resolutioin is not declared");
 	if (!rt->scene.cam)
-		put_error("cam is not declarred\n");
+		put_error("cam is not declared");
 	set_cam(&rt->scene, rt->scene.cam);
 }

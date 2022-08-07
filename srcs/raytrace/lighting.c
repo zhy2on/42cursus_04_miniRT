@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 02:58:21 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 04:13:57 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 14:57:31 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,16 +53,14 @@ double	specular(t_light light, t_ray ray)
 	t_vec3	p_to_light;
 	t_vec3	reflected;
 	t_vec3	p_to_cam;
-	double	scalr;
-	int		n;
+	double	scalar;
 
 	p_to_light = vsub(light.o, ray.hit.point);
 	reflected = reflect_ray(normalize(p_to_light), ray.hit.nv);
 	p_to_cam = vscale(ray.dir, -1);
-	scalr = dot(normalize(reflected), normalize(p_to_cam));
-	n = 100;
-	if (scalr > 0)
-		return (light.br * pow(scalr, n));
+	scalar = dot(normalize(reflected), normalize(p_to_cam));
+	if (ray.hit.elem.specular > 0 && scalar > 0)
+		return (light.br * pow(scalar, ray.hit.elem.specular));
 	else
 		return (0);
 }
