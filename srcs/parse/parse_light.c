@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:02:54 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:54:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 23:50:42 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,19 +38,16 @@ t_light	*get_light_node(t_p3 o, double br, int clr)
 void	parse_light(t_scene *scene, char **str)
 {
 	t_light	*new;
-	t_light	*ptr;
 
 	next(str);
 	new = get_light_node(parse_vec3(str), stof(str), parse_color(str));
 	if (new->br < 0 || new->br > 1)
 		put_error("lighting ratio is out of range");
-	ptr = scene->light;
-	if (!ptr)
+	if (!scene->light)
 		scene->light = new;
 	else
 	{
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = new;
+		new->next = scene->light;
+		scene->light = new;
 	}
 }

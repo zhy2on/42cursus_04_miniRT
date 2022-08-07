@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:00:28 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 21:33:40 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 23:50:15 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ void	check_figures_setting(t_figures elem)
 
 void	push_figures_node(t_scene *scene, t_figures *new)
 {
-	t_figures	*ptr;
-
-	ptr = scene->figures;
-	if (!ptr)
+	if (!scene->figures)
 		scene->figures = new;
 	else
 	{
