@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:55:46 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 01:34:05 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 void	put_error(char *str)
 {
-	write(2, "error: ", 7);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
+	ft_putstr_fd(RED, 2);
+	ft_putstr_fd("error: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
 	exit(1);
 }
 

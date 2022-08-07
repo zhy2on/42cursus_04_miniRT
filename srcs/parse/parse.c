@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 17:27:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 01:37:57 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ void	parse_scene(t_scene *scene, char *str)
 		parse_camera(scene, &str);
 	else if (*str == 'L' && *(str++))
 		parse_light(scene, &str);
-	else if (*str == 's' && *(str + 1) == 'p' && *(str++) && *(str++))
-		parse_sphere(scene, &str);
-	else if (*str == 'p' && *(str + 1) == 'l' && *(str++) && *(str++))
+	else if (!ft_strncmp(str, "pl", 2) && *(str++) && *(str++))
 		parse_plane(scene, &str);
-	else if (*str == 'c' && *(str + 1) == 'y' && *(str++) && *(str++))
+	else if (!ft_strncmp(str, "sp", 2) && *(str++) && *(str++))
+		parse_sphere(scene, &str);
+	else if (!ft_strncmp(str, "cy", 2) && *(str++) && *(str++))
 		parse_cylinder(scene, &str);
-	else if (*str == 'c' && *(str + 1) == 'o' && *(str + 2) == 'n'
-		&& *(str++) && *(str++) && *(str++))
+	else if (!ft_strncmp(str, "con", 3) && *(str++) && *(str++) && *(str++))
 		parse_cone(scene, &str);
 	else if (*str)
 		put_error("invalid elment type");

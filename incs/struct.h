@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:33:56 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:47:59 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 01:11:05 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,8 @@ typedef struct s_figures
 	union u_figures		fig;
 	int					clr;
 	int					specular;
-	double				refl_idx;
-	double				refr_idx;
-	int					texture;
-	double				wavelength;
+	int					checker_w;
+	int					checker_h;
 	struct s_figures	*next;
 }				t_figures;
 

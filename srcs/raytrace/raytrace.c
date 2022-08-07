@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 17:13:41 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 02:38:20 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ int	raytrace(t_minirt *rt, t_ray *ray)
 	if (!intersect(rt, ray))
 		return (0);
 	al_clr = cscale(rt->scene.al_clr, rt->scene.al_br);
+	if (ray->hit.elem.checker_w > 0)
+		ray->hit.elem.clr = checker_board(ray->hit);
 	clr = cprod(ray->hit.elem.clr, al_clr);
 	light = rt->scene.light;
 	while (light)

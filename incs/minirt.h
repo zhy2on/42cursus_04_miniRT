@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 14:50:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 02:35:51 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,19 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <fcntl.h>
-# include "vec3.h"
 # include "libft.h"
+# include "vec3.h"
 # include "struct.h"
 # include "figures.h"
 # include "parse.h"
 # include "raytrace.h"
+# include "texture.h"
 
 # define BUFSIZE 32
 # define EPSILON 0.00001
+
+# define RED "\033[31m"
+# define YELLOW "\033[33m"
 
 enum e_key
 {

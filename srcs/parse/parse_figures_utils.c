@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:00:28 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 23:50:15 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 01:50:46 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,13 @@ void	check_figures_setting(t_figures elem)
 {
 	if (elem.specular < 0 || elem.specular > 1250)
 		put_error("specular power is out of range");
-	if (elem.refl_idx < 0 || elem.refl_idx > 1)
-		put_error("reflection index is out of range");
-	if (elem.refr_idx < 0 || elem.refr_idx > INFINITY)
-		put_error("refraction index is out of range");
-	if (elem.texture < 0 || elem.texture > 5)
-		put_error("texture index is out of range");
+	if (elem.checker_w != 0 && elem.checker_h != 0)
+	{
+		if (elem.checker_w < 0)
+			put_error("checker board width is out of range");
+		if (elem.checker_h < 0)
+			put_error("checker board height is out of range");
+	}
 	if (elem.type == SP)
 	{
 		if (elem.fig.sp.r < 0 || elem.fig.sp.r > INFINITY)

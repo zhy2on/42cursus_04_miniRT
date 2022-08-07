@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:54:53 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 01:32:04 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,11 @@ void	next(char **str)
 void	comma(char **str)
 {
 	if (**str != ',')
-		put_error("arguments bad formatted");
+	{
+		printf("%s", YELLOW);
+		printf("stop at: %s\n", *str);
+		put_error("bad formatted");
+	}
 	(*str)++;
 }
 
