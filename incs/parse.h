@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:28:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 02:54:25 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 17:21:29 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,16 @@ void		parse_light(t_scene *scene, char **str);
 /*
 ** parse_figures.c **
 */
-t_figures	*get_figures_node(int type);
 void		parse_sphere(t_scene *scene, char **str);
 void		parse_plane(t_scene *scene, char **str);
 void		parse_cylinder(t_scene *scene, char **str);
-void		add_figures_back(t_scene *scene, t_figures *new);
+void		parse_cone(t_scene *scene, char **str);
+
+/*
+** parse_figures_utils.c **
+*/
+t_figures	*get_figures_node(int type);
+void		check_figures_setting(t_figures elem);
+void		push_figures_node(t_scene *scene, t_figures *new);
 
 #endif

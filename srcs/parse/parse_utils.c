@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_utils.c                                    :+:      :+:    :+:   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/07/30 04:37:58 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 16:54:53 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	next(char **str)
 void	comma(char **str)
 {
 	if (**str != ',')
-		put_error("arguments bad formatted\n");
+		put_error("arguments bad formatted");
 	(*str)++;
 }
 
@@ -70,16 +70,16 @@ int	parse_color(char **str)
 
 	r = stof(str);
 	if (r < 0 || r > 255)
-		put_error("out of color range\n");
+		put_error("out of color range");
 	r <<= 0x10;
 	comma(str);
 	g = stof(str);
 	if (g < 0 || g > 255)
-		put_error("out of color range\n");
+		put_error("out of color range");
 	g <<= 0x8;
 	comma(str);
 	b = stof(str);
 	if (b < 0 || b > 255)
-		put_error("out of color range\n");
+		put_error("out of color range");
 	return (r | g | b);
 }

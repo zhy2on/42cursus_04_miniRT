@@ -1,0 +1,13 @@
+R  800   600
+A  0.5   255,255,255
+
+## Optional
+# L  0,4,4   0.1   255,255,255
+L	-4,-1,8.8			0.4						255,0,255
+
+## Test 1
+C  0,0,8   0,0,-1   100
+
+## cone	c		nv		theta	height		specular refl refr texture		color
+con		0,3,0   0,-1,0	60		6			100 0 0 0   216,56,136
+pl		0,0,0   0,0,1   0,176,240

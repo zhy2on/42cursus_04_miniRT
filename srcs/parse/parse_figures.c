@@ -3,23 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   parse_figures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 05:11:19 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/02 21:29:00 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 17:24:00 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_figures	*get_figures_node(int type)
+void	parse_plane(t_scene *scene, char **str)
 {
-	t_figures	*figures;
+	t_figures	*new;
 
-	figures = ft_malloc(sizeof(t_figures));
-	figures->type = type;
-	figures->next = NULL;
-	return (figures);
+	new = get_figures_node(PL);
+	next(str);
+	new->fig.pl.p = parse_vec3(str);
+	new->fig.pl.nv = normalize(parse_vec3(str));
+	new->specular = stof(str);
+	new->refl_idx = stof(str);
+	new->refr_idx = stof(str);
+	new->texture = stof(str);
+	if (new->texture == 2)
+		new->wavelength = stof(str);
+	new->clr = parse_color(str);
+	check_figures_setting(*new);
+	push_figures_node(scene, new);
 }
 
 void	parse_sphere(t_scene *scene, char **str)
@@ -37,35 +46,8 @@ void	parse_sphere(t_scene *scene, char **str)
 	if (new->texture == 2)
 		new->wavelength = stof(str);
 	new->clr = parse_color(str);
-	if (new->fig.sp.r < 0 || new->fig.sp.r > INFINITY
-		|| new->specular < 0 || new->specular > INFINITY
-		|| new->refl_idx < 0 || new->refl_idx > 1
-		|| new->refr_idx < 0 || new->refr_idx > INFINITY
-		|| new->texture < 0 || new->texture > 5)
-		put_error("sphere setting is out of range\n");
-	add_figures_back(scene, new);
-}
-
-void	parse_plane(t_scene *scene, char **str)
-{
-	t_figures	*new;
-
-	new = get_figures_node(PL);
-	next(str);
-	new->fig.pl.p = parse_vec3(str);
-	new->fig.pl.nv = normalize(parse_vec3(str));
-	new->specular = stof(str);
-	new->refl_idx = stof(str);
-	new->refr_idx = stof(str);
-	new->texture = stof(str);
-	if (new->texture == 2)
-		new->wavelength = stof(str);
-	new->clr = parse_color(str);
-	if (new->specular < 0 || new->specular > INFINITY
-		|| new->refl_idx < 0 || new->refl_idx > 1
-		|| new->refr_idx < 0 || new->refr_idx > INFINITY)
-		put_error("plane setting is out of range\n");
-	add_figures_back(scene, new);
+	check_figures_setting(*new);
+	push_figures_node(scene, new);
 }
 
 void	parse_cylinder(t_scene *scene, char **str)
@@ -85,27 +67,27 @@ void	parse_cylinder(t_scene *scene, char **str)
 	if (new->texture == 2)
 		new->wavelength = stof(str);
 	new->clr = parse_color(str);
-	if (new->fig.cy.height < 0 || new->fig.cy.height > INFINITY
-		|| new->fig.cy.height < 0 || new->fig.cy.height > INFINITY
-		|| new->specular < 0 || new->specular > INFINITY
-		|| new->refl_idx < 0 || new->refl_idx > 1
-		|| new->refr_idx < 0 || new->refr_idx > INFINITY
-		|| new->texture < 0 || new->texture > 5)
-		put_error("cylinder setting is out of range\n");
-	add_figures_back(scene, new);
+	check_figures_setting(*new);
+	push_figures_node(scene, new);
 }
 
-void	add_figures_back(t_scene *scene, t_figures *new)
+void	parse_cone(t_scene *scene, char **str)
 {
-	t_figures	*ptr;
+	t_figures	*new;
 
-	ptr = scene->figures;
-	if (!ptr)
-		scene->figures = new;
-	else
-	{
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = new;
-	}
+	new = get_figures_node(CON);
+	next(str);
+	new->fig.con.c = parse_vec3(str);
+	new->fig.con.nv = normalize(parse_vec3(str));
+	new->fig.con.theta = stof(str);
+	new->fig.con.height = stof(str);
+	new->specular = stof(str);
+	new->refl_idx = stof(str);
+	new->refr_idx = stof(str);
+	new->texture = stof(str);
+	if (new->texture == 2)
+		new->wavelength = stof(str);
+	new->clr = parse_color(str);
+	check_figures_setting(*new);
+	push_figures_node(scene, new);
 }

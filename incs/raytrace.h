@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 14:54:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/07 16:34:27 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ double	hit_caps_time(t_ray ray, t_cylinder cy);
 int		hit_caps(t_ray *ray, t_figures elem);
 double	hit_cylinder_time(t_ray ray, t_cylinder cy, double *y);
 int		hit_cylinder(t_ray *ray, t_figures elem);
+double	hit_cone_time(t_ray ray, t_cone con);
+int		hit_cone(t_ray *ray, t_figures elem);
 
 /*
 ** color.c **
