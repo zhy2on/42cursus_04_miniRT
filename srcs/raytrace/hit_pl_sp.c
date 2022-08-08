@@ -6,11 +6,36 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:10:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 15:19:03 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 21:16:18 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_p3	get_hit_point(t_ray ray)
+{
+	return (vadd(ray.o, vscale(ray.dir, ray.hit.time)));
+}
+
+void	solve_quadratic(double a, double b, double c, double root[2])
+{
+	double	sqrt_disc;
+	double	tmp;
+
+	sqrt_disc = sqrt(pow(b, 2) - 4 * a * c);
+	root[0] = (-b - sqrt_disc) / (2 * a);
+	if (root[0] <= EPSILON)
+		root[0] = INFINITY;
+	root[1] = (-b + sqrt_disc) / (2 * a);
+	if (root[1] <= EPSILON)
+		root[1] = INFINITY;
+	if (root[1] < root[0])
+	{
+		tmp = root[1];
+		root[1] = root[0];
+		root[0] = tmp;
+	}
+}
 
 double	hit_plane_time(t_p3 o, t_vec3 dir, t_p3 p, t_vec3 nv)
 {

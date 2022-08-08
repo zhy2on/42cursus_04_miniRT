@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:04:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 03:01:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 22:00:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,29 @@ int	uv_pattern_at(double u, double v, t_hit hit)
 
 int	uv_pattern_at_plane(t_hit hit)
 {
-	t_vec3	horizontal;
-	t_vec3	vertical;
+	t_vec3	vec3_uv[2];
 	double	u;
 	double	v;
 
-	if (hit.nv.y == 1 || hit.nv.y == -1)
-		horizontal = create_vec3(hit.nv.y, 0, 0);
-	else
-		horizontal = cross(create_vec3(0, 1, 0), hit.nv);
-	vertical = cross(hit.nv, horizontal);
-	u = fmod(dot(hit.point, horizontal), 1);
-	v = fmod(dot(hit.point, vertical), 1);
+	set_uv_axis(hit.nv, &vec3_uv[0], &vec3_uv[1]);
+	u = fmod(dot(hit.point, vec3_uv[0]), 1);
+	v = fmod(dot(hit.point, vec3_uv[1]), 1);
+	return (uv_pattern_at(u, v, hit));
+}
+
+int	uv_pattern_at_sphere(t_hit hit)
+{
+	t_vec3	vec3_uv[2];
+	double	theta;
+	double	phi;
+	double	u;
+	double	v;
+
+	set_uv_axis(hit.nv, &vec3_uv[0], &vec3_uv[1]);
+	theta = acos(-1 * hit.nv.y);
+	phi = atan2(-1 * hit.nv.z, hit.nv.x) + M_PI;
+	u = phi * M_1_PI * 0.5;
+	v = theta * M_1_PI;
 	return (uv_pattern_at(u, v, hit));
 }
 
@@ -60,5 +71,7 @@ int	checker_board(t_hit hit)
 {
 	if (hit.elem.type == PL)
 		return (uv_pattern_at_plane(hit));
+	if (hit.elem.type == SP)
+		return (uv_pattern_at_sphere(hit));
 	return (hit.elem.clr);
 }

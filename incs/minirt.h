@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 02:35:51 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 21:23:12 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,7 @@ enum e_key
 void		put_error(char *str);
 void		*ft_malloc(unsigned int size);
 double		clamp(double x, double min, double max);
-t_p3		get_hit_point(t_ray ray);
-void		solve_quadratic(double a, double b, double c, double root[2]);
+void		set_uv_axis(t_vec3 w, t_vec3 *u, t_vec3	*v);
 
 /*
 ** render.c **

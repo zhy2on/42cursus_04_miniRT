@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 01:37:57 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/08 21:23:30 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,7 @@ void	set_cam(t_scene *scene, t_cam *cam)
 		vp[1] = 2 * tan(cam->fov / 2 * M_PI / 180);
 		vp[0] = vp[1] * (double)scene->xres / scene->yres;
 		w = normalize(vscale(cam->nv, -1));
-		if (w.y == 1 || w.y == -1)
-			u = create_vec3(w.y, 0, 0);
-		else
-			u = cross(create_vec3(0, 1, 0), w);
-		v = cross(w, u);
+		set_uv_axis(w, &u, &v);
 		cam->hor = vscale(u, vp[0]);
 		cam->ver = vscale(v, vp[1]);
 		cam->llc = vsub(cam->o, vscale(cam->hor, 0.5));
