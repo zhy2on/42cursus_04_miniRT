@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 21:23:30 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/09 00:08:23 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,17 @@ void	parse_scene(t_scene *scene, char *str)
 		put_error("invalid elment type");
 }
 
-void	parse_file(t_minirt *rt, char **av)
+void	parse_file(t_minirt *rt, char *av)
 {
 	int		fd;
 	char	*str;
 	int		len;
 
-	len = ft_strlen(av[1]);
-	if (!av[1] || len < 3 || av[1][len - 1] != 't'
-		|| av[1][len - 2] != 'r' || av[1][len - 3] != '.')
+	len = ft_strlen(av);
+	if (!av || len < 3 || av[len - 1] != 't'
+		|| av[len - 2] != 'r' || av[len - 3] != '.')
 		put_error("file format must be .rt");
-	fd = open(av[1], O_RDONLY);
+	fd = open(av, O_RDONLY);
 	if (fd == -1)
 		put_error("fail to open file");
 	str = NULL;

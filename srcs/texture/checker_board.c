@@ -6,38 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:04:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 23:39:12 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/09 00:18:13 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-int	complementary_color(int clr)
-{
-	int		r;
-	int		g;
-	int		b;
-
-	r = 0xFF - (clr >> 0x10);
-	g = 0xFF - (clr >> 0x08 & 0xFF);
-	b = 0xFF - (clr & 0xFF);
-	return ((r << 0x10) | (g << 0x08) | b);
-}
-
-int	uv_pattern_at(double u, double v, t_hit hit)
-{
-	int	u2;
-	int	v2;
-	int	res;
-
-	u2 = u * hit.elem.checker_w;
-	v2 = v * hit.elem.checker_h;
-	res = (u2 + v2) % 2;
-	if (res)
-		return (hit.elem.clr);
-	else
-		return (complementary_color(hit.elem.clr));
-}
 
 int	uv_pattern_at_plane(t_hit hit)
 {
@@ -67,11 +40,32 @@ int	uv_pattern_at_sphere(t_hit hit)
 	return (uv_pattern_at(u, v, hit));
 }
 
+int	uv_pattern_at_cylinder(t_hit hit)
+{
+	t_vec3	vec3_uv[2];
+	double	theta;
+	double	height;
+	t_vec3	pc;
+	double	uv[2];
+
+	set_uv_axis(hit.elem.fig.cy.nv, &vec3_uv[0], &vec3_uv[1]);
+	pc = vsub(hit.point, hit.elem.fig.cy.c);
+	theta = atan2(-1 * dot(pc, vec3_uv[0]), dot(pc, vec3_uv[1])) + M_PI;
+	height = dot(pc, hit.elem.fig.cy.nv);
+	uv[0] = theta * M_1_PI * 0.5;
+	uv[1] = fmod(height, 1);
+	if (uv[1] < 0)
+		uv[1] += 1;
+	return (uv_pattern_at(uv[0], uv[1], hit));
+}
+
 int	checker_board(t_hit hit)
 {
 	if (hit.elem.type == PL)
 		return (uv_pattern_at_plane(hit));
 	if (hit.elem.type == SP)
 		return (uv_pattern_at_sphere(hit));
+	if (hit.elem.type == CY)
+		return (uv_pattern_at_cylinder(hit));
 	return (hit.elem.clr);
 }

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:28:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 02:29:38 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/09 00:08:10 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 void		set_cam(t_scene *scene, t_cam *cam);
 void		parse_resolution(t_scene *scene, char **str);
 void		parse_scene(t_scene *scene, char *str);
-void		parse_file(t_minirt *rt, char **av);
+void		parse_file(t_minirt *rt, char *av);
 
 /*
 ** parse_cam.c **

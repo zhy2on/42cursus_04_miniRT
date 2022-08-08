@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 01:11:40 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/09 00:07:44 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	key_hook(int keycode, t_minirt *rt)
 	return (1);
 }
 
-void	set_mlx(t_minirt *rt)
+void	set_mlx(t_minirt *rt, char *f_name)
 {
 	rt->mlx = mlx_init();
 	if (!rt->mlx)
 		put_error("fail to init mlx");
 	printf("start minirt");
-	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, "");
+	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, f_name);
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
 	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, rt);
 }
@@ -66,8 +66,8 @@ int	main(int ac, char **av)
 	if (ac < 2 || ac > 3)
 		put_error("Usage: ./miniRT <scene.rt>");
 	init_minirt(&rt);
-	parse_file(&rt, av);
-	set_mlx(&rt);
+	parse_file(&rt, av[1]);
+	set_mlx(&rt, av[1]);
 	render_scene(&rt, rt.scene.cam);
 	mlx_loop(rt.mlx);
 	return (0);
