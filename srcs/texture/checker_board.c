@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:04:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/09 00:18:13 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/09 00:33:12 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,15 +43,34 @@ int	uv_pattern_at_sphere(t_hit hit)
 int	uv_pattern_at_cylinder(t_hit hit)
 {
 	t_vec3	vec3_uv[2];
+	t_vec3	pc;
 	double	theta;
 	double	height;
-	t_vec3	pc;
 	double	uv[2];
 
 	set_uv_axis(hit.elem.fig.cy.nv, &vec3_uv[0], &vec3_uv[1]);
 	pc = vsub(hit.point, hit.elem.fig.cy.c);
 	theta = atan2(-1 * dot(pc, vec3_uv[0]), dot(pc, vec3_uv[1])) + M_PI;
 	height = dot(pc, hit.elem.fig.cy.nv);
+	uv[0] = theta * M_1_PI * 0.5;
+	uv[1] = fmod(height, 1);
+	if (uv[1] < 0)
+		uv[1] += 1;
+	return (uv_pattern_at(uv[0], uv[1], hit));
+}
+
+int	uv_pattern_at_cone(t_hit hit)
+{
+	t_vec3	vec3_uv[2];
+	t_vec3	pc;
+	double	theta;
+	double	height;
+	double	uv[2];
+
+	set_uv_axis(hit.elem.fig.con.nv, &vec3_uv[0], &vec3_uv[1]);
+	pc = vsub(hit.point, hit.elem.fig.con.c);
+	theta = atan2(-1 * dot(pc, vec3_uv[0]), dot(pc, vec3_uv[1])) + M_PI;
+	height = dot(pc, hit.elem.fig.con.nv);
 	uv[0] = theta * M_1_PI * 0.5;
 	uv[1] = fmod(height, 1);
 	if (uv[1] < 0)
@@ -67,5 +86,7 @@ int	checker_board(t_hit hit)
 		return (uv_pattern_at_sphere(hit));
 	if (hit.elem.type == CY)
 		return (uv_pattern_at_cylinder(hit));
+	if (hit.elem.type == CON)
+		return (uv_pattern_at_cone(hit));
 	return (hit.elem.clr);
 }
