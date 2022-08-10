@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_board.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/08 02:04:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/09 00:33:12 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 14:53:53 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ int	uv_pattern_at_cylinder(t_hit hit)
 	height = dot(pc, hit.elem.fig.cy.nv);
 	uv[0] = theta * M_1_PI * 0.5;
 	uv[1] = fmod(height, 1);
-	if (uv[1] < 0)
-		uv[1] += 1;
 	return (uv_pattern_at(uv[0], uv[1], hit));
 }
 
@@ -73,8 +71,6 @@ int	uv_pattern_at_cone(t_hit hit)
 	height = dot(pc, hit.elem.fig.con.nv);
 	uv[0] = theta * M_1_PI * 0.5;
 	uv[1] = fmod(height, 1);
-	if (uv[1] < 0)
-		uv[1] += 1;
 	return (uv_pattern_at(uv[0], uv[1], hit));
 }
 

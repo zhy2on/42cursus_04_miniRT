@@ -3,50 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hit_con.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 15:14:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 21:25:18 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 15:54:23 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-double	hit_bottom_time(t_ray ray, t_cone con)
-{
-	double	time;
-	double	r;
-	t_p3	c2;
-	t_vec3	v;
-
-	c2 = vadd(con.c, vscale(con.nv, con.height));
-	time = hit_plane_time(ray.o, ray.dir, c2, con.nv);
-	v = vadd(ray.o, vscale(ray.dir, time));
-	r = con.height * tan(con.theta / 2 * M_PI / 180);
-	if (time < INFINITY && distance(v, c2) <= r)
-		return (time);
-	return (INFINITY);
-}
-
-int	hit_bottom(t_ray *ray, t_figures elem)
-{
-	double		time;
-	t_cone		con;
-
-	con = elem.fig.con;
-	time = hit_bottom_time(*ray, con);
-	if (ray->hit.time > time)
-	{
-		ray->hit.time = time;
-		ray->hit.point = get_hit_point(*ray);
-		if (dot(ray->dir, con.nv) > 0)
-			con.nv = vscale(con.nv, -1);
-		ray->hit.nv = con.nv;
-		ray->hit.elem = elem;
-		return (1);
-	}
-	return (0);
-}
 
 double	hit_cone_time(t_ray ray, t_cone con)
 {
@@ -93,6 +57,5 @@ int	hit_cone(t_ray *ray, t_figures elem)
 		ray->hit.elem = elem;
 		ret = 1;
 	}
-	ret |= hit_bottom(ray, elem);
 	return (ret);
 }

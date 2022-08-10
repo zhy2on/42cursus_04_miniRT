@@ -3,59 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hit_cy.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:09:40 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 15:54:46 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-double	hit_caps_time(t_ray ray, t_cylinder cy)
-{
-	double	time[2];
-	int		ret[2];
-	t_vec3	v[2];
-	t_p3	c2;
-
-	c2 = vadd(cy.c, vscale(cy.nv, cy.height));
-	time[0] = hit_plane_time(ray.o, ray.dir, cy.c, cy.nv);
-	time[1] = hit_plane_time(ray.o, ray.dir, c2, cy.nv);
-	v[0] = vadd(ray.o, vscale(ray.dir, time[0]));
-	v[1] = vadd(ray.o, vscale(ray.dir, time[1]));
-	ret[0] = (time[0] < INFINITY && distance(v[0], cy.c) <= cy.r);
-	ret[1] = (time[1] < INFINITY && distance(v[1], c2) <= cy.r);
-	if (!ret[0] && !ret[1])
-		return (INFINITY);
-	if (ret[0] && !ret[1])
-		return (time[0]);
-	if (!ret[0] && ret[1])
-		return (time[1]);
-	if (time[0] < time[1])
-		return (time[0]);
-	return (time[1]);
-}
-
-int	hit_caps(t_ray *ray, t_figures elem)
-{
-	double		time;
-	t_cylinder	cy;
-
-	cy = elem.fig.cy;
-	time = hit_caps_time(*ray, cy);
-	if (time < INFINITY && ray->hit.time > time)
-	{
-		ray->hit.time = time;
-		ray->hit.point = get_hit_point(*ray);
-		if (dot(ray->dir, cy.nv) > 0)
-			cy.nv = vscale(cy.nv, -1);
-		ray->hit.nv = cy.nv;
-		ray->hit.elem = elem;
-		return (1);
-	}
-	return (0);
-}
 
 double	hit_cylinder_time(t_ray ray, t_cylinder cy, double *y)
 {
@@ -103,6 +58,5 @@ int	hit_cylinder(t_ray *ray, t_figures elem)
 		ray->hit.elem = elem;
 		ret = 1;
 	}
-	ret |= hit_caps(ray, elem);
 	return (ret);
 }
