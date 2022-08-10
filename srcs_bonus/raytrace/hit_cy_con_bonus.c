@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_con.c                                          :+:      :+:    :+:   */
+/*   hit_cy_con_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 15:14:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:17:20 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/10 21:19:39 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,17 +91,13 @@ double	hit_cone_time(t_ray ray, t_cone con, double *y)
 int	hit_cone(t_ray *ray, t_figures elem)
 {
 	double		time;
-	t_vec3		cp;
-	t_vec3		oc;
-	t_cone		con;
 	double		y;
+	t_cone		con;
 
 	con = elem.fig.con;
 	time = hit_cone_time(*ray, con, &y);
 	if (ray->hit.time > time)
 	{
-		oc = vsub(ray->o, con.c);
-		cp = vsub(vscale(ray->dir, time), vscale(oc, -1));
 		ray->hit.time = time;
 		ray->hit.point = get_hit_point(*ray);
 		ray->hit.nv = normalize(vsub(ray->hit.point,

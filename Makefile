@@ -5,11 +5,8 @@ INCFLAGS	= -I$(INCS_DIR) -I$(LIBFT_INC)
 
 # === Directories === #
 SRCS_DIR			:= ./srcs/
-SRCS_BONUS_DIR		:= ./srcs_bonus/
 OBJS_DIR			:= ./objs/
-OBJS_BONUS_DIR		:= ./objs_bonus/
 INCS_DIR			:= ./incs/
-INCS_BONUS_DIR		:= ./incs_bonus/
 LIBFT_DIR			= ./libft/
 LIBFT_INC			= $(LIBFT_DIR)includes/
 LIBFT_LIB			= libft.a
@@ -18,7 +15,7 @@ LIBFT_LIB			= libft.a
 INCS		= $(wildcard $(INCS_DIR)*.h)
 
 # === Define srcs === #
-SUBDIRS		= parse raytrace vec3 texture
+SUBDIRS		:= parse raytrace vec3
 S_SUBDIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(SRCS_DIR), $(dir)))
 SRCS		= $(wildcard $(SRCS_DIR)*.c) $(foreach dir, $(S_SUBDIRS), $(wildcard $(dir)/*.c))
 
@@ -30,14 +27,10 @@ NAME		= miniRT
 
 # === For make bonus === #
 ifdef WITH_BONUS
-	SRCS_DIR := $(SRCS_BONUS_DIR)
-	INCS_DIR := $(INCS_BONUS_DIR)
-	OBJS_DIR := $(OBJS_BONUS_DIR)
-else
-	SRCS_DIR := $(SRCS_DIR)
-	INCS_DIR := $(INCS_DIR)
-	OBJS_DIR := $(OBJS_DIR)
-	SUBDIRS := parse raytrace vec3
+	SRCS_DIR := ./srcs_bonus/
+	INCS_DIR := ./incs_bonus/
+	OBJS_DIR := ./objs_bonus/
+	SUBDIRS := parse raytrace vec3 texture
 endif
 
 # === Keywords === #
