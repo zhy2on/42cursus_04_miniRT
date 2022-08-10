@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_pl_sp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:10:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 21:16:18 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:19:30 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,15 +37,15 @@ void	solve_quadratic(double a, double b, double c, double root[2])
 	}
 }
 
-double	hit_plane_time(t_p3 o, t_vec3 dir, t_p3 p, t_vec3 nv)
+double	hit_plane_time(t_ray ray, t_plane pl)
 {
 	double	denom;
 	double	time;
 
-	denom = dot(nv, dir);
+	denom = dot(pl.nv, ray.dir);
 	if (denom == 0)
 		return (INFINITY);
-	time = (dot(nv, vsub(p, o))) / denom;
+	time = (dot(pl.nv, vsub(pl.p, ray.o))) / denom;
 	if (time <= EPSILON)
 		return (INFINITY);
 	return (time);
@@ -57,7 +57,7 @@ int	hit_plane(t_ray *ray, t_figures elem)
 	t_plane	pl;
 
 	pl = elem.fig.pl;
-	time = hit_plane_time(ray->o, ray->dir, pl.p, pl.nv);
+	time = hit_plane_time(*ray, pl);
 	if (ray->hit.time > time)
 	{
 		ray->hit.time = time;

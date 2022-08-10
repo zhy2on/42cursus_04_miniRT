@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:13:11 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:20:12 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,15 @@ int			raytrace(t_minirt *rt, t_ray *ray);
 */
 t_p3		get_hit_point(t_ray ray);
 void		solve_quadratic(double a, double b, double c, double root[2]);
-double		hit_plane_time(t_p3 o, t_vec3 dir, t_p3 p, t_vec3 nv);
+double		hit_plane_time(t_ray ray, t_plane pl);
 int			hit_plane(t_ray *ray, t_figures elem);
 int			hit_sphere(t_ray *ray, t_figures elem);
 
 /*
-** hit_cy.c **
+** hit_cy_con.c **
 */
-double		hit_caps_time(t_ray ray, t_cylinder cy);
-int			hit_caps(t_ray *ray, t_figures elem);
 double		hit_cylinder_time(t_ray ray, t_cylinder cy, double *y);
 int			hit_cylinder(t_ray *ray, t_figures elem);
-
-/*
-** hit_con.c **
-*/
-double		hit_bottom_time(t_ray ray, t_cone con);
-int			hit_bottom(t_ray *ray, t_figures elem);
 double		hit_cone_time(t_ray ray, t_cone con, double *y);
 int			hit_cone(t_ray *ray, t_figures elem);
 
