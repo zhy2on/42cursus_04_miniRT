@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:33:56 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:47:59 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:58:35 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,6 @@ typedef struct s_figures
 	int					type;
 	union u_figures		fig;
 	int					clr;
-	int					specular;
-	double				refl_idx;
-	double				refr_idx;
-	int					texture;
-	double				wavelength;
 	struct s_figures	*next;
 }				t_figures;
 

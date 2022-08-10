@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:48:48 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/04 18:17:26 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/10 18:18:54 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,5 @@ void	parse_camera(t_scene *scene, char **str)
 		scene->cam = new;
 	}
 	else
-	{
-		while (ptr->next)
-			ptr = ptr->next;
-		ptr->next = new;
-	}
+		put_error("camera is already declared", NULL);
 }

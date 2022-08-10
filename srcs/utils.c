@@ -3,20 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:55:46 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 18:21:13 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	put_error(char *str)
+void	put_error(char *str, char *stop)
 {
-	write(2, "error: ", 7);
-	write(2, str, ft_strlen(str));
-	write(2, "\n", 1);
+	if (stop)
+	{
+		ft_putstr_fd(YELLOW, 2);
+		ft_putstr_fd("stop at: ", 2);
+		ft_putendl_fd(stop, 2);
+	}
+	ft_putstr_fd(RED, 2);
+	ft_putstr_fd("error: ", 2);
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd("\n", 2);
 	exit(1);
 }
 
@@ -26,7 +33,7 @@ void	*ft_malloc(unsigned int size)
 
 	ptr = malloc(size);
 	if (ptr == NULL)
-		put_error("malloc failed");
+		put_error("malloc failed", NULL);
 	return (ptr);
 }
 
@@ -39,27 +46,12 @@ double	clamp(double x, double min, double max)
 	return (x);
 }
 
-t_p3	get_hit_point(t_ray ray)
+void	set_uv_axis(t_vec3 w, t_vec3 *u, t_vec3	*v)
 {
-	return (vadd(ray.o, vscale(ray.dir, ray.hit.time)));
-}
-
-void	solve_quadratic(double a, double b, double c, double root[2])
-{
-	double	sqrt_disc;
-	double	tmp;
-
-	sqrt_disc = sqrt(pow(b, 2) - 4 * a * c);
-	root[0] = (-b - sqrt_disc) / (2 * a);
-	if (root[0] <= EPSILON)
-		root[0] = INFINITY;
-	root[1] = (-b + sqrt_disc) / (2 * a);
-	if (root[1] <= EPSILON)
-		root[1] = INFINITY;
-	if (root[1] < root[0])
-	{
-		tmp = root[1];
-		root[1] = root[0];
-		root[0] = tmp;
-	}
+	w = normalize(w);
+	if (w.y == 1 || w.y == -1)
+		*u = create_vec3(w.y, 0, 0);
+	else
+		*u = cross(create_vec3(0, 1, 0), w);
+	*v = cross(w, *u);
 }

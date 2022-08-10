@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:54:14 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 18:15:46 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,13 @@ int	key_hook(int keycode, t_minirt *rt)
 	return (1);
 }
 
-void	set_mlx(t_minirt *rt)
+void	set_mlx(t_minirt *rt, char *f_name)
 {
 	rt->mlx = mlx_init();
 	if (!rt->mlx)
-		put_error("fail to init mlx");
-	printf("start minirt");
-	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, "");
+		put_error("fail to init mlx", NULL);
+	printf("start minirt\n");
+	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, f_name);
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
 	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, rt);
 }
@@ -53,8 +53,8 @@ void	init_minirt(t_minirt *rt)
 	rt->scene.cam = NULL;
 	rt->scene.figures = NULL;
 	rt->scene.light = NULL;
-	rt->scene.xres = -1;
-	rt->scene.yres = -1;
+	rt->scene.xres = MAX_W;
+	rt->scene.yres = MAX_W;
 	rt->scene.al_br = -1;
 	rt->scene.al_clr = -1;
 }
@@ -64,10 +64,10 @@ int	main(int ac, char **av)
 	t_minirt	rt;
 
 	if (ac < 2 || ac > 3)
-		put_error("Usage: ./miniRT <scene.rt>");
+		put_error("Usage: ./miniRT <scene.rt>", NULL);
 	init_minirt(&rt);
-	parse_file(&rt, av);
-	set_mlx(&rt);
+	parse_file(&rt, av[1]);
+	set_mlx(&rt, av[1]);
 	render_scene(&rt, rt.scene.cam);
 	mlx_loop(rt.mlx);
 	return (0);

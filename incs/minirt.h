@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 14:50:55 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 18:20:54 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <stdlib.h>
 # include <mlx.h>
 # include <fcntl.h>
-# include "vec3.h"
 # include "libft.h"
+# include "vec3.h"
 # include "struct.h"
 # include "figures.h"
 # include "parse.h"
@@ -27,6 +27,18 @@
 
 # define BUFSIZE 32
 # define EPSILON 0.00001
+
+# define WIN_W	800
+# define WIN_H	800
+
+# define RED "\033[31m"
+# define YELLOW "\033[33m"
+
+enum e_window
+{
+	MAX_W = 800,
+	MIN_W = 480
+} ;
 
 enum e_key
 {
@@ -39,11 +51,10 @@ enum e_key
 /*
 ** utils.c **
 */
-void		put_error(char *str);
+void		put_error(char *str, char *stop);
 void		*ft_malloc(unsigned int size);
 double		clamp(double x, double min, double max);
-t_p3		get_hit_point(t_ray ray);
-void		solve_quadratic(double a, double b, double c, double root[2]);
+void		set_uv_axis(t_vec3 w, t_vec3 *u, t_vec3	*v);
 
 /*
 ** render.c **

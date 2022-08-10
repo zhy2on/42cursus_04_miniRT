@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 17:13:41 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 18:01:30 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ int	intersect(t_minirt *rt, t_ray *ray)
 			ret |= hit_sphere(ray, *elem);
 		else if (elem->type == CY)
 			ret |= hit_cylinder(ray, *elem);
-		else if (elem->type == CON)
-			ret |= hit_cone(ray, *elem);
 		elem = elem->next;
 	}
 	return (ret);

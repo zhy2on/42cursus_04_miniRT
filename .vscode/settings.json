@@ -5,6 +5,7 @@
 		"random": "cpp",
 		"queue": "cpp",
 		"stdio.h": "c",
-		"minirt.h": "c"
+		"minirt.h": "c",
+		"sstream": "c"
 	}
 }

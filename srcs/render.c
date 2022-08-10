@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:54:29 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 18:16:15 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	render_scene(t_minirt *rt, t_cam *cam)
 	cam->img.addr = mlx_get_data_addr(cam->img.ptr, &cam->img.bpp,
 			&cam->img.size, &cam->img.endian);
 	if (!cam->img.ptr || !cam->img.addr)
-		put_error("fail to set mlx");
+		put_error("fail to set mlx", NULL);
 	y = -1;
 	while (++y < (rt->scene.yres - 1))
 	{

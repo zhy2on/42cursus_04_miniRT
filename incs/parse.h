@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:28:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 17:21:29 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:59:20 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 void		set_cam(t_scene *scene, t_cam *cam);
 void		parse_resolution(t_scene *scene, char **str);
 void		parse_scene(t_scene *scene, char *str);
-void		parse_file(t_minirt *rt, char **av);
+void		parse_file(t_minirt *rt, char *av);
 
 /*
 ** parse_cam.c **
@@ -52,7 +52,6 @@ void		parse_light(t_scene *scene, char **str);
 void		parse_sphere(t_scene *scene, char **str);
 void		parse_plane(t_scene *scene, char **str);
 void		parse_cylinder(t_scene *scene, char **str);
-void		parse_cone(t_scene *scene, char **str);
 
 /*
 ** parse_figures_utils.c **
