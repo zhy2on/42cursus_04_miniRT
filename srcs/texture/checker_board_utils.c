@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checker_board_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 00:02:59 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/09 00:03:05 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 14:09:15 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	uv_pattern_at(double u, double v, t_hit hit)
 	u2 = u * hit.elem.checker_w;
 	v2 = v * hit.elem.checker_h;
 	res = (u2 + v2) % 2;
+	if ((u * v) > 0)
+		res = !res;
 	if (res)
 		return (hit.elem.clr);
 	else
