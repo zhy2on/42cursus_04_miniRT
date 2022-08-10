@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_bonus.c                                       :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 03:56:26 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 05:01:37 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
+#include "minirt.h"
 
 int	exit_program(void *param)
 {
@@ -36,9 +36,6 @@ int	key_hook(int keycode, t_minirt *rt)
 
 void	set_mlx(t_minirt *rt, char *f_name)
 {
-	rt->mlx = mlx_init();
-	if (!rt->mlx)
-		put_error("fail to init mlx", NULL);
 	printf("start minirt\n");
 	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, f_name);
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
@@ -48,6 +45,9 @@ void	set_mlx(t_minirt *rt, char *f_name)
 void	init_minirt(t_minirt *rt)
 {
 	rt->mlx = NULL;
+	rt->mlx = mlx_init();
+	if (!rt->mlx)
+		put_error("fail to init mlx", NULL);
 	rt->win = NULL;
 	rt->scene.first = NULL;
 	rt->scene.cam = NULL;

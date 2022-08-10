@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_light_bonus.c                                :+:      :+:    :+:   */
+/*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:02:54 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 04:18:16 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
+#include "minirt.h"
 
 void	parse_ambient_light(t_scene *scene, char **pstr, char *error_line)
 {

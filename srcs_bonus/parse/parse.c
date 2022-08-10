@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_bonus.c                                      :+:      :+:    :+:   */
+/*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 05:22:10 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
+#include "/Users/zhy2on/Documents/42cursus_04_miniRT/incs_bonus/minirt.h"
 
 void	set_cam(t_scene *scene, t_cam *cam)
 {
@@ -54,7 +54,7 @@ void	parse_resolution(t_scene *scene, char **pstr, char *error_line)
 	scene->yres = clamp(scene->yres, MIN_W, MAX_W);
 }
 
-void	parse_scene(t_scene *scene, char *str)
+void	parse_scene(t_scene *scene, char *str, void *mlx)
 {
 	if (*str == '#')
 		return ;
@@ -74,6 +74,8 @@ void	parse_scene(t_scene *scene, char *str)
 		parse_cylinder(scene, &str, str - 2);
 	else if (!ft_strncmp(str, "con", 3) && *(str++) && *(str++) && *(str++))
 		parse_cone(scene, &str, str - 3);
+	else if (!ft_strncmp(str, "tx", 2) && *(str++) && *(str++))
+		parse_texture(scene, &str, mlx);
 	else if (*str)
 		put_error("invalid elment type", str);
 }
@@ -94,7 +96,7 @@ void	parse_file(t_minirt *rt, char *av)
 	str = NULL;
 	while (get_next_line(fd, &str) > 0)
 	{
-		parse_scene(&rt->scene, str);
+		parse_scene(&rt->scene, str, rt->mlx);
 		free(str);
 	}
 	free(str);

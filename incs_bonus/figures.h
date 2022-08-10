@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   figures_bonus.h                                    :+:      :+:    :+:   */
+/*   figures.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 15:21:33 by junyopar          #+#    #+#             */
-/*   Updated: 2022/08/11 03:50:45 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 04:15:16 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FIGURES_BONUS_H
-# define FIGURES_BONUS_H
+#ifndef FIGURES_H
+# define FIGURES_H
 
-# include "vec3_bonus.h"
+# include "vec3.h"
 
 enum e_type
 {

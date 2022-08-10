@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_bonus.h                                      :+:      :+:    :+:   */
+/*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 03:52:09 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 03:52:10 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 05:16:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_BONUS_H
-# define PARSE_BONUS_H
+#ifndef PARSE_H
+# define PARSE_H
 
-# include "vec3_bonus.h"
-# include "struct_bonus.h"
+# include "vec3.h"
+# include "struct.h"
 
 /*
 ** parse.c **
 */
 void		set_cam(t_scene *scene, t_cam *cam);
 void		parse_resolution(t_scene *scene, char **pstr, char *error_line);
-void		parse_scene(t_scene *scene, char *str);
+void		parse_scene(t_scene *scene, char *str, void *mlx);
 void		parse_file(t_minirt *rt, char *av);
 
 /*
@@ -60,5 +60,16 @@ void		parse_cone(t_scene *scene, char **pstr, char *error_line);
 t_figures	*get_figures_node(int type);
 void		check_figures_setting(t_figures elem, char *error_line);
 void		push_figures_node(t_scene *scene, t_figures *new);
+t_texture	*search_texture(t_texture *texture, char *id);
+
+/*
+** parse_texture.c **
+*/
+void		set_xpm_to_mlx(t_xpm_img *xpm_img, char *xpm_file, void *mlx);
+t_texture	*get_texture_node(\
+						char *id, char *img_file, char *bmp_file, void *mlx);
+char		*texture_element(char **pstr);
+void		push_texure_node(t_scene *scene, t_texture *new);
+void		parse_texture(t_scene *scene, char **pstr, void *mlx);
 
 #endif

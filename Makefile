@@ -51,7 +51,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	@echo $(CLEAN)
 	@make -sC $(LIBFT_DIR)
-	@$(CC) $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) $(OBJS) -o $@
+	$(CC) $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) $(OBJS) -o $@
 	@echo "$(GREEN)[$(NAME)]: done$(RESET)"
 
 bonus : 
@@ -59,7 +59,7 @@ bonus :
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCS_DIR)*.h
 	@mkdir -p $(dir $@)
-	@$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
+	$(CC) $(CFLAGS) -c $< -o $@ $(INCFLAGS)
 	@echo "\033[2K $(YELLOW)[$(NAME)]: Compiling $< $(RESET)\033[A"
 
 clean :

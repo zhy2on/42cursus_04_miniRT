@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_figures_bonus.c                              :+:      :+:    :+:   */
+/*   parse_figures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 05:11:19 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 05:19:10 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
+#include "minirt.h"
 
 void	parse_plane(t_scene *scene, char **pstr, char *error_line)
 {
@@ -25,6 +25,7 @@ void	parse_plane(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
+	new->tx = search_texture(scene->texture, texture_element(pstr));
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
@@ -42,6 +43,7 @@ void	parse_sphere(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
+	new->tx = search_texture(scene->texture, texture_element(pstr));
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
@@ -61,6 +63,7 @@ void	parse_cylinder(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
+	new->tx = search_texture(scene->texture, texture_element(pstr));
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
@@ -80,6 +83,7 @@ void	parse_cone(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
+	new->tx = search_texture(scene->texture, texture_element(pstr));
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }

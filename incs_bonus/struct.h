@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct_bonus.h                                     :+:      :+:    :+:   */
+/*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 03:51:48 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 04:02:03 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 05:18:08 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_BONUS_H
-# define STRUCT_BONUS_H
+#ifndef STRUCT_H
+# define STRUCT_H
 
-# include "vec3_bonus.h"
-# include "figures_bonus.h"
+# include "vec3.h"
+# include "figures.h"
 
 typedef struct s_xpm_img
 {
@@ -72,7 +72,7 @@ typedef struct s_figures
 	int					specular;
 	int					checker_w;
 	int					checker_h;
-	char				*texture_id;
+	t_texture			*tx;
 	struct s_figures	*next;
 }				t_figures;
 

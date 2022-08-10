@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   hit_cy_con_bonus.c                                 :+:      :+:    :+:   */
+/*   hit_cy_con.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 15:14:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 04:18:09 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt_bonus.h"
+#include "minirt.h"
 
 double	hit_cylinder_time(t_ray ray, t_cylinder cy, double *y)
 {
