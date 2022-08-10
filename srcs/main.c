@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/09 00:07:44 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:47:50 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	set_mlx(t_minirt *rt, char *f_name)
 	rt->mlx = mlx_init();
 	if (!rt->mlx)
 		put_error("fail to init mlx");
-	printf("start minirt");
+	printf("start minirt\n");
 	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, f_name);
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
 	mlx_hook(rt->win, ON_KEYDOWN, 1L << 0, key_hook, rt);

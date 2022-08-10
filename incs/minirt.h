@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 21:23:12 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:39:31 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,17 @@
 # define BUFSIZE 32
 # define EPSILON 0.00001
 
+# define WIN_W	800
+# define WIN_H	800
+
 # define RED "\033[31m"
 # define YELLOW "\033[33m"
+
+enum e_window
+{
+	MAX_W = 800,
+	MIN_W = 480
+} ;
 
 enum e_key
 {

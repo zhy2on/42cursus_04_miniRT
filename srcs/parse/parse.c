@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/09 00:08:23 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:45:15 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@ void	set_cam(t_scene *scene, t_cam *cam)
 	t_vec3	u;
 	t_vec3	v;
 
+	if (scene->xres < 0)
+	{
+		scene->xres = MAX_W;
+		scene->yres = MAX_W;
+	}
+	if (!cam)
+		put_error("cam is not declared");
 	while (cam)
 	{
 		vp[1] = 2 * tan(cam->fov / 2 * M_PI / 180);
@@ -41,9 +48,10 @@ void	parse_resolution(t_scene *scene, char **str)
 	next(str);
 	scene->xres = stof(str);
 	scene->yres = stof(str);
-	if (scene->xres < 1 || scene->xres > INFINITY
-		|| scene->yres < 1 || scene->yres > INFINITY)
+	if (scene->xres < 0 || scene->xres < 0)
 		put_error("resolution setting is out of range");
+	scene->xres = clamp(scene->xres, MIN_W, MAX_W);
+	scene->yres = clamp(scene->yres, MIN_W, MAX_W);
 }
 
 void	parse_scene(t_scene *scene, char *str)
@@ -90,9 +98,5 @@ void	parse_file(t_minirt *rt, char *av)
 		free(str);
 	}
 	free(str);
-	if (rt->scene.xres < 0 || rt->scene.yres < 0)
-		put_error("resolutioin is not declared");
-	if (!rt->scene.cam)
-		put_error("cam is not declared");
 	set_cam(&rt->scene, rt->scene.cam);
 }
