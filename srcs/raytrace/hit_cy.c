@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:48:13 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 15:54:46 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:14:16 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,9 @@ int	hit_cylinder(t_ray *ray, t_figures elem)
 	double		time;
 	double		y;
 	t_cylinder	cy;
-	int			ret;
 
 	cy = elem.fig.cy;
 	time = hit_cylinder_time(*ray, cy, &y);
-	ret = 0;
 	if (time < INFINITY && ray->hit.time > time)
 	{
 		ray->hit.time = time;
@@ -56,7 +54,7 @@ int	hit_cylinder(t_ray *ray, t_figures elem)
 		ray->hit.nv = normalize(vsub(ray->hit.point,
 					vadd(vscale(cy.nv, y), cy.c)));
 		ray->hit.elem = elem;
-		ret = 1;
+		return (1);
 	}
-	return (ret);
+	return (0);
 }

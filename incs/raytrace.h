@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   raytrace.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 21:17:45 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/10 17:13:11 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int			hit_cylinder(t_ray *ray, t_figures elem);
 */
 double		hit_bottom_time(t_ray ray, t_cone con);
 int			hit_bottom(t_ray *ray, t_figures elem);
-double		hit_cone_time(t_ray ray, t_cone con);
+double		hit_cone_time(t_ray ray, t_cone con, double *y);
 int			hit_cone(t_ray *ray, t_figures elem);
 
 /*
