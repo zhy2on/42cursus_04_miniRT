@@ -7,6 +7,11 @@ INCFLAGS	= -I$(INCS_DIR) -I$(LIBFT_INC)
 SRCS_DIR			:= ./srcs/
 OBJS_DIR			:= ./objs/
 INCS_DIR			:= ./incs/
+
+SRCS_BONUS_DIR		:= ./srcs_bonus/
+OBJS_BONUS_DIR		:= ./objs_bonus/
+INCS_BONUS_DIR		:= ./incs_bonus/
+
 LIBFT_DIR			= ./libft/
 LIBFT_INC			= $(LIBFT_DIR)includes/
 LIBFT_LIB			= libft.a
@@ -27,9 +32,9 @@ NAME		= miniRT
 
 # === For make bonus === #
 ifdef WITH_BONUS
-	SRCS_DIR := ./srcs_bonus/
-	INCS_DIR := ./incs_bonus/
-	OBJS_DIR := ./objs_bonus/
+	SRCS_DIR := $(SRCS_BONUS_DIR)
+	INCS_DIR := $(INCS_BONUS_DIR)
+	OBJS_DIR := $(OBJS_BONUS_DIR)
 	SUBDIRS := parse raytrace vec3 texture
 endif
 
