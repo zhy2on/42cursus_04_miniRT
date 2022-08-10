@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 05:11:19 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 07:06:19 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 07:32:00 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	parse_plane(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
+	char		*texture_id;
 
 	new = get_figures_node(PL);
 	next(pstr);
@@ -25,7 +26,9 @@ void	parse_plane(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
-	new->tx = search_texture(scene->texture, texture_element(pstr));
+	texture_id = texture_element(pstr);
+	new->tx = search_texture(scene->texture, texture_id);
+	free(texture_id);
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
@@ -33,6 +36,7 @@ void	parse_plane(t_scene *scene, char **pstr, char *error_line)
 void	parse_sphere(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
+	char		*texture_id;
 
 	new = get_figures_node(SP);
 	next(pstr);
@@ -43,7 +47,9 @@ void	parse_sphere(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
-	new->tx = search_texture(scene->texture, texture_element(pstr));
+	texture_id = texture_element(pstr);
+	new->tx = search_texture(scene->texture, texture_id);
+	free(texture_id);
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
@@ -51,6 +57,7 @@ void	parse_sphere(t_scene *scene, char **pstr, char *error_line)
 void	parse_cylinder(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
+	char		*texture_id;
 
 	new = get_figures_node(CY);
 	next(pstr);
@@ -63,7 +70,9 @@ void	parse_cylinder(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
-	new->tx = search_texture(scene->texture, texture_element(pstr));
+	texture_id = texture_element(pstr);
+	new->tx = search_texture(scene->texture, texture_id);
+	free(texture_id);
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
@@ -71,6 +80,7 @@ void	parse_cylinder(t_scene *scene, char **pstr, char *error_line)
 void	parse_cone(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
+	char		*texture_id;
 
 	new = get_figures_node(CON);
 	next(pstr);
@@ -83,7 +93,9 @@ void	parse_cone(t_scene *scene, char **pstr, char *error_line)
 	comma(pstr, error_line);
 	new->checker_h = stof(pstr);
 	new->clr = parse_color(pstr, error_line);
-	new->tx = search_texture(scene->texture, texture_element(pstr));
+	texture_id = texture_element(pstr);
+	new->tx = search_texture(scene->texture, texture_id);
+	free(texture_id);
 	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
