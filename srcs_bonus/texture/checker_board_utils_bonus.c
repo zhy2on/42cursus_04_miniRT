@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   checker_board_utils.c                              :+:      :+:    :+:   */
+/*   checker_board_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/09 00:02:59 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 14:09:15 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 int	complementary_color(int clr)
 {

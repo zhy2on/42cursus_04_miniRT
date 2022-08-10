@@ -1,21 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raytrace.h                                         :+:      :+:    :+:   */
+/*   raytrace_bonus.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:20:12 by junyopar         ###   ########.fr       */
+/*   Created: 2022/08/11 03:52:04 by jihoh             #+#    #+#             */
+/*   Updated: 2022/08/11 04:02:58 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef RAYTRACE_H
-# define RAYTRACE_H
+#ifndef RAYTRACE_BONUS_H
+# define RAYTRACE_BONUS_H
 
-# include "struct.h"
-# include "figures.h"
-# include "vec3.h"
+# include "struct_bonus.h"
+# include "figures_bonus.h"
+# include "vec3_bonus.h"
 
 # define ALBEDO	0.9
 # define SPECULAR_POWER 100

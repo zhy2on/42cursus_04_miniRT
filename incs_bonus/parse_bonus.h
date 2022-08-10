@@ -1,20 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse.h                                            :+:      :+:    :+:   */
+/*   parse_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 02:28:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 00:43:39 by jihoh            ###   ########.fr       */
+/*   Created: 2022/08/11 03:52:09 by jihoh             #+#    #+#             */
+/*   Updated: 2022/08/11 03:52:10 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PARSE_H
-# define PARSE_H
+#ifndef PARSE_BONUS_H
+# define PARSE_BONUS_H
 
-# include "vec3.h"
-# include "struct.h"
+# include "vec3_bonus.h"
+# include "struct_bonus.h"
 
 /*
 ** parse.c **

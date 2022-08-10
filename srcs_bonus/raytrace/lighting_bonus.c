@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lighting.c                                         :+:      :+:    :+:   */
+/*   lighting_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 02:58:21 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:48:48 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 double	diffuse(t_light light, t_ray ray)
 {

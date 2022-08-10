@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:18:49 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 03:55:34 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 04:07:43 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "vec3.h"
 
 double	dot(t_vec3 u, t_vec3 v)
 {

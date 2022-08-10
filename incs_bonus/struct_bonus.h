@@ -1,22 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   struct.h                                           :+:      :+:    :+:   */
+/*   struct_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/04 02:33:56 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 01:11:05 by jihoh            ###   ########.fr       */
+/*   Created: 2022/08/11 03:51:48 by jihoh             #+#    #+#             */
+/*   Updated: 2022/08/11 04:02:03 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef STRUCT_H
-# define STRUCT_H
+#ifndef STRUCT_BONUS_H
+# define STRUCT_BONUS_H
 
-# include "vec3.h"
-# include "figures.h"
+# include "vec3_bonus.h"
+# include "figures_bonus.h"
 
-typedef struct s_img {
+typedef struct s_xpm_img
+{
+	void	*ptr;
+	char	*addr;
+	int		bpp;
+	int		size;
+	int		endian;
+	int		w;
+	int		h;
+}				t_xpm_img;
+
+typedef struct s_img
+{
 	void	*ptr;
 	char	*addr;
 	int		bpp;
@@ -44,6 +56,14 @@ typedef struct s_light
 	struct s_light	*next;
 }				t_light;
 
+typedef struct s_texture
+{
+	char				*id;
+	t_xpm_img			img_map;
+	t_xpm_img			bmp_map;
+	struct s_texture	*next;
+}				t_texture;
+
 typedef struct s_figures
 {
 	int					type;
@@ -52,6 +72,7 @@ typedef struct s_figures
 	int					specular;
 	int					checker_w;
 	int					checker_h;
+	char				*texture_id;
 	struct s_figures	*next;
 }				t_figures;
 
@@ -80,6 +101,7 @@ typedef struct s_scene
 	t_light		*light;
 	double		al_br;
 	int			al_clr;
+	t_texture	*texture;
 }				t_scene;
 
 typedef struct s_minirt {

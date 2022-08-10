@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:00:28 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 00:47:23 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 t_figures	*get_figures_node(int type)
 {

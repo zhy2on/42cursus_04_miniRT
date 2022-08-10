@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 01:08:32 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 void	put_error(char *str, char *error_line)
 {

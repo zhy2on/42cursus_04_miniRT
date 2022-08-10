@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raytrace.c                                         :+:      :+:    :+:   */
+/*   raytrace_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:47:08 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 13:41:44 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 int	intersect(t_minirt *rt, t_ray *ray)
 {

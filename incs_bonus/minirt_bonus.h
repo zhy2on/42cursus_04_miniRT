@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
+/*   minirt_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 01:08:21 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 03:49:34 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#ifndef MINIRT_BONUS_H
+# define MINIRT_BONUS_H
 
 # include <stdio.h>
 # include <math.h>
@@ -19,12 +19,12 @@
 # include <mlx.h>
 # include <fcntl.h>
 # include "libft.h"
-# include "vec3.h"
-# include "struct.h"
-# include "figures.h"
-# include "parse.h"
-# include "raytrace.h"
-# include "texture.h"
+# include "vec3_bonus.h"
+# include "struct_bonus.h"
+# include "figures_bonus.h"
+# include "parse_bonus.h"
+# include "raytrace_bonus.h"
+# include "texture_bonus.h"
 
 # define BUFSIZE 32
 # define EPSILON 0.00001

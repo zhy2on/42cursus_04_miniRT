@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:48:48 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 00:49:45 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 t_cam	*get_cam_node(t_p3 o, t_vec3 nv, int fov)
 {

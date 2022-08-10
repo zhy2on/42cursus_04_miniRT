@@ -1,38 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vec3.c                                             :+:      :+:    :+:   */
+/*   texture_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/17 17:24:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 04:07:27 by jihoh            ###   ########.fr       */
+/*   Created: 2022/08/11 03:51:38 by jihoh             #+#    #+#             */
+/*   Updated: 2022/08/11 04:02:58 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vec3.h"
+#ifndef TEXTURE_BONUS_H
+# define TEXTURE_BONUS_H
 
-t_vec3	create_vec3(double x, double y, double z)
-{
-	t_vec3	ret;
+# include "struct_bonus.h"
+# include "vec3_bonus.h"
+# include <math.h>
 
-	ret.x = x;
-	ret.y = y;
-	ret.z = z;
-	return (ret);
-}
+int	checker_board(t_hit hit);
+int	complementary_color(int clr);
+int	uv_pattern_at(double u, double v, t_hit hit);
 
-t_vec3	vadd(t_vec3 u, t_vec3 v)
-{
-	return (create_vec3(u.x + v.x, u.y + v.y, u.z + v.z));
-}
-
-t_vec3	vsub(t_vec3 u, t_vec3 v)
-{
-	return (create_vec3(u.x - v.x, u.y - v.y, u.z - v.z));
-}
-
-t_vec3	vscale(t_vec3 u, double n)
-{
-	return (create_vec3(u.x * n, u.y * n, u.z * n));
-}
+#endif

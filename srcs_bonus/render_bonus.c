@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 01:07:39 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 03:53:11 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 t_ray	create_ray(t_cam *cam, double x, double y)
 {

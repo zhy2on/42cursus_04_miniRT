@@ -1,24 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   texture.h                                          :+:      :+:    :+:   */
+/*   ft_strndup.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/08 02:35:02 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/09 00:10:07 by jihoh            ###   ########.fr       */
+/*   Created: 2021/05/17 19:51:06 by jihoh             #+#    #+#             */
+/*   Updated: 2022/08/11 03:39:34 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef TEXTURE_H
-# define TEXTURE_H
+#include "libft.h"
 
-# include "struct.h"
-# include "vec3.h"
-# include <math.h>
+char	*ft_strndup(const char *src, size_t n)
+{
+	char	*dst;
+	char	*ret;
+	size_t	i;
 
-int	checker_board(t_hit hit);
-int	complementary_color(int clr);
-int	uv_pattern_at(double u, double v, t_hit hit);
-
-#endif
+	dst = (char *)malloc(sizeof(char) * (ft_strlen(src) + 1));
+	if (!dst)
+		return (NULL);
+	ret = dst;
+	i = 0;
+	while (*src && i++ < n)
+	{
+		*dst++ = *src++;
+	}
+	*dst = '\0';
+	return (ret);
+}

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 13:53:27 by jihoh             #+#    #+#             */
-/*   Updated: 2022/02/09 18:23:16 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 03:23:41 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ char				*ft_strnstr(const char *h, const char *n, size_t len);
 int					ft_strncmp(const char *s1, const char *s2, size_t n);
 int					ft_atoi(const char *str);
 char				*ft_strdup(const char *src);
+char				*ft_strndup(const char *src, size_t n);
 char				*ft_substr(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
 char				*ft_strtrim(char const *s1, char const *set);

@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 23:59:57 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 03:56:26 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minirt.h"
+#include "minirt_bonus.h"
 
 int	exit_program(void *param)
 {
@@ -57,6 +57,7 @@ void	init_minirt(t_minirt *rt)
 	rt->scene.yres = -1;
 	rt->scene.al_br = -1;
 	rt->scene.al_clr = -1;
+	rt->scene.texture = NULL;
 }
 
 int	main(int ac, char **av)

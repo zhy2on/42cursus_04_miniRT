@@ -6,6 +6,8 @@
 		"queue": "cpp",
 		"stdio.h": "c",
 		"minirt.h": "c",
-		"sstream": "c"
+		"sstream": "c",
+		"__locale": "c",
+		"vec3_bonus.h": "c"
 	}
 }
