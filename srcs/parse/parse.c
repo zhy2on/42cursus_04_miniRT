@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 00:16:54 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 01:02:27 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,17 @@ void	parse_scene(t_scene *scene, char *str)
 	if (*str == '#')
 		return ;
 	if (*str == 'A' && *(str++))
-		parse_ambient_light(scene, &str, str);
+		parse_ambient_light(scene, &str, str - 1);
 	else if (*str == 'C' && *(str++))
-		parse_camera(scene, &str, str);
+		parse_camera(scene, &str, str - 1);
 	else if (*str == 'L' && *(str++))
-		parse_light(scene, &str, str);
+		parse_light(scene, &str, str - 1);
 	else if (!ft_strncmp(str, "pl", 2) && *(str++) && *(str++))
-		parse_plane(scene, &str, str);
+		parse_plane(scene, &str, str - 2);
 	else if (!ft_strncmp(str, "sp", 2) && *(str++) && *(str++))
-		parse_sphere(scene, &str, str);
+		parse_sphere(scene, &str, str - 2);
 	else if (!ft_strncmp(str, "cy", 2) && *(str++) && *(str++))
-		parse_cylinder(scene, &str, str);
+		parse_cylinder(scene, &str, str - 2);
 	else if (*str)
 		put_error("invalid elment type", str);
 }

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 00:30:15 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 01:02:36 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	next(char **pstr)
 void	comma(char **pstr, char *error_line)
 {
 	if (**pstr != ',')
-		put_error("comma bad formatted", error_line);
+		put_error("bad formatted", error_line);
 	(*pstr)++;
 }
 

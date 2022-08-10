@@ -3,22 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 19:31:14 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 18:21:13 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 01:02:46 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	put_error(char *str, char *stop)
+void	put_error(char *str, char *error_line)
 {
-	if (stop)
+	if (error_line)
 	{
 		ft_putstr_fd(YELLOW, 2);
 		ft_putstr_fd("stop at: ", 2);
-		ft_putendl_fd(stop, 2);
+		ft_putendl_fd(error_line, 2);
 	}
 	ft_putstr_fd(RED, 2);
 	ft_putstr_fd("error: ", 2);
