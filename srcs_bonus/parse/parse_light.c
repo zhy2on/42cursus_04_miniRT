@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_light.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 16:02:54 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 18:18:27 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/07 23:50:42 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 void	parse_ambient_light(t_scene *scene, char **str)
 {
 	if (scene->al_br != -1)
-		put_error("ambient lighting declared multiple times", NULL);
+		put_error("ambient lighting declared multiple times");
 	next(str);
 	scene->al_br = stof(str);
 	if (scene->al_br < 0 || scene->al_br > 1)
-		put_error("ambient lighting ratio is out of range", NULL);
+		put_error("ambient lighting ratio is out of range");
 	scene->al_clr = parse_color(str);
 }
 
@@ -42,9 +42,12 @@ void	parse_light(t_scene *scene, char **str)
 	next(str);
 	new = get_light_node(parse_vec3(str), stof(str), parse_color(str));
 	if (new->br < 0 || new->br > 1)
-		put_error("lighting ratio is out of range", NULL);
+		put_error("lighting ratio is out of range");
 	if (!scene->light)
 		scene->light = new;
 	else
-		put_error("light is already declared", NULL);
+	{
+		new->next = scene->light;
+		scene->light = new;
+	}
 }

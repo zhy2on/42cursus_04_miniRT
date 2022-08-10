@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:35:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:58:20 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:20:12 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,12 @@ int			hit_plane(t_ray *ray, t_figures elem);
 int			hit_sphere(t_ray *ray, t_figures elem);
 
 /*
-** hit_cy.c **
+** hit_cy_con.c **
 */
 double		hit_cylinder_time(t_ray ray, t_cylinder cy, double *y);
 int			hit_cylinder(t_ray *ray, t_figures elem);
+double		hit_cone_time(t_ray ray, t_cone con, double *y);
+int			hit_cone(t_ray *ray, t_figures elem);
 
 /*
 ** color.c **
@@ -54,6 +56,8 @@ int			ccomp(t_light light, t_ray ray);
 ** lighting.c **
 */
 double		diffuse(t_light light, t_ray ray);
+t_vec3		reflect_ray(t_vec3 p_to_light, t_vec3 hit_normal);
+double		specular(t_light light, t_ray ray);
 int			lighting(t_light light, t_ray ray);
 
 #endif

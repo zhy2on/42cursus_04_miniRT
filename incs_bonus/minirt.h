@@ -6,7 +6,7 @@
 /*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 18:20:54 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/10 17:39:31 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include "figures.h"
 # include "parse.h"
 # include "raytrace.h"
+# include "texture.h"
 
 # define BUFSIZE 32
 # define EPSILON 0.00001
@@ -51,7 +52,7 @@ enum e_key
 /*
 ** utils.c **
 */
-void		put_error(char *str, char *stop);
+void		put_error(char *str);
 void		*ft_malloc(unsigned int size);
 double		clamp(double x, double min, double max);
 void		set_uv_axis(t_vec3 w, t_vec3 *u, t_vec3	*v);

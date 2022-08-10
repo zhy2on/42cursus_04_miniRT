@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:28:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:59:20 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/09 00:08:10 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ void		parse_light(t_scene *scene, char **str);
 void		parse_sphere(t_scene *scene, char **str);
 void		parse_plane(t_scene *scene, char **str);
 void		parse_cylinder(t_scene *scene, char **str);
+void		parse_cone(t_scene *scene, char **str);
 
 /*
 ** parse_figures_utils.c **

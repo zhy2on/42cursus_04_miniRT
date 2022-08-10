@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:33:56 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:58:35 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/08 01:11:05 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@ typedef struct s_figures
 	int					type;
 	union u_figures		fig;
 	int					clr;
+	int					specular;
+	int					checker_w;
+	int					checker_h;
 	struct s_figures	*next;
 }				t_figures;
 

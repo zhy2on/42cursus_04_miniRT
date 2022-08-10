@@ -15,7 +15,7 @@ LIBFT_LIB	= libft.a
 INCS		= $(wildcard $(INCS_DIR)*.h)
 
 # === Define srcs === #
-SUBDIRS		= parse raytrace vec3 texture
+SUBDIRS		= parse raytrace vec3
 S_SUBDIRS	= $(foreach dir, $(SUBDIRS), $(addprefix $(SRCS_DIR), $(dir)))
 SRCS		= $(wildcard $(SRCS_DIR)*.c) $(foreach dir, $(S_SUBDIRS), $(wildcard $(dir)/*.c))
 
