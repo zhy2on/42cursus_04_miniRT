@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 01:26:17 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 05:19:43 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 06:53:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,24 +58,15 @@ char	*texture_element(char **pstr)
 	return (ft_strndup(str, *pstr - str));
 }
 
-void	push_texture_node(t_scene *scene, t_texture *new)
+t_texture	*search_texture(t_texture *texture, char *id)
 {
-	t_texture	*ptr;
-
-	if (!scene->texture)
-		scene->texture = new;
-	else
+	while (texture)
 	{
-		ptr = scene->texture;
-		while (ptr)
-		{
-			if (!ft_strcmp(ptr->id, new->id))
-				put_error("texture id is overlapped", NULL);
-			ptr = ptr->next;
-		}
-		new->next = scene->texture;
-		scene->texture = new;
+		if (!ft_strcmp(texture->id, id))
+			return (texture);
+		texture = texture->next;
 	}
+	return (NULL);
 }
 
 void	parse_texture(t_scene *scene, char **pstr, void *mlx)
@@ -89,7 +80,13 @@ void	parse_texture(t_scene *scene, char **pstr, void *mlx)
 	img_file = texture_element(pstr);
 	bmp_file = texture_element(pstr);
 	new = get_texture_node(id, img_file, bmp_file, mlx);
-	push_texture_node(scene, new);
+	if (!scene->texture)
+		scene->texture = new;
+	else if (!search_texture(scene->texture, id))
+	{
+		new->next = scene->texture;
+		scene->texture = new;
+	}
 	free(img_file);
 	free(bmp_file);
 }

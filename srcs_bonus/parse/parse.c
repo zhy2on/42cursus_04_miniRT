@@ -6,11 +6,11 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 05:22:10 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 07:04:37 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "/Users/zhy2on/Documents/42cursus_04_miniRT/incs_bonus/minirt.h"
+#include "minirt.h"
 
 void	set_cam(t_scene *scene, t_cam *cam)
 {

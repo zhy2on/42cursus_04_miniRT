@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:00:28 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 05:14:10 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 06:51:03 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,4 @@ void	push_figures_node(t_scene *scene, t_figures *new)
 		new->next = scene->figures;
 		scene->figures = new;
 	}
-}
-
-t_texture	*search_texture(t_texture *texture, char *id)
-{
-	while (texture)
-	{
-		if (!ft_strcmp(texture->id, id))
-			return (texture);
-		texture = texture->next;
-	}
-	return (NULL);
 }
