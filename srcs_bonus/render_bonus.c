@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 00:00:01 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 01:07:39 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ t_ray	create_ray(t_cam *cam, double x, double y)
 	return (ray);
 }
 
-void	set_pixel_color(t_img *img, int x, int y, int colour)
+void	set_pixel_color(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
 	dst = img->addr + (y * img->size + x * (img->bpp / 8));
-	*(unsigned int *)dst = colour;
+	*(unsigned int *)dst = color;
 }
 
 void	render_scene(t_minirt *rt, t_cam *cam)

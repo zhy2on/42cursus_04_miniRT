@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 00:38:16 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 01:08:21 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		set_uv_axis(t_vec3 w, t_vec3 *u, t_vec3	*v);
 ** render.c **
 */
 t_ray		create_ray(t_cam *cam, double x, double y);
-void		set_pixel_color(t_img *img, int x, int y, int colour);
+void		set_pixel_color(t_img *img, int x, int y, int color);
 void		render_scene(t_minirt *rt, t_cam *cam);
 
 #endif
