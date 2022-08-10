@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:49:55 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:47:50 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/10 23:59:57 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_mlx(t_minirt *rt, char *f_name)
 {
 	rt->mlx = mlx_init();
 	if (!rt->mlx)
-		put_error("fail to init mlx");
+		put_error("fail to init mlx", NULL);
 	printf("start minirt\n");
 	rt->win = mlx_new_window(rt->mlx, rt->scene.xres, rt->scene.yres, f_name);
 	mlx_hook(rt->win, DESTROYNOTIFY, 1L << 17, exit_program, 0);
@@ -64,7 +64,7 @@ int	main(int ac, char **av)
 	t_minirt	rt;
 
 	if (ac < 2 || ac > 3)
-		put_error("Usage: ./miniRT <scene.rt>");
+		put_error("Usage: ./miniRT <scene.rt>", NULL);
 	init_minirt(&rt);
 	parse_file(&rt, av[1]);
 	set_mlx(&rt, av[1]);

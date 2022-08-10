@@ -1,85 +1,85 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_figures.c                                    :+:      :+:    :+:   */
+/*   parse_figures_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 05:11:19 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/08 01:16:05 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 00:53:53 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	parse_plane(t_scene *scene, char **str)
+void	parse_plane(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
 
 	new = get_figures_node(PL);
-	next(str);
-	new->fig.pl.p = parse_vec3(str);
-	new->fig.pl.nv = normalize(parse_vec3(str));
-	new->specular = stof(str);
-	new->checker_w = stof(str);
-	comma(str);
-	new->checker_h = stof(str);
-	new->clr = parse_color(str);
-	check_figures_setting(*new);
+	next(pstr);
+	new->fig.pl.p = parse_vec3(pstr, error_line);
+	new->fig.pl.nv = normalize(parse_vec3(pstr, error_line));
+	new->specular = stof(pstr);
+	new->checker_w = stof(pstr);
+	comma(pstr, error_line);
+	new->checker_h = stof(pstr);
+	new->clr = parse_color(pstr, error_line);
+	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
 
-void	parse_sphere(t_scene *scene, char **str)
+void	parse_sphere(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
 
 	new = get_figures_node(SP);
-	next(str);
-	new->fig.sp.c = parse_vec3(str);
-	new->fig.sp.r = stof(str) / 2;
-	new->specular = stof(str);
-	new->checker_w = stof(str);
-	comma(str);
-	new->checker_h = stof(str);
-	new->clr = parse_color(str);
-	check_figures_setting(*new);
+	next(pstr);
+	new->fig.sp.c = parse_vec3(pstr, error_line);
+	new->fig.sp.r = stof(pstr) / 2;
+	new->specular = stof(pstr);
+	new->checker_w = stof(pstr);
+	comma(pstr, error_line);
+	new->checker_h = stof(pstr);
+	new->clr = parse_color(pstr, error_line);
+	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
 
-void	parse_cylinder(t_scene *scene, char **str)
+void	parse_cylinder(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
 
 	new = get_figures_node(CY);
-	next(str);
-	new->fig.cy.c = parse_vec3(str);
-	new->fig.cy.nv = normalize(parse_vec3(str));
-	new->fig.cy.r = stof(str) / 2;
-	new->fig.cy.height = stof(str);
-	new->specular = stof(str);
-	new->checker_w = stof(str);
-	comma(str);
-	new->checker_h = stof(str);
-	new->clr = parse_color(str);
-	check_figures_setting(*new);
+	next(pstr);
+	new->fig.cy.c = parse_vec3(pstr, error_line);
+	new->fig.cy.nv = normalize(parse_vec3(pstr, error_line));
+	new->fig.cy.r = stof(pstr) / 2;
+	new->fig.cy.height = stof(pstr);
+	new->specular = stof(pstr);
+	new->checker_w = stof(pstr);
+	comma(pstr, error_line);
+	new->checker_h = stof(pstr);
+	new->clr = parse_color(pstr, error_line);
+	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
 
-void	parse_cone(t_scene *scene, char **str)
+void	parse_cone(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
 
 	new = get_figures_node(CON);
-	next(str);
-	new->fig.con.c = parse_vec3(str);
-	new->fig.con.nv = normalize(parse_vec3(str));
-	new->fig.con.theta = stof(str);
-	new->fig.con.height = stof(str);
-	new->specular = stof(str);
-	new->checker_w = stof(str);
-	comma(str);
-	new->checker_h = stof(str);
-	new->clr = parse_color(str);
-	check_figures_setting(*new);
+	next(pstr);
+	new->fig.con.c = parse_vec3(pstr, error_line);
+	new->fig.con.nv = normalize(parse_vec3(pstr, error_line));
+	new->fig.con.theta = stof(pstr);
+	new->fig.con.height = stof(pstr);
+	new->specular = stof(pstr);
+	new->checker_w = stof(pstr);
+	comma(pstr, error_line);
+	new->checker_h = stof(pstr);
+	new->clr = parse_color(pstr, error_line);
+	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }

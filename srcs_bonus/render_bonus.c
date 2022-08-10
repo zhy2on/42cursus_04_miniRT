@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   render.c                                           :+:      :+:    :+:   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:36:33 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/07 16:54:29 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 00:00:01 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,11 @@ void	render_scene(t_minirt *rt, t_cam *cam)
 	t_ray	ray;
 	int		color;
 
-	if (!cam)
-		return ;
 	cam->img.ptr = mlx_new_image(rt->mlx, rt->scene.xres, rt->scene.yres);
 	cam->img.addr = mlx_get_data_addr(cam->img.ptr, &cam->img.bpp,
 			&cam->img.size, &cam->img.endian);
 	if (!cam->img.ptr || !cam->img.addr)
-		put_error("fail to set mlx");
+		put_error("fail to set mlx", NULL);
 	y = -1;
 	while (++y < (rt->scene.yres - 1))
 	{

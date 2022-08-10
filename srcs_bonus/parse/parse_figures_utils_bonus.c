@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_figures_utils.c                              :+:      :+:    :+:   */
+/*   parse_figures_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 17:00:28 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 16:03:22 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:47:23 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,41 +22,41 @@ t_figures	*get_figures_node(int type)
 	return (figures);
 }
 
-void	check_figures_setting2(t_figures elem)
+void	check_figures_setting2(t_figures elem, char *error_line)
 {
 	if (elem.type == CY)
 	{
 		if (elem.fig.cy.height < 0 || elem.fig.cy.height > INFINITY)
-			put_error("cylinder height is out of range");
+			put_error("cylinder height is out of range", error_line);
 		if (elem.fig.cy.r < 0 || elem.fig.cy.r > INFINITY)
-			put_error("cylinder diameter is out of range");
+			put_error("cylinder diameter is out of range", error_line);
 	}
 	if (elem.type == CON)
 	{
 		if (elem.fig.con.height < 0 || elem.fig.con.height > INFINITY)
-			put_error("cone height is out of range");
+			put_error("cone height is out of range", error_line);
 		if (elem.fig.con.theta < 0 || elem.fig.con.theta >= 180)
-			put_error("cone theta is out of range");
+			put_error("cone theta is out of range", error_line);
 	}
 }
 
-void	check_figures_setting(t_figures elem)
+void	check_figures_setting(t_figures elem, char *error_line)
 {
 	if (elem.specular < 0 || elem.specular > 1250)
-		put_error("specular power is out of range");
+		put_error("specular power is out of range", error_line);
 	if (elem.checker_w != 0 && elem.checker_h != 0)
 	{
 		if (elem.checker_w < 0)
-			put_error("checker board width is out of range");
+			put_error("checker board width is out of range", error_line);
 		if (elem.checker_h < 0)
-			put_error("checker board height is out of range");
+			put_error("checker board height is out of range", error_line);
 	}
 	if (elem.type == SP)
 	{
 		if (elem.fig.sp.r < 0 || elem.fig.sp.r > INFINITY)
-			put_error("sphere diameter is out of range");
+			put_error("sphere diameter is out of range", error_line);
 	}
-	check_figures_setting2(elem);
+	check_figures_setting2(elem, error_line);
 }
 
 void	push_figures_node(t_scene *scene, t_figures *new)
