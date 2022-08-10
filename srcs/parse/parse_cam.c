@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cam.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:48:48 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 18:18:54 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:31:00 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,14 +24,14 @@ t_cam	*get_cam_node(t_p3 o, t_vec3 nv, int fov)
 	return (cam);
 }
 
-void	parse_camera(t_scene *scene, char **str)
+void	parse_camera(t_scene *scene, char **pstr, char *error_line)
 {
 	t_cam	*new;
 	t_cam	*ptr;
 
-	next(str);
-	new = get_cam_node(parse_vec3(str),
-			normalize(parse_vec3(str)), stof(str));
+	next(pstr);
+	new = get_cam_node(parse_vec3(pstr, error_line),
+			normalize(parse_vec3(pstr, error_line)), stof(pstr));
 	ptr = scene->cam;
 	if (!ptr)
 	{
@@ -39,5 +39,5 @@ void	parse_camera(t_scene *scene, char **str)
 		scene->cam = new;
 	}
 	else
-		put_error("camera is already declared", NULL);
+		put_error("camera is already declared", error_line);
 }

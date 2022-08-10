@@ -3,42 +3,42 @@
 /*                                                        :::      ::::::::   */
 /*   parse_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/23 17:26:47 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 18:17:34 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:30:15 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	next(char **str)
+void	next(char **pstr)
 {
-	while (**str == 32 || **str == 9)
-		(*str)++;
+	while (**pstr == 32 || **pstr == 9)
+		(*pstr)++;
 }
 
-void	comma(char **str)
+void	comma(char **pstr, char *error_line)
 {
-	if (**str != ',')
-		put_error("bad formatted", *str);
-	(*str)++;
+	if (**pstr != ',')
+		put_error("comma bad formatted", error_line);
+	(*pstr)++;
 }
 
-t_vec3	parse_vec3(char **str)
+t_vec3	parse_vec3(char **pstr, char *error_line)
 {
 	t_vec3	vec;
 
-	vec.x = stof(str);
-	comma(str);
-	vec.y = stof(str);
-	comma(str);
-	vec.z = stof(str);
-	next(str);
+	vec.x = stof(pstr);
+	comma(pstr, error_line);
+	vec.y = stof(pstr);
+	comma(pstr, error_line);
+	vec.z = stof(pstr);
+	next(pstr);
 	return (vec);
 }
 
-double	stof(char **str)
+double	stof(char **pstr)
 {
 	int		w;
 	double	d;
@@ -46,40 +46,40 @@ double	stof(char **str)
 
 	w = 0;
 	neg = 1;
-	if (**str == '-' && *((*str)++))
+	if (**pstr == '-' && *((*pstr)++))
 		neg = -1;
-	while (ft_isdigit(**str))
-		w = w * 10 + (*((*str)++) - '0');
-	if (**str == '.')
-		(*str)++;
+	while (ft_isdigit(**pstr))
+		w = w * 10 + (*((*pstr)++) - '0');
+	if (**pstr == '.')
+		(*pstr)++;
 	d = 0.0;
-	while (ft_isdigit(**str))
-		d = d * 10 + (*((*str)++) - '0');
+	while (ft_isdigit(**pstr))
+		d = d * 10 + (*((*pstr)++) - '0');
 	while (d >= 1)
 		d /= 10;
 	d += w;
-	next(str);
+	next(pstr);
 	return (d * neg);
 }
 
-int	parse_color(char **str)
+int	parse_color(char **pstr, char *error_line)
 {
 	int	r;
 	int	g;
 	int	b;
 
-	r = stof(str);
+	r = stof(pstr);
 	if (r < 0 || r > 255)
-		put_error("out of color range", NULL);
+		put_error("out of color range", error_line);
 	r <<= 0x10;
-	comma(str);
-	g = stof(str);
+	comma(pstr, error_line);
+	g = stof(pstr);
 	if (g < 0 || g > 255)
-		put_error("out of color range", NULL);
+		put_error("out of color range", error_line);
 	g <<= 0x8;
-	comma(str);
-	b = stof(str);
+	comma(pstr, error_line);
+	b = stof(pstr);
 	if (b < 0 || b > 255)
-		put_error("out of color range", NULL);
+		put_error("out of color range", error_line);
 	return (r | g | b);
 }

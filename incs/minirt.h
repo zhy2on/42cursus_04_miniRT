@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 18:20:54 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:13:48 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ enum e_key
 /*
 ** utils.c **
 */
-void		put_error(char *str, char *stop);
+void		put_error(char *str, char *error_line);
 void		*ft_malloc(unsigned int size);
 double		clamp(double x, double min, double max);
 void		set_uv_axis(t_vec3 w, t_vec3 *u, t_vec3	*v);

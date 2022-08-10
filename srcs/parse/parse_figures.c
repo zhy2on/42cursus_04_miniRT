@@ -3,52 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   parse_figures.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 05:11:19 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:59:45 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:31:52 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	parse_plane(t_scene *scene, char **str)
+void	parse_plane(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
 
 	new = get_figures_node(PL);
-	next(str);
-	new->fig.pl.p = parse_vec3(str);
-	new->fig.pl.nv = normalize(parse_vec3(str));
-	new->clr = parse_color(str);
-	check_figures_setting(*new);
+	next(pstr);
+	new->fig.pl.p = parse_vec3(pstr, error_line);
+	new->fig.pl.nv = normalize(parse_vec3(pstr, error_line));
+	new->clr = parse_color(pstr, error_line);
+	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
 
-void	parse_sphere(t_scene *scene, char **str)
+void	parse_sphere(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
 
 	new = get_figures_node(SP);
-	next(str);
-	new->fig.sp.c = parse_vec3(str);
-	new->fig.sp.r = stof(str) / 2;
-	new->clr = parse_color(str);
-	check_figures_setting(*new);
+	next(pstr);
+	new->fig.sp.c = parse_vec3(pstr, error_line);
+	new->fig.sp.r = stof(pstr) / 2;
+	new->clr = parse_color(pstr, error_line);
+	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }
 
-void	parse_cylinder(t_scene *scene, char **str)
+void	parse_cylinder(t_scene *scene, char **pstr, char *error_line)
 {
 	t_figures	*new;
 
 	new = get_figures_node(CY);
-	next(str);
-	new->fig.cy.c = parse_vec3(str);
-	new->fig.cy.nv = normalize(parse_vec3(str));
-	new->fig.cy.r = stof(str) / 2;
-	new->fig.cy.height = stof(str);
-	new->clr = parse_color(str);
-	check_figures_setting(*new);
+	next(pstr);
+	new->fig.cy.c = parse_vec3(pstr, error_line);
+	new->fig.cy.nv = normalize(parse_vec3(pstr, error_line));
+	new->fig.cy.r = stof(pstr) / 2;
+	new->fig.cy.height = stof(pstr);
+	new->clr = parse_color(pstr, error_line);
+	check_figures_setting(*new, error_line);
 	push_figures_node(scene, new);
 }

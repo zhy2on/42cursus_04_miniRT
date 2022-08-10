@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 02:28:22 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/10 17:59:20 by junyopar         ###   ########.fr       */
+/*   Updated: 2022/08/11 00:30:43 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,44 +20,43 @@
 ** parse.c **
 */
 void		set_cam(t_scene *scene, t_cam *cam);
-void		parse_resolution(t_scene *scene, char **str);
-void		parse_scene(t_scene *scene, char *str);
+void		parse_scene(t_scene *scene, char *error_line);
 void		parse_file(t_minirt *rt, char *av);
 
 /*
 ** parse_cam.c **
 */
 t_cam		*get_cam_node(t_p3 o, t_vec3 nv, int fov);
-void		parse_camera(t_scene *scene, char **str);
+void		parse_camera(t_scene *scene, char **pstr, char *error_line);
 
 /*
 ** parse_utils.c **
 */
-void		next(char **str);
-void		comma(char **str);
-t_vec3		parse_vec3(char **str);
-double		stof(char **str);
-int			parse_color(char **str);
+void		next(char **pstr);
+void		comma(char **pstr, char *error_line);
+t_vec3		parse_vec3(char **pstr, char *error_line);
+double		stof(char **pstr);
+int			parse_color(char **pstr, char *error_line);
 
 /*
 ** parse_light.c **
 */
-void		parse_ambient_light(t_scene *scene, char **str);
+void		parse_ambient_light(t_scene *scene, char **pstr, char *error_line);
 t_light		*get_light_node(t_p3 o, double br, int clr);
-void		parse_light(t_scene *scene, char **str);
+void		parse_light(t_scene *scene, char **pstr, char *error_line);
 
 /*
 ** parse_figures.c **
 */
-void		parse_sphere(t_scene *scene, char **str);
-void		parse_plane(t_scene *scene, char **str);
-void		parse_cylinder(t_scene *scene, char **str);
+void		parse_sphere(t_scene *scene, char **pstr, char *error_line);
+void		parse_plane(t_scene *scene, char **pstr, char *error_line);
+void		parse_cylinder(t_scene *scene, char **pstr, char *error_line);
 
 /*
 ** parse_figures_utils.c **
 */
 t_figures	*get_figures_node(int type);
-void		check_figures_setting(t_figures elem);
+void		check_figures_setting(t_figures elem, char *error_line);
 void		push_figures_node(t_scene *scene, t_figures *new);
 
 #endif
