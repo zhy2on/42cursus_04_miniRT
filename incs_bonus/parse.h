@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 03:52:09 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 06:51:16 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 03:23:12 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ t_texture	*get_texture_node(\
 						char *id, char *img_file, char *bmp_file, void *mlx);
 char		*texture_element(char **pstr);
 t_texture	*search_texture(t_texture *texture, char *id);
-void		parse_texture(t_scene *scene, char **pstr, void *mlx);
+void		parse_texture(t_scene *scene, char **pstr, void *mlx, \
+													char *error_line);
 
 #endif

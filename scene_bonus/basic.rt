@@ -8,6 +8,7 @@ L	4,-1,8.8			0.4						255,255,255
 
 tx	earth	textures/earth_no_clouds_8k.xpm		textures/earth_normal.xpm
 tx	rock	textures/rock.xpm		textures/rock_normal.xpm
+# tx	rock	textures/rock.xpm		textures/rock_normal.xpm
 
 ## Test 1
 C  0,0,8   0,0,-1   60

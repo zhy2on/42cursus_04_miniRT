@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 07:04:37 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 03:22:43 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	parse_scene(t_scene *scene, char *str, void *mlx)
 	else if (!ft_strncmp(str, "con", 3) && *(str++) && *(str++) && *(str++))
 		parse_cone(scene, &str, str - 3);
 	else if (!ft_strncmp(str, "tx", 2) && *(str++) && *(str++))
-		parse_texture(scene, &str, mlx);
+		parse_texture(scene, &str, mlx, str - 2);
 	else if (*str)
 		put_error("invalid elment type", str);
 }
