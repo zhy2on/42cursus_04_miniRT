@@ -6,11 +6,23 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/30 04:39:36 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 04:18:11 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 00:24:59 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+t_vec3	color_to_vec3(int color)
+{
+	int		r;
+	int		g;
+	int		b;
+
+	r = color >> 0x10;
+	g = color >> 0x08 & 0xFF;
+	b = color & 0xFF;
+	return (create_vec3(r, g, b));
+}
 
 int	cscale(int color, double d)
 {

@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 03:52:04 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 04:15:16 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 00:26:26 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int			hit_cone(t_ray *ray, t_figures elem);
 /*
 ** color.c **
 */
+t_vec3		color_to_vec3(int color);
 int			cscale(int color, double d);
 int			cprod(int c1, int c2);
 int			cadd(int c1, int c2);
