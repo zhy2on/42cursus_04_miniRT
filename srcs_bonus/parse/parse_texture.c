@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 01:26:17 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 07:28:05 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 03:22:39 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_texture	*search_texture(t_texture *texture, char *id)
 	return (NULL);
 }
 
-void	parse_texture(t_scene *scene, char **pstr, void *mlx)
+void	parse_texture(t_scene *scene, char **pstr, void *mlx, char *error_line)
 {
 	char		*id;
 	char		*img_file;
@@ -87,6 +87,8 @@ void	parse_texture(t_scene *scene, char **pstr, void *mlx)
 		new->next = scene->texture;
 		scene->texture = new;
 	}
+	else
+		put_error("texture id is overlapped", error_line);
 	free(img_file);
 	free(bmp_file);
 }
