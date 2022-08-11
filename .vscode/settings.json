@@ -8,6 +8,6 @@
 		"minirt.h": "c",
 		"sstream": "c",
 		"__locale": "c",
-		"vec3_bonus.h": "c"
+		"vec3.h": "c"
 	}
 }
