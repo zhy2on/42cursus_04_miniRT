@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 05:25:45 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/12 00:25:28 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 03:14:25 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,11 @@ int	get_pixel_color(t_xpm_img xpm_img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-void	set_mat3(double mat[3][3], t_vec3 v1, t_vec3 v2, t_vec3 v3)
+t_vec3	apply_tangent_space(t_vec3 v1, t_vec3 v2, t_vec3 v3, t_vec3 vec)
 {
+	t_vec3	ts;
+	double	mat[3][3];
+
 	mat[0][0] = v1.x;
 	mat[1][0] = v1.y;
 	mat[2][0] = v1.z;
@@ -33,16 +36,10 @@ void	set_mat3(double mat[3][3], t_vec3 v1, t_vec3 v2, t_vec3 v3)
 	mat[0][2] = v3.x;
 	mat[1][2] = v3.y;
 	mat[2][2] = v3.z;
-}
-
-t_vec3	apply_tangent_space(double mat[3][3], t_vec3 vec)
-{
-	t_vec3	res;
-
-	res.x = mat[0][0] * vec.x + mat[0][1] * vec.y + mat[0][2] * vec.z;
-	res.y = mat[1][0] * vec.x + mat[1][1] * vec.y + mat[1][2] * vec.z;
-	res.z = mat[2][0] * vec.x + mat[2][1] * vec.y + mat[2][2] * vec.z;
-	return (res);
+	ts.x = mat[0][0] * vec.x + mat[0][1] * vec.y + mat[0][2] * vec.z;
+	ts.y = mat[1][0] * vec.x + mat[1][1] * vec.y + mat[1][2] * vec.z;
+	ts.z = mat[2][0] * vec.x + mat[2][1] * vec.y + mat[2][2] * vec.z;
+	return (ts);
 }
 
 t_vec3	normal_mapping(double u, double v, t_vec3 uv_axis[2], t_hit hit)
@@ -51,15 +48,13 @@ t_vec3	normal_mapping(double u, double v, t_vec3 uv_axis[2], t_hit hit)
 	int		v2;
 	int		color;
 	t_vec3	normal_color;
-	double	mat[3][3];
 
 	u2 = u * hit.elem.tx->bmp_map.w;
 	v2 = (1.0 - v) * hit.elem.tx->bmp_map.h;
 	color = get_pixel_color(hit.elem.tx->bmp_map, u2, v2);
 	normal_color = color_to_vec3(color);
 	normal_color = vsub(vscale(normal_color, 2), create_vec3(1, 1, 1));
-	set_mat3(mat, uv_axis[0], uv_axis[1], hit.nv);
-	return (apply_tangent_space(mat, normal_color));
+	return (apply_tangent_space(uv_axis[0], uv_axis[1], hit.nv, normal_color));
 }
 
 int	image_mapping(double u, double v, t_xpm_img img_map)
@@ -68,8 +63,8 @@ int	image_mapping(double u, double v, t_xpm_img img_map)
 	int		v2;
 	int		color;
 
-	u2 = clamp(u * img_map.w, 0, img_map.w - 1);
-	v2 = clamp((1.0 - v) * img_map.h, 0, img_map.h - 1);
+	u2 = u * img_map.w;
+	v2 = (1.0 - v) * img_map.h;
 	color = get_pixel_color(img_map, u2, v2);
 	return (color);
 }
