@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 06:17:56 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 07:24:25 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 23:49:13 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,9 @@ void	uv_mapping_plane(double *u, double *v, t_hit hit)
 
 void	uv_mapping_sphere(double *u, double *v, t_hit hit)
 {
-	t_vec3	vec3_u;
-	t_vec3	vec3_v;
 	double	theta;
 	double	phi;
 
-	set_uv_axis(hit.nv, &vec3_u, &vec3_v);
 	theta = acos(-1 * hit.nv.y);
 	phi = atan2(-1 * hit.nv.z, hit.nv.x) + M_PI;
 	*u = phi * M_1_PI * 0.5;
@@ -53,7 +50,7 @@ void	uv_mapping_cylinder(double *u, double*v, t_hit hit)
 	theta = atan2(-1 * dot(pc, vec3_u), dot(pc, vec3_v)) + M_PI;
 	height = dot(pc, hit.elem.fig.cy.nv);
 	*u = theta * M_1_PI * 0.5;
-	*v = fmod(height, 1);
+	*v = height / hit.elem.fig.cy.height;
 }
 
 void	uv_mapping_cone(double *u, double *v, t_hit hit)
@@ -69,5 +66,5 @@ void	uv_mapping_cone(double *u, double *v, t_hit hit)
 	theta = atan2(-1 * dot(pc, vec3_u), dot(pc, vec3_v)) + M_PI;
 	height = dot(pc, hit.elem.fig.con.nv);
 	*u = theta * M_1_PI * 0.5;
-	*v = fmod(height, 1);
+	*v = height / hit.elem.fig.con.height;
 }

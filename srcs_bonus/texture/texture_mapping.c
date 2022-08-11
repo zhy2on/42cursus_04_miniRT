@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 05:25:45 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 06:58:18 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/11 23:48:06 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	image_mapping(double u, double v, t_xpm_img img_map)
 	int		v2;
 	int		color;
 
-	u2 = clamp(u * img_map.w, 0, img_map.h - 1);
+	u2 = clamp(u * img_map.w, 0, img_map.w - 1);
 	v2 = clamp((1.0 - v) * img_map.h, 0, img_map.h - 1);
 	color = get_pixel_color(img_map, u2, v2);
 	return (color);
