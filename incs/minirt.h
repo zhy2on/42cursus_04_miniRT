@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minirt.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/17 16:50:03 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 01:08:06 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 19:12:52 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,12 @@ enum e_window
 enum e_key
 {
 	ON_KEYDOWN = 2,
+	ON_MOUSEDOWN = 4,
 	DESTROYNOTIFY = 17,
 	KEY_ESC = 53,
-	KEY_SPACE = 49
+	KEY_SPACE = 49,
+	LEFT_ARROW= 123,
+	RIGHT_ARROW = 124,
 } ;
 
 /*
