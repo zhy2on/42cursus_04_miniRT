@@ -10,7 +10,6 @@ tx	earth	./textures/earth.xpm		./textures/earth_normal.xpm
 
 ## Test 1
 C  -10,10,11   0,-1,0   110
-C  -10,10,11   0,-1,0   110
 C  -10,-25,11   0,1,0   110
 C  30,-5,5   -1,0,0   30
 C  30,0,0   -1,0,0   110

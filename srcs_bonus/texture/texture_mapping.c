@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_mapping.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 05:25:45 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/12 03:14:25 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/12 14:26:50 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,22 +24,22 @@ int	get_pixel_color(t_xpm_img xpm_img, int x, int y)
 
 t_vec3	apply_tangent_space(t_vec3 v1, t_vec3 v2, t_vec3 v3, t_vec3 vec)
 {
-	t_vec3	ts;
-	double	mat[3][3];
+	t_vec3	normal;
+	double	mat3[3][3];
 
-	mat[0][0] = v1.x;
-	mat[1][0] = v1.y;
-	mat[2][0] = v1.z;
-	mat[0][1] = v2.x;
-	mat[1][1] = v2.y;
-	mat[2][1] = v2.z;
-	mat[0][2] = v3.x;
-	mat[1][2] = v3.y;
-	mat[2][2] = v3.z;
-	ts.x = mat[0][0] * vec.x + mat[0][1] * vec.y + mat[0][2] * vec.z;
-	ts.y = mat[1][0] * vec.x + mat[1][1] * vec.y + mat[1][2] * vec.z;
-	ts.z = mat[2][0] * vec.x + mat[2][1] * vec.y + mat[2][2] * vec.z;
-	return (ts);
+	mat3[0][0] = v1.x;
+	mat3[1][0] = v1.y;
+	mat3[2][0] = v1.z;
+	mat3[0][1] = v2.x;
+	mat3[1][1] = v2.y;
+	mat3[2][1] = v2.z;
+	mat3[0][2] = v3.x;
+	mat3[1][2] = v3.y;
+	mat3[2][2] = v3.z;
+	normal.x = mat3[0][0] * vec.x + mat3[0][1] * vec.y + mat3[0][2] * vec.z;
+	normal.y = mat3[1][0] * vec.x + mat3[1][1] * vec.y + mat3[1][2] * vec.z;
+	normal.z = mat3[2][0] * vec.x + mat3[2][1] * vec.y + mat3[2][2] * vec.z;
+	return (normal);
 }
 
 t_vec3	normal_mapping(double u, double v, t_vec3 uv_axis[2], t_hit hit)
