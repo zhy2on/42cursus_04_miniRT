@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
+/*   By: junyopar <junyopar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 18:49:40 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 01:02:27 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/15 13:55:28 by junyopar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	set_cam(t_scene *scene, t_cam *cam)
 
 void	parse_scene(t_scene *scene, char *str)
 {
-	if (*str == '#')
+	if (*str == '#' || *str == 32 || *str == 9)
 		return ;
 	if (*str == 'A' && *(str++))
 		parse_ambient_light(scene, &str, str - 1);
@@ -53,7 +53,7 @@ void	parse_scene(t_scene *scene, char *str)
 	else if (!ft_strncmp(str, "cy", 2) && *(str++) && *(str++))
 		parse_cylinder(scene, &str, str - 2);
 	else if (*str)
-		put_error("invalid elment type", str);
+		put_error("invalid element type", str);
 }
 
 void	parse_file(t_minirt *rt, char *av)
