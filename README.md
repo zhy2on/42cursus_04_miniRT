@@ -1,6 +1,6 @@
 # 42cursus_04_miniRT
 
-|<img src="https://user-images.githubusercontent.com/52701529/184656361-80d7e19d-9211-44ba-92d7-6566a8da2d50.png" width=100%>|![image](https://user-images.githubusercontent.com/52701529/184659035-e69dc6fe-fa8a-43a2-af7c-0535b77f874c.png)|
+|<img src="https://user-images.githubusercontent.com/52701529/184656361-80d7e19d-9211-44ba-92d7-6566a8da2d50.png" width=100%>|![image](https://user-images.githubusercontent.com/52701529/184659380-5e98cf41-9ca5-4161-bfd9-c0e7fc8b38d9.png)|
 |---|---|
 
 
