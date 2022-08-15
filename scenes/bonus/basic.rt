@@ -5,10 +5,10 @@ L	-4,-1,8.8			0.4						255,255,255
 L	4,1,8.8				0.4						255,255,255
 L	4,-1,8.8			0.4						255,255,255
     
-tx	earth	textures/earth_no_clouds_8k.xpm		textures/earth_normal.xpm
-tx	rock	textures/rock.xpm		textures/rock_normal.xpm
-tx	zig 	NULL		textures/zig_normal.xpm
-tx	brick 	NULL		textures/brick_normal.xpm
+tx	earth	scenes/textures/earth_no_clouds_8k.xpm		scenes/textures/earth_normal.xpm
+tx	rock	scenes/textures/rock.xpm		scenes/textures/rock_normal.xpm
+tx	zig 	NULL		scenes/textures/zig_normal.xpm
+tx	brick 	NULL		scenes/textures/brick_normal.xpm
 
 C  0,0,8   0,0,-1   60
 C  0,8,0   0,-1,0   60
