@@ -4,13 +4,13 @@ LIBFLAGS	= -lmlx -framework OpenGL -framework AppKit -L$(LIBFT_DIR) -lft
 INCFLAGS	= -I$(INCS_DIR) -I$(LIBFT_INC)
 
 # === Directories === #
-SRCS_DIR			:= ./srcs/
-OBJS_DIR			:= ./objs/
-INCS_DIR			:= ./incs/
+SRCS_DIR			:= ./mandatory/srcs/
+OBJS_DIR			:= ./mandatory/objs/
+INCS_DIR			:= ./mandatory/incs/
 
-SRCS_BONUS_DIR		:= ./srcs_bonus/
-OBJS_BONUS_DIR		:= ./objs_bonus/
-INCS_BONUS_DIR		:= ./incs_bonus/
+SRCS_BONUS_DIR		:= ./bonus/srcs_bonus/
+OBJS_BONUS_DIR		:= ./bonus/objs_bonus/
+INCS_BONUS_DIR		:= ./bonus/incs_bonus/
 
 LIBFT_DIR			= ./libft/
 LIBFT_INC			= $(LIBFT_DIR)includes/
@@ -54,7 +54,7 @@ $(NAME) : $(OBJS)
 	$(CC) $(CFLAGS) $(INCFLAGS) $(LIBFLAGS) $(OBJS) -o $@
 	@echo "$(GREEN)[$(NAME)]: done$(RESET)"
 
-bonus : 
+bonus :
 	@make WITH_BONUS=1 all
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c $(INCS_DIR)*.h
@@ -75,4 +75,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all clean fclean re bonus
