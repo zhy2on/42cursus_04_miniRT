@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 05:25:45 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/12 14:26:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/15 13:36:50 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	get_pixel_color(t_xpm_img xpm_img, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-t_vec3	apply_tangent_space(t_vec3 v1, t_vec3 v2, t_vec3 v3, t_vec3 vec)
+t_vec3	change_basis(t_vec3 v1, t_vec3 v2, t_vec3 v3, t_vec3 vec)
 {
 	t_vec3	normal;
 	double	mat3[3][3];
@@ -54,7 +54,7 @@ t_vec3	normal_mapping(double u, double v, t_vec3 uv_axis[2], t_hit hit)
 	color = get_pixel_color(hit.elem.tx->bmp_map, u2, v2);
 	normal_color = color_to_vec3(color);
 	normal_color = vsub(vscale(normal_color, 2), create_vec3(1, 1, 1));
-	return (apply_tangent_space(uv_axis[0], uv_axis[1], hit.nv, normal_color));
+	return (change_basis(uv_axis[0], uv_axis[1], hit.nv, normal_color));
 }
 
 int	image_mapping(double u, double v, t_xpm_img img_map)
