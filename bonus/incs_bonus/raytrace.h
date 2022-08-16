@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 03:52:04 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/12 00:26:26 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/16 17:29:17 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int			hit_sphere(t_ray *ray, t_figures elem);
 */
 double		hit_cylinder_time(t_ray ray, t_cylinder cy, double *y);
 int			hit_cylinder(t_ray *ray, t_figures elem);
-double		hit_cone_time(t_ray ray, t_cone con, double *y);
+double		hit_cone_time(t_ray ray, t_cone con, double *cosine);
 int			hit_cone(t_ray *ray, t_figures elem);
 
 /*
