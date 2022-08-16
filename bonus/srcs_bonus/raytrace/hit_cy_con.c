@@ -6,7 +6,7 @@
 /*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/07 15:14:26 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/11 04:18:09 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/16 16:07:13 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,7 @@ int	hit_cone(t_ray *ray, t_figures elem)
 	double		time;
 	double		y;
 	t_cone		con;
+	t_vec3		cp;
 
 	con = elem.fig.con;
 	time = hit_cone_time(*ray, con, &y);
@@ -100,8 +101,9 @@ int	hit_cone(t_ray *ray, t_figures elem)
 	{
 		ray->hit.time = time;
 		ray->hit.point = get_hit_point(*ray);
-		ray->hit.nv = normalize(vsub(ray->hit.point,
-					vadd(vscale(con.nv, y), con.c)));
+		cp = vsub(ray->hit.point, con.c);
+		ray->hit.nv = normalize(vsub(vscale(cp, y / length_squared(cp)),
+					con.nv));
 		ray->hit.elem = elem;
 		return (1);
 	}
