@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_mapping.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jihoh <jihoh@student.42.fr>                +#+  +:+       +#+        */
+/*   By: jihoh <jihoh@student.42seoul.kr>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 05:25:45 by jihoh             #+#    #+#             */
-/*   Updated: 2022/08/15 13:36:50 by jihoh            ###   ########.fr       */
+/*   Updated: 2022/08/20 17:47:09 by jihoh            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,10 @@ int	get_pixel_color(t_xpm_img xpm_img, int x, int y)
 t_vec3	change_basis(t_vec3 v1, t_vec3 v2, t_vec3 v3, t_vec3 vec)
 {
 	t_vec3	normal;
-	double	mat3[3][3];
 
-	mat3[0][0] = v1.x;
-	mat3[1][0] = v1.y;
-	mat3[2][0] = v1.z;
-	mat3[0][1] = v2.x;
-	mat3[1][1] = v2.y;
-	mat3[2][1] = v2.z;
-	mat3[0][2] = v3.x;
-	mat3[1][2] = v3.y;
-	mat3[2][2] = v3.z;
-	normal.x = mat3[0][0] * vec.x + mat3[0][1] * vec.y + mat3[0][2] * vec.z;
-	normal.y = mat3[1][0] * vec.x + mat3[1][1] * vec.y + mat3[1][2] * vec.z;
-	normal.z = mat3[2][0] * vec.x + mat3[2][1] * vec.y + mat3[2][2] * vec.z;
+	normal.x = v1.x * vec.x + v2.x * vec.y + v3.x * vec.z;
+	normal.y = v1.y * vec.x + v2.y * vec.y + v3.y * vec.z;
+	normal.z = v1.z * vec.x + v2.z * vec.y + v3.z * vec.z;
 	return (normal);
 }
 
