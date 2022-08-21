@@ -47,7 +47,7 @@ int	hit_cylinder(t_ray *ray, t_figures elem)
 
 	cy = elem.fig.cy;
 	time = hit_cylinder_time(*ray, cy, &y);
-	if (time < INFINITY && ray->hit.time > time)
+	if (ray->hit.time > time)
 	{
 		ray->hit.time = time;
 		ray->hit.point = get_hit_point(*ray);
