@@ -5,7 +5,7 @@
 
 
 study about ray tracing
-- [https://velog.io/@zhy2on/%EB%AF%B8%EB%8B%88%EC%95%8C%ED%8B%B0-ldvma6zf](https://velog.io/@zhy2on/미니알티)
+- https://velog.io/@zhy2on/42Seoul-미니알티
 
 ## rt file format
 ### common ground
